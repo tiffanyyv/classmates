@@ -11,18 +11,21 @@ Install Dependencies:
 npm install
 ```
 
-Runs development server + webpack:
+Runs development server:
 ```bash
 npm run dev
 ```
 Will be running on [http://localhost:3000](http://localhost:3000)
-This script will also auto refresh the page whenever you make changes.
+This script will also run webpack and auto refresh the page whenever you make changes.
 
 ### Code ettique
 - Each component and page directory should have a clear "entry point" i.e. should have an index.js file or a file with the same name as the directory
 - Use descriptive naming for components, functions, and variables
   - EX) An api request for course information: getCourse vs getCourseInfoById
-  - EX)
+  - EX) className="container" vs className="calendar-container"
+- Consistent across modules
+  - EX) backend uses callbacks OR promises OR async await, not a mix
+- CSS: We will be using CSS modules. Will discuss how front end team wants to handle the file placement during meeting time
 
 ### Where to do your work
 #### Backend
@@ -31,10 +34,10 @@ Your routes will be made in `pages/api/` or your own express server, whichever t
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 #### Frontend
-Each directory and file is a route in the `page` directory. The pages will be built out and we will "plugin" our feature components into our pages.
+Each directory and file is a route in the `page` directory. The pages will be built out and we will "plugin" our feature components into our pages. Features will be built out in the `components` folder and conditionally rendered in their page as necessary.
 
 ### Pull requests
-Please follow the git workflow guide outlined in the google drive. For all pull request please tag Chris (cmjosephs) and another member working on a similar module for code review and pull request approval.
+Please follow feature branch workflow and the guide outlined in the google drive. For all pull request please tag Chris (cmjosephs) and another member working on a similar module for code review and pull request approval.
 
 ## Official Documentation
 

@@ -1,10 +1,19 @@
-// For some global styles
-// Keep styling inline using Style component with jsx tag
-
+// import global CSS
 import '../utils/styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+// import contexts
+import { AuthProvider } from '../utils/context/AuthProvider';
 
-export default MyApp
+// import layout components
+import NavLayout from '../components/NavLayout/NavLayout';
+
+export default function App({ Component, pageProps }) {
+
+  return (
+    <AuthProvider>
+      <NavLayout>
+        <Component {...pageProps} />
+      </NavLayout>
+    </AuthProvider>
+  )
+}
