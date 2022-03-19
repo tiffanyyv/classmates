@@ -1,4 +1,4 @@
-import styles from './NavLayoutStyles/SideBar.module.css';
+import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
 
 export default function SideBar({ children, ...props }) {
   return (
