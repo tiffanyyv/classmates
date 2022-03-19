@@ -26,6 +26,7 @@ This script will also run webpack and auto refresh the page whenever you make ch
 - Consistent across modules
   - EX) backend uses callbacks OR promises OR async await, not a mix
 - CSS: We will be using CSS modules. Will discuss how front end team wants to handle the file placement during meeting time
+- Some pages do not require work to be done in the `components` directory. Immediate example are the landing page, login, and signup page. Additional components that are not primary features should be created in `features` directory
 
 ### Where to do your work
 #### Backend
@@ -36,7 +37,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 #### Frontend
 - Each directory and file is a route in the `page` directory.
 - The pages will be built out and we will "plugin" our feature components into our pages.
-- Features will be built out in the `components` folder and conditionally rendered in their page as necessary.
+- Main features will be built out in the `components` folder and conditionally rendered in their page as necessary.
 - To view your screen with or without the sidebar and navbar skeleton, go `utils/context/AuthProvider` and change `isAuthenticated` to true or false. This is a placeholder till authentication is fully set up.
 
 ### Pull requests
