@@ -15,6 +15,7 @@ export default function MyProfile(props) {
       {props.userType === 'mentor' && <div>Mentor: Placehoder for classes I teach component</div>}
       <h1>{props.firstName} {props.lastName}</h1>
       <h2>{props.city} {props.state}</h2>
+      <h2>{props.userType}</h2>
       <p>Placeholder information</p>
       {props.userType === 'mentor' && <div>Mentor: Placehoder for rating component</div>}
       {props.userType === 'student' && <div>Student: Placehoder for write a review component</div>}
