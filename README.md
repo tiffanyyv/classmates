@@ -34,7 +34,10 @@ Your routes will be made in `pages/api/` or your own express server, whichever t
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 #### Frontend
-Each directory and file is a route in the `page` directory. The pages will be built out and we will "plugin" our feature components into our pages. Features will be built out in the `components` folder and conditionally rendered in their page as necessary.
+- Each directory and file is a route in the `page` directory.
+- The pages will be built out and we will "plugin" our feature components into our pages.
+- Features will be built out in the `components` folder and conditionally rendered in their page as necessary.
+- To view your screen with or without the sidebar and navbar skeleton, go `utils/context/AuthProvider` and change `isAuthenticated` to true or false. This is a placeholder till authentication is fully set up.
 
 ### Pull requests
 Please follow feature branch workflow and the guide outlined in the google drive. For all pull request please tag Chris (cmjosephs) and another member working on a similar module for code review and pull request approval.
