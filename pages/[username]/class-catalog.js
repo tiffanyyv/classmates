@@ -1,0 +1,1 @@
+// ClassCatalog widget
