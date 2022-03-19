@@ -1,4 +1,4 @@
-import styles from './NavLayoutStyles/TopBar.module.css';
+import styles from '../../utils/styles/NavLayoutStyles/TopBar.module.css';
 
 export default function TopBar(props) {
   // will need to pass props to profile icon and add proper linking
