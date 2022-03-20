@@ -11,3 +11,25 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+/* CALENDAR STYLES */
+
+
+/* .css-4plepo .MainLayout-ordinaryHeaderBorder {
+  border-bottom: none;
+} */
+
+.css-pzc27e-MuiToolbar-root.Toolbar-toolbar {
+  border-bottom: none
+}
+
+.css-3nejl.Appointment-appointment {
+  background-color: #84C7D0
+}
+
+
+.css-xya8j6-MuiButtonBase-root-MuiButton-root {
+  border: 1px solid #4BD2D2;
+  color: #84C7D0;
+}
