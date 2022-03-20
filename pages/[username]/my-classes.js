@@ -1,7 +1,7 @@
 // MyClasses widget
 // Conditionally render Student or Mentor View
-export default function myClasses() {
+export default function MyClasses() {
   return (
-    <div className='pageData'>cupcake</div>
+    <div className='pageData'>My Classes</div>
   )
 }
