@@ -16,7 +16,7 @@ export default function LandingPage() {
         <h1>THE LATEST IN ONLINE CLASS MANAGEMENT</h1>
       </div>
       <div className={styles.reporter}>
-        <h7>"It's so simple to use and the style is AMAZING!!!" Q. Maki Hack Reactor</h7>
+        <h7>"It's so simple to use and the style is AMAZING!!!"  - Q. Maki Hack Reactor</h7>
       </div>
     </div>
   )

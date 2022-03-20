@@ -1,5 +1,5 @@
 // ClassCatalog widget
-import MainButton from '../../components/basecomponents/MainButton.jsx';
+import MainButton from '../../components/basecomponents/MainButton.js';
 
 export default function ClassCatalog() {
   return (
