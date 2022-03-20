@@ -1,3 +1,25 @@
-.side-bar {
-  background-color: aqua;
+.topbar {
+  background-color: #F5F5F5;
+  color: #121212;
+  /* float: row; */
+  /* justify-content: right !important; */
 }
+
+.profileIcon {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: right !important;
+  margin-right: 0px;
+}
+
+.profileName {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.siteTitle {
+  min-width: 200px;
+  font-weight: bold;
+}
+
