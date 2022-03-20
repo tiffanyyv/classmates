@@ -1,52 +1,38 @@
-import {auth} from '../components/authConfig/firebase.config'
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup
-} from "firebase/auth";
+import { useState } from 'react';
 
-const Login = () => {
+import { useAuthContext } from '../utils/context/AuthProvider';
 
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+export default function Login() {
+  const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext(); // check if user context import is necessary
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleLoginFormInput = (e, field) => {
+    setLoginInfo({
+      ...loginInfo,
+      [field]: e.target.value
+    })
   }
-  const signInWithFacebook = () => {
-    const provider = new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-  const createUserWithEmailAndPass = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCred => {
-        console.log(userCred.user)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+
+  const handleStandardLogin = (e) => {
+    e.preventDefault();
+    login(loginInfo.email, loginInfo.password)
   }
 
     return (
         <div>
-            <div>
-              <button onClick={signInWithGoogle}>Google</button>
-              <button onClick={signInWithFacebook}>Facebook</button>
-                <p><a href="/">Go Home</a></p>
-            </div>
+          <form onSubmit={(e) => handleStandardLogin(e)}>
+            <input onChange={(e) => handleLoginFormInput(e, 'email')} placeholder="Email"></input>
+            <input onChange={(e) => handleLoginFormInput(e, 'password')} placeholder="Password"></input>
+            <button type="submit">Login</button>
+          </form>
+          <div>
+            <button onClick={signInWithGoogle}>Google</button>
+            <button onClick={signInWithFacebook}>Facebook</button>
+              <p><a href="/">Go Home</a></p>
+          </div>
         </div>
     )
 }
-
-export default Login
