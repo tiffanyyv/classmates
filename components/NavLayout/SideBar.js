@@ -1,6 +1,6 @@
-import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
 import Link from 'next/link';
 import { useState } from 'react';
+
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Container, Stack, Avatar } from '@mui/material';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
@@ -14,8 +14,9 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-// Tristen cleaned up these imports as much as possible, can't import certain components through destructuring for some reason.
 
+import defaultProfilePic from '../../utils/constants';
+import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
 
 // change to make more responsive
 const drawerWidth = 240;
@@ -106,7 +107,7 @@ export default function SideBar({ children, ...props }) {
   }
 
   // TODO: change "Current User" to [username]'s name
-  // TODO: change avatar src to dynamically render user's profile picture
+  // TODO: change avatar src to dynamically render user's profile picture ? defaultProfilePic
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -132,7 +133,7 @@ export default function SideBar({ children, ...props }) {
             <Avatar
               className={styles.profileAvatar}
               alt="Remy Sharp"
-              src="https://www.vhv.rs/dpng/d/426-4264903_user-avatar-png-picture-avatar-profile-dummy-transparent.png"
+              src={defaultProfilePic}
               sx={{ width: 50, height: 50 }}
             />
           </Container>
@@ -174,7 +175,7 @@ export default function SideBar({ children, ...props }) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <div className='justWork'>
+        <div className='pageData'>
           {children}
         </div>
       </Box>
