@@ -18,25 +18,8 @@ const AuthContext = createContext();
 
 // need to implement state machine for idle,loading, success, and error states
 export function AuthProvider({ children }) {
-  // const [user, setUser] = useState(null);
-  // const [loading, setLoading] = useState(true);
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     console.log(user);
-  //     if (user) {
-  //       setUser({
-  //         uid: user.uid,
-  //         email: user.email,
-  //       })
-  //     } else {
-  //       setUser(null);
-  //     }
-  //     setLoading(false);
-  //   })
-  //   return () => unsubscribe();
-  // }, [])
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
