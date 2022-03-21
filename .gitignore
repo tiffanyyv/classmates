@@ -33,3 +33,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# firebase service key
+utils/dummyData-to-firebase/service_key.json
