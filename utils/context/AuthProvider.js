@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
   const signup = (email, password, username) => {
      createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        router.push('/app')
+        router.push('/app/my-courses')
         console.log(response)
       })
       .catch((err) => {
@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
     .then((response) => {
       // need to set redirect to /[username]/dashboard
       // need to set success state
-      router.push('/app');
+      router.push('/app/my-courses');
       console.log(response)
     })
       .catch((err) => {
@@ -56,6 +56,8 @@ export function AuthProvider({ children }) {
     signInWithPopup(auth, provider)
       .then(res => {
         console.log(res)
+        router.push('/app/my-courses');
+
       })
       .catch(error => {
         console.warn(error)
@@ -66,6 +68,8 @@ export function AuthProvider({ children }) {
     signInWithPopup(auth, provider)
       .then(res => {
         console.log(res)
+        router.push('/app/my-courses');
+
       })
       .catch(error => {
         console.warn(error)

@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router';
+
 import SideBar from './SideBar';
-import TopBar from './TopBar';
 import styles from '../../utils/styles/NavLayoutStyles/NavLayout.module.css';
 
 import { useAuthContext } from '../../utils/context/AuthProvider';
 
 export default function NavLayout({ children }) {
-  const { user } = useAuthContext();
+  const { user, loading, error } = useAuthContext();
+  const router = useRouter();
+
+  // console.log(router);
 
   if (!user) {
     return (

@@ -17,7 +17,7 @@ export default function Signup() {
   const classes = useStyles();
   const router = useRouter();
 
-  const { signup, signInWithGoogle, signInWithFacebook, user } = useAuthContext();
+  const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [signupInfo, setSignupInfo] = useState({
     username: '',
     email: '',

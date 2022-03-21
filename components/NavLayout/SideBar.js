@@ -14,7 +14,6 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
-
 import defaultProfilePic from '../../utils/constants';
 import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
 import { openedMixin, closedMixin, SideBarDrawerHeader, SideBarAppBar, SideBarDrawer } from '../../components/basecomponents/SideBarStyles.js';
@@ -33,10 +32,10 @@ export default function SideBar({ children, ...props }) {
 
   // hard coded data, eventually change sampleUser to [username]
   const pageUrls = {
-    0: "/sampleUser/my-classes",
-    1: "/sampleUser/calendar",
-    2: "/sampleUser/notifications",
-    3: "/sampleUser/class-catalog"
+    0: "/app/my-courses",
+    1: "/app/calendar",
+    2: "/app/notifications",
+    3: "/app/course-catalog"
   }
 
   const sideBarIcons = {
@@ -87,7 +86,7 @@ export default function SideBar({ children, ...props }) {
         </SideBarDrawerHeader>
 
         <List>
-          {['My Classes', 'Calendar', 'Notifications', 'Class Catalog'].map((text, index) => (
+          {['My Courses', 'Calendar', 'Notifications', 'Course Catalog'].map((text, index) => (
             <ListItemButton
               key={text}
               sx={{
