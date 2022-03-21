@@ -34,8 +34,8 @@ export default function Signup() {
     e.preventDefault();
     signup(signupInfo.email, signupInfo.password, signupInfo.username)
   }
-  if (user !== null) {
-    router.push('/app')
+  if (user) {
+    router.push('/app/my-courses')
     return null;
   }
   return (

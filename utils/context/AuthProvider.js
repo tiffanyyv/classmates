@@ -19,6 +19,8 @@ export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
 
+  console.log(user);
+
   const signup = (email, password, username) => {
      createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
