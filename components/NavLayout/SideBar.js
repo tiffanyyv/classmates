@@ -99,7 +99,7 @@ export default function SideBar({ children, ...props }) {
 
   // hard coded data, eventually change sampleUser to [username]
   const pageUrls = {
-    0: "/sampleUser/my-classes",
+    0: "/sampleUser/my-courses",
     1: "/sampleUser/calendar",
     2: "/sampleUser/notifications",
     3: "/sampleUser/class-catalog"
