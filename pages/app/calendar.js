@@ -59,7 +59,7 @@ export default function Calendar () {
           <TodayButton />
           <Appointments />
           <AppointmentTooltip
-          // contentComponent={Tooltipcontent}
+          // contentComponent={TooltipContent}
           />
         </Scheduler>
       </Paper>
