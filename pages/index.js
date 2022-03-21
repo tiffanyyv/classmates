@@ -1,5 +1,6 @@
 // Landing Page
 import Head from 'next/head'
+import Link from 'next/link'
 
 import {AppBar, Box, Toolbar, Typography, Button} from '@mui/material';
 
@@ -15,8 +16,12 @@ export default function LandingPage() {
         <Typography className={styles.siteTitle} variant="h4" component="div" sx={{ flexGrow: 1 }}>
           ClassMates
         </Typography>
-        <Button color="inherit" className={styles.loginButton}>Login</Button>
-        <Button color="inherit" className={styles.signupButton}>Sign Up</Button>
+        <Link href="/login">
+          <Button color="inherit" className={styles.loginButton}>Login</Button>
+        </Link>
+        <Link href="/signup">
+          <Button color="inherit" className={styles.signupButton}>Sign Up</Button>
+        </Link>
       </Toolbar>
     </AppBar>
   </Box>

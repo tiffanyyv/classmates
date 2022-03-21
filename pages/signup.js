@@ -115,7 +115,7 @@ export default function Signup() {
           <form onSubmit={(e) => handleSubmitSignUpInput(e)} sx={{my:3}}>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput}></Input>
+            <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
             <Button sx={{my:2}} type='submit' className={classes.loginButton}>Create Account</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>
