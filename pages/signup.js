@@ -82,7 +82,7 @@ const useStyles = makeStyles({
 export default function Signup() {
   const classes = useStyles();
 
-  const { signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
+  const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [signupInfo, setSignupInfo] = useState({
     username: '',
     email: '',
@@ -98,6 +98,11 @@ export default function Signup() {
   const handleSubmitSignUpInput =  (e) => {
     e.preventDefault();
     signup(signupInfo.email, signupInfo.password, signupInfo.username)
+  }
+
+
+  if (loading) {
+    <p>Loading</p>
   }
 
   return(

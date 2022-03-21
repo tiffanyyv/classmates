@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import {
-  onAuthStateChanged,
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
@@ -9,18 +8,11 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {
-  useAuthState,
-  useCreateUserWithEmailAndPassword,
-  useSignInWithEmailAndPassword,
-  useSignInWithFacebook,
-  useSignInWithGoogle
-} from 'react-firebase-hooks/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../api/firebase.config.js';
 
 const AuthContext = createContext();
-
 
 // need to implement state machine for idle,loading, success, and error states
 export function AuthProvider({ children }) {
@@ -30,15 +22,12 @@ export function AuthProvider({ children }) {
   const signup = (email, password, username) => {
      createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        // need set redirect to login
-        router.push('/')
+        router.push('/app')
         console.log(response)
       })
       .catch((err) => {
-        // needs to set an error state
         console.warn('Problem with sign up: ', err.message);
       })
-    // useCreateUserWithEmailAndPassword(auth, )
   }
 
   const login = (email, password) => {
@@ -47,7 +36,7 @@ export function AuthProvider({ children }) {
     .then((response) => {
       // need to set redirect to /[username]/dashboard
       // need to set success state
-      router.push('/')
+      router.push('/app');
       console.log(response)
     })
       .catch((err) => {
@@ -60,10 +49,6 @@ export function AuthProvider({ children }) {
     router.push('/login');
     await signOut(auth);
   }
-  // const logout = async () => {
-    // setUser(null);
-    // await signOut(auth);
-  // }
 
   // OAuth Google + FB
   const signInWithGoogle = () => {
@@ -90,7 +75,8 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        user, loading, error, signup, login, logout,
+        user, loading, error,
+        signup, login, logout,
         signInWithGoogle, signInWithFacebook
       }}
     >
