@@ -5,10 +5,9 @@ import styles from '../../utils/styles/NavLayoutStyles/NavLayout.module.css';
 import { useAuthContext } from '../../utils/context/AuthProvider';
 
 export default function NavLayout({ children }) {
-  const { isAuthenticated } = useAuthContext();
+  const { user } = useAuthContext();
 
-  //change
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <>
         {children}

@@ -4,6 +4,7 @@ import styles from '../utils/styles/NavLayoutStyles/HomePage.module.css';
 
 export default function LandingPage() {
   return (
+<<<<<<< HEAD
     <div className={styles.homePage}>
       <div className={styles.titleBox}>
         <h1 className={styles.siteTitle}>ClassMates</h1>
@@ -18,6 +19,10 @@ export default function LandingPage() {
       <div className={styles.reporter}>
         <h7>"It's so simple to use and the style is AMAZING!!!"  - Q. Maki Hack Reactor</h7>
       </div>
+=======
+    <div>
+      <h1>Landing Page</h1>
+>>>>>>> b3876de85f65dd2b7813172bccb9872ed22fee26
     </div>
   )
 }
