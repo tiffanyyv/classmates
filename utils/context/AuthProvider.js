@@ -1,52 +1,31 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useSignInWithFacebook } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import {
-  onAuthStateChanged,
   GoogleAuthProvider,
-  // FacebookAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../api/firebase.config.js';
 
 const AuthContext = createContext();
 
-
 // need to implement state machine for idle,loading, success, and error states
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter()
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user);
-      if (user) {
-        setUser({
-          uid: user.uid,
-          email: user.email,
-        })
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    })
-    return () => unsubscribe();
-  }, [])
+  const [user, loading, error] = useAuthState(auth);
+  const router = useRouter();
 
   const signup = (email, password, username) => {
      createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        // need set redirect to login
-        router.push('/')
+        router.push('/app')
         console.log(response)
       })
       .catch((err) => {
-        // needs to set an error state
         console.warn('Problem with sign up: ', err.message);
       })
   }
@@ -57,7 +36,7 @@ export function AuthProvider({ children }) {
     .then((response) => {
       // need to set redirect to /[username]/dashboard
       // need to set success state
-      router.push('/')
+      router.push('/app');
       console.log(response)
     })
       .catch((err) => {
@@ -67,7 +46,7 @@ export function AuthProvider({ children }) {
   }
 
   const logout = async () => {
-    setUser(null);
+    router.push('/login');
     await signOut(auth);
   }
 
@@ -83,41 +62,21 @@ export function AuthProvider({ children }) {
       })
   }
   const signInWithFacebook = () => {
-    const [signInWithFacebook, user, loading, error] = useSignInWithFacebook(auth);
-    if (error) {
-      return(
-        <div>
-          {alert('Error Signing In')}
-        </div>
-      );
-    }
-    if (loading) {
-      return(
-        <div>
-          <h2>Loading...</h2>
-        </div>
-      );
-    }
-    if (user) {
-      return(
-        <div>
-          <p>
-            Signed In User: {user.email}
-          </p>
-        </div>
-      )
-    }
-    return(
-      <div>
-        <p>test</p>
-      </div>
-    )
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(error => {
+        console.warn(error)
+      })
   }
 
   return (
     <AuthContext.Provider
       value={{
-        user, signup, login, logout,
+        user, loading, error,
+        signup, login, logout,
         signInWithGoogle, signInWithFacebook
       }}
     >
