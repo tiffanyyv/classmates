@@ -16,7 +16,6 @@ const AuthContext = createContext();
 
 // need to implement state machine for idle,loading, success, and error states
 export function AuthProvider({ children }) {
-<<<<<<< HEAD
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
 
@@ -73,9 +72,6 @@ export function AuthProvider({ children }) {
       })
   }
 
-=======
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
->>>>>>> landingPageUpdate
   return (
     <AuthContext.Provider
       value={{
