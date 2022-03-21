@@ -1,9 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useSignInWithFacebook } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router'
 import {
   onAuthStateChanged,
   GoogleAuthProvider,
-  FacebookAuthProvider,
+  // FacebookAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -82,14 +83,35 @@ export function AuthProvider({ children }) {
       })
   }
   const signInWithFacebook = () => {
-    const provider = new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.warn(error)
-      })
+    const [signInWithFacebook, user, loading, error] = useSignInWithFacebook(auth);
+    if (error) {
+      return(
+        <div>
+          {alert('Error Signing In')}
+        </div>
+      );
+    }
+    if (loading) {
+      return(
+        <div>
+          <h2>Loading...</h2>
+        </div>
+      );
+    }
+    if (user) {
+      return(
+        <div>
+          <p>
+            Signed In User: {user.email}
+          </p>
+        </div>
+      )
+    }
+    return(
+      <div>
+        <p>test</p>
+      </div>
+    )
   }
 
   return (
