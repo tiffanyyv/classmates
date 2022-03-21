@@ -88,7 +88,7 @@ export default function myCourses() {
   }, []);
 
   return (
-    <div courseName='justWork'>
+    <div className='justWork'>
       <h2>My Courses</h2>
       <br></br>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} columns={6}>

@@ -19,7 +19,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import EditIcon from '@mui/icons-material/Edit';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function MyCourses({ course }) {
   const [showStudentList, setShowStudentList] = useState(false);
@@ -28,8 +28,8 @@ export default function MyCourses({ course }) {
   const [currCourseName, setCurrCourseName] = useState(course.courseName);
   const [currStartTime, setCurrStartTime] = useState(course.startTime);
   const [currEndTime, setCurrEndTime] = useState(course.endTime);
-  const [newStartTime, setNewStartTime] = useState(new Date());
-  const [newEndTime, setNewEndTime] = useState(new Date());
+  const [newStartTime, setNewStartTime] = useState(null);
+  const [newEndTime, setNewEndTime] = useState(null);
 
   const handleStudentList = () => {
     if (userType === 'mentor') {
@@ -86,25 +86,26 @@ export default function MyCourses({ course }) {
                   />
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      renderInput={(props) => <TextField {...props} />}
+                      renderInput={(props) => <TextField {...props}/>}
                       label="New Start Time"
                       value={newStartTime}
                       onChange={(newValue) => {
-                        setCurrStartTime(newValue);
+                        setNewStartTime(newValue);
                       }}
-                  />
-                </LocalizationProvider>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    />
+                  </LocalizationProvider>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
                       label="New End Time"
                       value={newEndTime}
                       onChange={(newValue) => {
-                        setCurrEndTime(newValue);
+                        setNewEndTime(newValue);
                       }}
-                  />
-                </LocalizationProvider>
+                    />
+                  </LocalizationProvider>
                 </DialogContent>
+                <button onClick={handleEditCourse}>Submit Changes</button>
               </Dialog>
           </Stack>
         </Typography>
@@ -124,14 +125,3 @@ export default function MyCourses({ course }) {
     </Card >
   )
 }
-
-{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateTimePicker
-            renderInput={(props) => <TextField {...props} />}
-            label="DateTimePicker"
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
-          />
-        </LocalizationProvider> */}
