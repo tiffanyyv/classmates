@@ -1,6 +1,6 @@
 
-export default function AppointmentContent (e) {
-  const { zoomlink, title } = e.appointmentData
+export default function AppointmentContent (currentAppointmentMetadata) {
+  const { zoomlink, title } = currentAppointmentMetadata.appointmentData
 
   return (
     <div>
