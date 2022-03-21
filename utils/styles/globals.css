@@ -2,8 +2,11 @@ html,
 body {
   margin: 0;
   font-family: Roboto;
+<<<<<<< HEAD
   color: #121212;
   background-color: #F5F5F5;
+=======
+>>>>>>> ProfileView
 }
 
 a {
