@@ -33,7 +33,7 @@ export default function SideBar({ children, ...props }) {
 
   // hard coded data, eventually change sampleUser to [username]
   const pageUrls = {
-    0: "/app/my-classes",
+    0: "/app/my-courses",
     1: "/app/calendar",
     2: "/app/notifications",
     3: "/app/class-catalog"
