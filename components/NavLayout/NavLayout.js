@@ -7,11 +7,19 @@ import { useAuthContext } from '../../utils/context/AuthProvider';
 
 export default function NavLayout({ children }) {
   const { user, loading, error } = useAuthContext();
-  // const router = useRouter();
+  const router = useRouter();
 
   // console.log(router.pathname);
 
   if (!user) {
+    return (
+      <>
+        {children}
+      </>
+    )
+  }
+
+  if (user && router.pathname === '/') {
     return (
       <>
         {children}
