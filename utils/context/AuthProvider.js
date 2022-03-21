@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import {
   onAuthStateChanged,
   GoogleAuthProvider,
@@ -35,10 +36,12 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, [])
 
-  const signup = (email, password) => {
+  const signup = (email, password, username) => {
     return createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((response) => {
         // need set redirect to login
+        router.push('/login')
+        console.log(response)
       })
       .catch((err) => {
         // needs to set an error state
@@ -47,10 +50,12 @@ export function AuthProvider({ children }) {
   }
 
   const login = (email, password) => {
+    console.log(email, password)
     return signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
+    .then((response) => {
       // need to set redirect to /[username]/dashboard
       // need to set success state
+      console.log(response)
     })
       .catch((err) => {
         // needs to set an error state
