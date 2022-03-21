@@ -7,6 +7,7 @@ import { useAuthContext } from '../../utils/context/AuthProvider';
 export default function NavLayout({ children }) {
   const { isAuthenticated } = useAuthContext();
 
+  //change
   if (!isAuthenticated) {
     return (
       <>
@@ -17,9 +18,10 @@ export default function NavLayout({ children }) {
 
   return (
     <div className={styles.loggedInView}>
-      <SideBar></SideBar>
+      <SideBar>
+
+      </SideBar>
       <div>
-        <TopBar />
         <section>{children}</section>
       </div>
     </div>

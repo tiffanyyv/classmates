@@ -1,0 +1,56 @@
+.homePage {
+  background-color: #B0B4D4;
+  margin-top: -22px;
+  min-height: 100vh;
+}
+
+.siteTitle {
+  padding-left: 2%;
+  padding-top: 2%;
+  color: #ffffff;
+}
+
+.titleBox {
+  position: relative;
+  width: 50vw;
+  margin-left: 3vw;
+}
+
+.buttonBox {
+  position: relative;
+  min-width: 5vw;
+  margin-left: 88vw;
+  margin-top: -5vh;
+}
+
+.loginButton {
+  border: none;
+  color: #ffffff;
+  background-color: #B0B4D4;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.signupButton {
+  border: none;
+  color: #ffffff;
+  background-color: #B0B4D4;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.motto {
+  margin-top: 30vh;
+  margin-left: 10vw;
+  font-size: 50px;
+  color: #ffffff;
+}
+
+.reporter {
+  width: 100vw;
+  text-align: center;
+  margin-top: 30vh;
+  font-size: 25px;
+  font-weight: 100;
+  color: #ffffff;
+}
