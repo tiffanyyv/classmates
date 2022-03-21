@@ -25,7 +25,7 @@ export const closedMixin = (theme) => ({
   },
 });
 
-export const DrawerHeader = styled('div')(({ theme }) => ({
+export const SideBarDrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -34,7 +34,7 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-export const AppBar = styled(MuiAppBar, {
+export const SideBarAppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -52,7 +52,7 @@ export const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+export const SideBarDrawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
     flexShrink: 0,

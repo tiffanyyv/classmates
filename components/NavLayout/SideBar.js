@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { styled, useTheme } from '@mui/material/styles';
-import { openedMixin, closedMixin, DrawerHeader, AppBar, Drawer } from '../../components/basecomponents/SideBarStyles.js';
 import { Box, Container, Stack, Avatar } from '@mui/material';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Toolbar, List, CssBaseline, Typography, IconButton } from '@mui/material';
@@ -18,6 +17,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 import defaultProfilePic from '../../utils/constants';
 import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
+import { openedMixin, closedMixin, SideBarDrawerHeader, SideBarAppBar, SideBarDrawer } from '../../components/basecomponents/SideBarStyles.js';
 
 export default function SideBar({ children, ...props }) {
   const theme = useTheme();
@@ -51,7 +51,7 @@ export default function SideBar({ children, ...props }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} className={styles.topbar}>
+      <SideBarAppBar position="fixed" open={open} className={styles.topbar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -78,13 +78,13 @@ export default function SideBar({ children, ...props }) {
             />
           </Container>
         </Toolbar>
-      </AppBar>
-      <Drawer className='drawer' variant="permanent" open={open} >
-        <DrawerHeader>
+      </SideBarAppBar>
+      <SideBarDrawer className='drawer' variant="permanent" open={open} >
+        <SideBarDrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon style={{ color: '#FFFFFF' }} /> : <ChevronLeftIcon style={{ color: '#FFFFFF' }} />}
           </IconButton>
-        </DrawerHeader>
+        </SideBarDrawerHeader>
 
         <List>
           {['My Classes', 'Calendar', 'Notifications', 'Class Catalog'].map((text, index) => (
@@ -103,15 +103,16 @@ export default function SideBar({ children, ...props }) {
                   justifyContent: 'center',
                 }}
               >
+                {/* The separation of links is intentional, when consolidated to one line it breaks */}
                 <Link href={pageUrls[index]}>{sideBarIcons[index]}</Link>
               </ListItemIcon>
               <Link href={pageUrls[index]}><ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /></Link>
             </ListItemButton>
           ))}
         </List>
-      </Drawer>
+      </SideBarDrawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+        <SideBarDrawerHeader />
         <div className='pageData'>
           {children}
         </div>
