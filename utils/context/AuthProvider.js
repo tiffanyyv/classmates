@@ -19,6 +19,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -37,10 +38,10 @@ export function AuthProvider({ children }) {
   }, [])
 
   const signup = (email, password, username) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
         // need set redirect to login
-        router.push('/login')
+        router.push('/')
         console.log(response)
       })
       .catch((err) => {
@@ -55,6 +56,7 @@ export function AuthProvider({ children }) {
     .then((response) => {
       // need to set redirect to /[username]/dashboard
       // need to set success state
+      router.push('/')
       console.log(response)
     })
       .catch((err) => {

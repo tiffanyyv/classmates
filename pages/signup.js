@@ -74,7 +74,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     mb: 500,
     borderRadius: 5,
-
+    width: 250,
   }
 });
 
@@ -95,11 +95,12 @@ export default function Signup() {
       [field]: text
     })
   }
-  const handleSubmitSignUpInput = (e) => {
+  const handleSubmitSignUpInput =  (e) => {
+    e.preventDefault();
     signup(signupInfo.email, signupInfo.password, signupInfo.username)
   }
 
-  return (
+  return(
     <div className={classes.root}>
       <Grid container
         spacing={0}
@@ -111,12 +112,12 @@ export default function Signup() {
       >
         <Card className={classes.card}>
           {console.log(signupInfo)}
-          <FormControl onSubmit={(e) => handleSubmitSignUpInput(e)} sx={{my:3}}>
+          <form onSubmit={(e) => handleSubmitSignUpInput(e)} sx={{my:3}}>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput}></Input>
             <Button sx={{my:2}} type='submit' className={classes.loginButton}>Create Account</Button>
-          </FormControl>
+          </form>
           <div className={{ flexDirection: 'column' }}>
             <Button sx={{my:2}} onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <Button onClick={signInWithFacebook} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>

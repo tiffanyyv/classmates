@@ -75,7 +75,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     mb: 500,
     borderRadius: 5,
-
+    width: 250,
   }
 });
 
@@ -101,7 +101,7 @@ export default function Login() {
     console.log(loginInfo.email, loginInfo.password)
     login(loginInfo.email, loginInfo.password)
   }
-  return (
+  return(
     <div className={classes.root}>
       <Grid container
         spacing={0}
@@ -112,11 +112,11 @@ export default function Login() {
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
-          <FormControl onSubmit={(e) => handleStandardLogin(e)} sx={{my:3}}>
+          <form onSubmit={(e) => handleStandardLogin(e)} sx={{my:3}}>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput}></Input>
             <Button sx={{my:2}} type='submit' className={classes.loginButton}>Login</Button>
-          </FormControl>
+          </form>
           <div className={{ flexDirection: 'column' }}>
             <Button sx={{my:2}} onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <Button onClick={signInWithFacebook} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
