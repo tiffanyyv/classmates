@@ -1,5 +1,4 @@
 import SideBar from './SideBar';
-import TopBar from './TopBar';
 import styles from '../../utils/styles/NavLayoutStyles/NavLayout.module.css';
 
 import { useAuthContext } from '../../utils/context/AuthProvider';
