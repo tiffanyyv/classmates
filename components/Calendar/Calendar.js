@@ -27,15 +27,15 @@ import styles from '../../utils/styles/CalendarStyles/Calendar.module.css';
 const data = [
   {
     title: 'KEvin CLASS',
-    startDate: new Date(2022, 2, 19, 6, 35),
-    endDate: new Date(2022, 2, 19, 18, 30),
+    startDate: new Date(2022, 2, 21, 6, 35),
+    endDate: new Date(2022, 2, 21, 22, 30),
 
     zoomlink: 'http://garbase.com'
   },
   {
   title: 'Other Class',
-  startDate: new Date(2022, 2, 16, 6, 35),
-  endDate: new Date(2022, 2, 16, 10, 30),
+  startDate: new Date(2022, 2, 24, 6, 35),
+  endDate: new Date(2022, 2, 24, 10, 30),
   zoomlink: 'http://assaffsaafs.com'
 },]
 
@@ -109,7 +109,9 @@ export default function Calendar () {
 
   useEffect(() => {
     setAppointmentData(data);
-  }, [])
+  }, []);
+
+
 
 
   return (
@@ -122,7 +124,7 @@ export default function Calendar () {
           <ViewState />
           <WeekView
             startDayHour={9}
-            endDayHour={20}
+            endDayHour={22}
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
           />
