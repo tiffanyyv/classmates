@@ -7,7 +7,7 @@ export default function MyProfile() {
   // mentors can see endorsement count
   // change profile picture div to image
   return (
-    <div>
+    <div className="my-profile-view">
       <div>Profile Picture</div>
         <div>My Profile Page</div>
         <div>Location</div>

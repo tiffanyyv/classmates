@@ -7,7 +7,7 @@ export default function TeacherProfile() {
   // mentors can see endorsement count
   // change profile picture div to image
   return (
-    <div>
+    <div className="teacher-profile-view">
       <div>Profile Picture</div>
       <h2>My Profile Page</h2>
       <h3>Location</h3>

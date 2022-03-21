@@ -70,12 +70,14 @@ export default function SideBar({ children, ...props }) {
           </Typography>
           <Container className={styles.profileIcon} sx={{ flexGrow: 0 }}>
             <Typography className={styles.profileName}>Current User</Typography>
+            <Link href="/sampleUser/my-profile">
             <Avatar
               className={styles.profileAvatar}
               alt="Remy Sharp"
               src={defaultProfilePic}
               sx={{ width: 50, height: 50 }}
             />
+            </Link>
           </Container>
         </Toolbar>
       </SideBarAppBar>
