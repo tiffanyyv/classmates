@@ -1,56 +1,58 @@
-import React, { useState } from 'react';
+import {auth} from '../components/authConfig/firebase.config'
+import React, {useState} from 'react';
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
 import { Card } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
-
-import { useAuthContext } from '../utils/context/AuthProvider';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup
+} from "firebase/auth";
 
 const useStyles = makeStyles({
   card: {
     background: '#B0B4D4',
-    flexDirection: 'column',
     border: 0,
     borderRadius: 3,
     boxShadow: 20,
     color: 'white',
     height: '100%',
     padding: '0 30px',
-    width: 300,
+    maxWidth:'100%',
     alignItems: 'center',
     justifyContent: 'center'
   },
   googleButton: {
-    position: 'relative',
+    position:'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor:'white',
     variant: 'contained',
     display: 'flex',
-    width: 250
+    width:250
   },
   facebookButton: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#4267B2',
-    color: 'white',
+    backgroundColor:'#4267B2',
+    color:'white',
     variant: 'contained',
     display: 'flex',
     width: 250
   },
   container: {
-    flexDirection: 'row',
+    flexDirection:'row',
     justifyContent: 'center',
-    alignItems: 'center'
-  },
-  gridContainer: {
-
+    alignItems:'center'
   }
 });
+
 
 
 export default function Login() {
@@ -68,36 +70,24 @@ export default function Login() {
     })
   }
 
-  const handleStandardLogin = (e) => {
-    e.preventDefault();
-    login(loginInfo.email, loginInfo.password)
-  }
-
-  return (
-    <div>
-      <Grid container
-        spacing={0}
-        display='flex'
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: '100vh'}}>
-        <Card className={classes.card}>
-          <FormControl onSubmit={(e) => handleStandardLogin(e)}>
-            <Input onChange={(e) => handleLoginFormInput(e, 'email')} placeholder="Email"></Input>
-            <Input onChange={(e) => handleLoginFormInput(e, 'password')} placeholder="Password"></Input>
-            <Button type="submit">Login</Button>
-          </FormControl>
-          <div className={{ flexDirection: 'column' }}>
-            <Button onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
-            <Button onClick={signInWithFacebook} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
-          </div>
-          <p><a href="/">Go Home</a></p>
-        </Card>
-      </Grid>
-    </div>
-
-  )
+    return (
+        <div >
+            <div className={classes.container}>
+              <Card className={classes.card}>
+              <FormControl onSubmit={(e) => createUser(e,email, pass)}>
+                <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)}></Input>
+                <Input placeholder='Password' onChange={(e) => setPass(e.target.value)}></Input>
+                <Button type='submit'></Button>
+              </FormControl>
+              <div className={{flexDirection:'column'}}>
+              <Button onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
+              <Button onClick={signInWithFacebook} className={classes.facebookButton} startIcon={<FacebookIcon/>}>Continue with Facebook</Button>
+              </div>
+                <p><a href="/">Go Home</a></p>
+              </Card>
+           </div>
+        </div>
+    )
 }
 
 
