@@ -33,10 +33,10 @@ export default function SideBar({ children, ...props }) {
 
   // hard coded data, eventually change sampleUser to [username]
   const pageUrls = {
-    0: "/sampleUser/my-classes",
-    1: "/sampleUser/calendar",
-    2: "/sampleUser/notifications",
-    3: "/sampleUser/class-catalog"
+    0: "/app/my-classes",
+    1: "/app/calendar",
+    2: "/app/notifications",
+    3: "/app/class-catalog"
   }
 
   const sideBarIcons = {
@@ -70,7 +70,7 @@ export default function SideBar({ children, ...props }) {
           </Typography>
           <Container className={styles.profileIcon} sx={{ flexGrow: 0 }}>
             <Typography className={styles.profileName}>Current User</Typography>
-            <Link href="/sampleUser/my-profile">
+            <Link href="/app/my-profile">
             <Avatar
               className={styles.profileAvatar}
               alt="Remy Sharp"

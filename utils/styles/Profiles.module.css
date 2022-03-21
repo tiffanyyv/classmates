@@ -1,0 +1,28 @@
+.profileContainer {
+  /* background-color: yellow; */
+  display: flex;
+  flex-direction: row;
+  word-wrap: normal;
+}
+
+.profilePic {
+  /* background-color: blue; */
+}
+
+@media (max-width: 960px) {
+  .profileContainer {
+    display: flex;
+    flex-direction: column;
+    min-width: 50%;
+    min-height: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .profileContainer {
+    display: flex;
+    flex-direction: column;
+    min-width: 75%;
+    min-height: 75%;
+  }
+}
