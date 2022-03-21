@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
   }
 
   const logout = async () => {
-    router.push('/login');
+    router.push('/');
     await signOut(auth);
   }
 

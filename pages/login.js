@@ -35,7 +35,7 @@ export default function Login() {
     console.log(loginInfo.email, loginInfo.password)
     login(loginInfo.email, loginInfo.password)
   }
-  if (user !== null) {
+  if (user) {
     router.push('/app')
     return null;
   }
@@ -52,7 +52,7 @@ export default function Login() {
         <Card className={classes.card}>
           <form onSubmit={(e) => handleStandardLogin(e)} sx={{my:3}}>
             <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput}></Input>
+            <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
             <Button sx={{my:2}} type='submit' className={classes.loginButton}>Login</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>
