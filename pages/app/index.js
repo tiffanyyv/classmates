@@ -1,12 +1,7 @@
-import { useAuthContext } from '../../utils/context/AuthProvider';
+// Dashboard
 
 export default function Dashboard() {
-  const { logout } = useAuthContext();
-
   return (
-    <div className='pageData'>
-      <h3>Dashboard</h3>
-      <button onClick={logout}>Logout</button>
-    </div>
+    <div className='pageData'>Dashboard</div>
   )
 }

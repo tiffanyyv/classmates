@@ -1,40 +1,25 @@
 .homePage {
   background-color: #B0B4D4;
-  margin-top: -22px;
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 .siteTitle {
-  padding-left: 2%;
-  padding-top: 2%;
   color: #ffffff;
+  font-weight: bold;
 }
 
-.titleBox {
-  position: relative;
-  width: 50vw;
-  margin-left: 3vw;
-}
-
-.buttonBox {
-  position: relative;
-  min-width: 5vw;
-  margin-left: 88vw;
-  margin-top: -5vh;
+.homeAppBar {
+  background-color: #B0B4D4;
+  box-shadow: none;
 }
 
 .loginButton {
-  border: none;
-  color: #ffffff;
-  background-color: #B0B4D4;
   font-weight: bold;
   font-size: medium;
 }
 
 .signupButton {
-  border: none;
-  color: #ffffff;
-  background-color: #B0B4D4;
   font-weight: bold;
   font-size: medium;
 }
@@ -44,6 +29,8 @@
   margin-left: 10vw;
   font-size: 50px;
   color: #ffffff;
+  min-width: 95px;
+  overflow-wrap: break-word;
 }
 
 .reporter {

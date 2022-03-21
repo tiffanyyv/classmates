@@ -1,17 +1,25 @@
 // Landing Page
 import Head from 'next/head'
+
+import {AppBar, Box, Toolbar, Typography, Button} from '@mui/material';
+
 import styles from '../utils/styles/NavLayoutStyles/HomePage.module.css';
+
 
 export default function LandingPage() {
   return (
     <div className={styles.homePage}>
-      <div className={styles.titleBox}>
-        <h1 className={styles.siteTitle}>ClassMates</h1>
-      </div>
-      <div className={styles.buttonBox}>
-        <button className={styles.loginButton}>Login</button>
-        <button className={styles.signupButton}>Sign Up</button>
-      </div>
+    <Box sx={{ flexGrow: 1 }}>
+    <AppBar className={styles.homeAppBar} position="static">
+      <Toolbar>
+        <Typography className={styles.siteTitle} variant="h4" component="div" sx={{ flexGrow: 1 }}>
+          ClassMates
+        </Typography>
+        <Button color="inherit" className={styles.loginButton}>Login</Button>
+        <Button color="inherit" className={styles.signupButton}>Sign Up</Button>
+      </Toolbar>
+    </AppBar>
+  </Box>
       <div className={styles.motto}>
         <h1>THE LATEST IN ONLINE CLASS MANAGEMENT</h1>
       </div>

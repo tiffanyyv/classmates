@@ -87,7 +87,7 @@ export default function SideBar({ children, ...props }) {
         </SideBarDrawerHeader>
 
         <List>
-          {['My Classes', 'Calendar', 'Notifications', 'Class Catalog'].map((text, index) => (
+          {['My Courses', 'Calendar', 'Notifications', 'Course Catalog'].map((text, index) => (
             <ListItemButton
               key={text}
               sx={{
