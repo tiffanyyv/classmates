@@ -9,7 +9,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+  useAuthState,
+  useCreateUserWithEmailAndPassword,
+  useSignInWithEmailAndPassword,
+  useSignInWithFacebook,
+  useSignInWithGoogle
+} from 'react-firebase-hooks/auth';
 
 import { auth } from '../api/firebase.config.js';
 
@@ -32,6 +38,7 @@ export function AuthProvider({ children }) {
         // needs to set an error state
         console.warn('Problem with sign up: ', err.message);
       })
+    // useCreateUserWithEmailAndPassword(auth, )
   }
 
   const login = (email, password) => {
