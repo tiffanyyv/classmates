@@ -7,12 +7,7 @@ import { useAuthContext } from '../../utils/context/AuthProvider';
 export default function NavLayout({ children }) {
   const { user } = useAuthContext();
 
-<<<<<<< HEAD
   if (!user) {
-=======
-  //change
-  if (!isAuthenticated) {
->>>>>>> origin
     return (
       <>
         {children}
