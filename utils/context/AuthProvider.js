@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   onAuthStateChanged,
   GoogleAuthProvider,
@@ -8,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../api/firebase.config.js';
 
@@ -16,24 +18,25 @@ const AuthContext = createContext();
 
 // need to implement state machine for idle,loading, success, and error states
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user);
-      if (user) {
-        setUser({
-          uid: user.uid,
-          email: user.email,
-        })
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    })
-    return () => unsubscribe();
-  }, [])
+  // const [user, setUser] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  const [user, loading, error] = useAuthState(auth);
+  const router = useRouter();
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     console.log(user);
+  //     if (user) {
+  //       setUser({
+  //         uid: user.uid,
+  //         email: user.email,
+  //       })
+  //     } else {
+  //       setUser(null);
+  //     }
+  //     setLoading(false);
+  //   })
+  //   return () => unsubscribe();
+  // }, [])
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -59,9 +62,13 @@ export function AuthProvider({ children }) {
   }
 
   const logout = async () => {
-    setUser(null);
+    router.push('/login');
     await signOut(auth);
   }
+  // const logout = async () => {
+    // setUser(null);
+    // await signOut(auth);
+  // }
 
   // OAuth Google + FB
   const signInWithGoogle = () => {
@@ -88,7 +95,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        user, signup, login, logout,
+        user, loading, error, signup, login, logout,
         signInWithGoogle, signInWithFacebook
       }}
     >
