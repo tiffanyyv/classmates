@@ -1,6 +1,7 @@
 // Profile View
 import { Image } from 'next/image';
 
+<<<<<<< HEAD
 // import components
 
 // information needed
@@ -22,3 +23,11 @@ export default function MyProfile(props) {
     </div>
   )
 }
+=======
+export default function MyProfile() {
+  return (
+    <div className='pageData'>My Profile</div>
+  )
+}
+
+>>>>>>> origin

@@ -1,6 +1,9 @@
 html,
 body {
   margin: 0;
+  font-family: Roboto;
+  color: #121212;
+  background-color: #F5F5F5;
 }
 
 a {
@@ -8,6 +11,22 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: #4BD2D2;
+  text-decoration: none;
+}
+
 * {
   box-sizing: border-box;
+}
+
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+  background: linear-gradient(0deg, rgba(132,199,208,1) 0%, rgba(176,180,212,1) 50%, rgba(176,180,212,1) 100%);
+  color: #FFFFFF;
+  border: none;
+}
+
+.pageData {
+  margin-top: 100px;
 }
