@@ -9,7 +9,7 @@ export default function NavLayout({ children }) {
   const { user, loading, error } = useAuthContext();
   const router = useRouter();
 
-  console.log(router);
+  // console.log(router);
 
   if (!user) {
     return (

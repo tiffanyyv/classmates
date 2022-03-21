@@ -100,11 +100,6 @@ export default function Signup() {
     signup(signupInfo.email, signupInfo.password, signupInfo.username)
   }
 
-
-  if (loading) {
-    <p>Loading</p>
-  }
-
   return(
     <div className={classes.root}>
       <Grid container
