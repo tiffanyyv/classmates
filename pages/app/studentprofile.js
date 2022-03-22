@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Avatar } from '@mui/material';
 import styles from '../../utils/styles/Profiles.module.css';
 import defaultProfilePic from '../../utils/constants';
-// import StudentProfileView from '../../components/Profiles/StudentProfileView.js';
-// import TeacherProfileView from '../../components/Profiles/TeacherProfileView.js';
 
 export default function StudentProfile(props) {
   const [userType, setUserType] = useState('mentor');
