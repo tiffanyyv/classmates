@@ -44,10 +44,14 @@ export default function MyCourses({ course }) {
   }
 
   const handleSubmitCourseChanges = () => {
-    setEditCourseInfo(!editCourseInfo)
-    setCurrStartTime(newStartTime)
-    setCurrEndTime(newEndTime)
-    setCurrCourseName(newCourseName)
+    if (newCourseName === '') {
+      alert("Please enter new course name")
+    } else {
+      setEditCourseInfo(!editCourseInfo)
+      setCurrStartTime(newStartTime)
+      setCurrEndTime(newEndTime)
+      setCurrCourseName(newCourseName)
+    }
   }
   const mentorProfile = () => {
   }
@@ -79,6 +83,7 @@ export default function MyCourses({ course }) {
                 <DialogTitle>Update Course Info</DialogTitle>
                 <DialogContent>
                   <TextField
+                    error
                     autoFocus
                     margin="dense"
                     // id="courseName"
@@ -86,13 +91,15 @@ export default function MyCourses({ course }) {
                     type="text"
                     fullWidth
                     variant="standard"
+                    color='info'
+                    focused
                     onChange={(e) => setNewCourseName(e.target.value)}
                   />
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props}/>}
                       label="New Start Time"
-                      value={null}
+                      value={newStartTime}
                       onChange={(newValue) => {
                         setNewStartTime(newValue);
                         // setCurrStartTime(newValue);
@@ -103,7 +110,7 @@ export default function MyCourses({ course }) {
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
                       label="New End Time"
-                      value={null}
+                      value={newEndTime}
                       onChange={(newValue) => {
                         setNewEndTime(newValue);
                         // setCurrEndTime(newValue);
@@ -111,8 +118,7 @@ export default function MyCourses({ course }) {
                     />
                   </LocalizationProvider>
                 </DialogContent>
-                {/* <MainButton value="Submit Changes" onClick={handleSubmitCourseChanges}/> */}
-                <button onClick={handleSubmitCourseChanges}>Submit Changes</button>
+                <MainButton value="Submit Changes" onClick={handleSubmitCourseChanges}/>
               </Dialog>
           </Stack>
         </Typography>
