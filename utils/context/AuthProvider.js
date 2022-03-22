@@ -20,15 +20,8 @@ export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
 
-<<<<<<< HEAD
   const signup = (body) => {
      createUserWithEmailAndPassword(auth, body.email, body.password)
-=======
-  // console.log(user);
-
-  const signup = (email, password, username) => {
-     createUserWithEmailAndPassword(auth, email, password)
->>>>>>> 4e55254e2b391bafa86a273a5fe5cdaef0749e53
       .then((response) => {
          body['uid'] = response.user.uid
         if (body.account_type === 'Mentor') {

@@ -41,17 +41,8 @@ export default function Signup() {
     e.preventDefault();
     signup(signupInfo)
   }
-<<<<<<< HEAD
-  const handleChange = (event, newValue) => {
-    setAccountType(newValue);
-  };
-
-  if (user !== null) {
-    router.push('/app')
-=======
   if (user) {
     router.push('/app/my-courses')
->>>>>>> 4e55254e2b391bafa86a273a5fe5cdaef0749e53
     return null;
   }
   return (
