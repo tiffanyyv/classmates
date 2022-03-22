@@ -70,7 +70,6 @@ export default function Signup() {
               <MenuItem value={'Mentor'}>Mentor</MenuItem>
               <MenuItem value={'Mentee'}>Mentee</MenuItem>
               </Select>
-              {console.log(signupInfo)}
               <Input sx={{ my: .5 }} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
               <Input sx={{ my: .5 }} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'firstName')} placeholder="First Name" className={classes.userInput}></Input>
               <Input sx={{ my: .5 }} disableUnderline='true' onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>

@@ -25,18 +25,18 @@ export function AuthProvider({ children }) {
       .then((response) => {
          body['uid'] = response.user.uid
         if (body.account_type === 'Mentor') {
-          axios.post('/pages/mentors/index.js', body)
+          axios.post('/api/pages/mentors/index.js', body)
             .then(res => {
               console.log(res)
             }).catch(err => {
-              console.error(err.message)
+              console.warn(err.message)
             })
         } else {
-          axios.post('/pages/mentees/index.js', body)
+          axios.post('/api/pages/mentees/index.js', body)
             .then(res => {
               console.log(res)
             }).catch(err => {
-              console.error(err.message)
+              console.warn(err.message)
             })
         }
         router.push('/app/my-courses')
