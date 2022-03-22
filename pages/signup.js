@@ -1,7 +1,8 @@
-import { auth } from '../utils/api/firebase.config'
-
-import { useAuthContext } from '../utils/context/AuthProvider';
 import React, { useState } from 'react';
+import Link from 'next/link'
+import { useRouter } from 'next/router';
+
+
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
@@ -9,9 +10,10 @@ import { Card, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
-import useStyles from '../utils/styles/signup.module'
-import { useRouter } from 'next/router';
 
+// import { auth } from '../utils/api/firebase.config'
+import { useAuthContext } from '../utils/context/AuthProvider';
+import useStyles from '../utils/styles/signup.module'
 
 export default function Signup() {
   const classes = useStyles();
@@ -30,14 +32,17 @@ export default function Signup() {
       [field]: text
     })
   }
+
   const handleSubmitSignUpInput = (e) => {
     e.preventDefault();
     signup(signupInfo.email, signupInfo.password, signupInfo.username)
   }
+
   if (user) {
     router.push('/app/my-courses')
     return null;
   }
+
   return (
     <div className={classes.root}>
       <Grid container
@@ -45,7 +50,6 @@ export default function Signup() {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        alignItems="center"
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
@@ -60,7 +64,7 @@ export default function Signup() {
             <Button sx={{ my: 2 }} onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <Button onClick={signInWithFacebook} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
           </div>
-          <p><a href="/">Go Home</a></p>
+          <Link href="/"><a>Go Home</a></Link>
         </Card>
       </Grid>
     </div>
