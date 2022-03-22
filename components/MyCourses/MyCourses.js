@@ -94,6 +94,7 @@ export default function MyCourses({ course }) {
                     focused
                     onChange={(e) => setNewCourseName(e.target.value)}
                   />
+                  <Stack direction="row" spacing={2}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props}/>}
@@ -116,6 +117,7 @@ export default function MyCourses({ course }) {
                       }}
                     />
                   </LocalizationProvider>
+                  </Stack>
                 </DialogContent>
                 <MainButton value="Submit Changes" onClick={handleSubmitCourseChanges}/>
               </Dialog>
