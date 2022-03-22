@@ -83,3 +83,7 @@ a:hover {
 .pageData {
   margin-top: 100px;
 }
+
+.MuiTextField-root {
+  color: #121212
+}
