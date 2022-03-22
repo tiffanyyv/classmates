@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {Button, Menu} from '@mui/material';
 
 import styles from '../../../utils/styles/NavLayoutStyles/SideBar.module.css';
 import topRankings from '../../../utils/constants/exData';

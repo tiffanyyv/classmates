@@ -2,9 +2,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Container, Stack, Avatar } from '@mui/material';
+import { Box, Container, Stack, Avatar, Menu, MenuItem } from '@mui/material';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Toolbar, List, CssBaseline, Typography, IconButton } from '@mui/material';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -14,6 +15,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 import defaultProfilePic from '../../utils/constants';
+import ProfileMenu from '../features/ProfileView/ProfileMenu.js';
 import Leaderboard from '../features/MentorRanking/MentorRanking.js';
 import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
 import { openedMixin, closedMixin, SideBarDrawerHeader, SideBarAppBar, SideBarDrawer } from '../../components/basecomponents/SideBarStyles.js';
@@ -70,12 +72,7 @@ export default function SideBar({ children, ...props }) {
           <Container className={styles.profileIcon} sx={{ flexGrow: 0 }}>
             <Leaderboard />
             <Typography className={styles.profileName}>Current User</Typography>
-            <Avatar
-              className={styles.profileAvatar}
-              alt="Remy Sharp"
-              src={defaultProfilePic}
-              sx={{ width: 50, height: 50 }}
-            />
+            <ProfileMenu />
           </Container>
         </Toolbar>
       </SideBarAppBar>
