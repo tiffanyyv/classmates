@@ -1,17 +1,22 @@
-import {FormControl, InputLabel, Input, FormHelperText, TextField } from '@mui/material';
+import {Grid, Typography, FormControl, InputLabel, Input, FormHelperText, TextField } from '@mui/material';
 
 
 
 
 
-export default CreateClassModal = () => {
+export default function CreateClassModal ()  {
+
+
   return (
-    <div>
-      <FormControl>
-        <InputLabel>
-          <Input></Input>
-        </InputLabel>
+    <form className="createClassForm">
+      <Typography variant="h5">Create a Class:</Typography>
+      <FormControl component="fieldset" required>
+        <InputLabel>Class Name</InputLabel>
+          <Input />
       </FormControl>
-    </div>
+
+    </form>
+
   )
 }
+
