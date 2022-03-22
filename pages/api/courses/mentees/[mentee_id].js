@@ -10,8 +10,9 @@ import {
   where
 } from "firebase/firestore";
 
-export default async function getCoursesByMenteeId(req, res) {
+export default async function getCoursesAndAddMenteeByMenteeId(req, res) {
   const { mentee_id } = req.query;
+
   try {
     const coursesQuery = query(collection(db, 'courses'));
     const result = [];

@@ -41,6 +41,38 @@ export default async function getRemoveAndUpdateCourse(req, res) {
       const update = req.body;
       /* updateCourseInfo */
 
+      // update course name
+
+      // update course start time and end time
+
+      // update student list to add student object
+      const putBody = {
+        mentee_id,
+        mentee_firstName,
+        mentee_lastName
+      }
+      if (course_type === 'Public') {
+        // post to courses collection
+
+
+        // update: add to mentees list on this course obj
+
+      } else {
+        // post to notifications collection
+        // if mentee_status === declined --> delete from notifications collection
+        // if mentee_status === accepted --> delete from notifications collection and add to courses collection
+
+        const post = {
+          course_id,
+          course_name,
+          mentor_id,
+          mentor_name,
+          mentee_id,
+          mentee_name,
+          mentee_status: 'pending' // pending initially, accepted, declined
+        }
+      }
+
 
       break
     case 'DELETE':

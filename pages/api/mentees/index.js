@@ -1,7 +1,7 @@
 // POST: /pages/mentees/index.js
 import { db } from '../../../utils/api/firebase.config';
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import defaultProfilePic from '../../../utils/constants/index';
+import { defaultProfilePic }from '../../../utils/constants/index';
 
 export default async function addMentee(req, res) {
   const {
