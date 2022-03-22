@@ -16,10 +16,10 @@ export default function LandingPage() {
         <Typography className={styles.siteTitle} variant="h4" component="div" sx={{ flexGrow: 1 }}>
           ClassMates
         </Typography>
-        <Link href="/login">
+        <Link href="/login" passHref>
           <Button color="inherit" className={styles.loginButton}>Login</Button>
         </Link>
-        <Link href="/signup">
+        <Link href="/signup" passHref>
           <Button color="inherit" className={styles.signupButton}>Sign Up</Button>
         </Link>
       </Toolbar>
@@ -29,7 +29,12 @@ export default function LandingPage() {
         <h1>THE LATEST IN ONLINE CLASS MANAGEMENT</h1>
       </div>
       <div className={styles.reporter}>
-        <h7>"It's so simple to use and the style is AMAZING!!!"  - Q. Maki Hack Reactor</h7>
+        {/* Odd characters in here instead of quotions b/c ESlint throws errors otherwise */}
+        <h7>&quot;THIS is official documentation.&quot;  - Q. Maki, GeeksforGeeks</h7>
+        <br></br>
+        <h7>&quot;The Harvard of online education.&quot;  - E. Zhang, Apple</h7>
+        <br></br>
+        <h7>&quot;I would use all my bitcoin to acquire them.&quot;  - K. Lopez, Google</h7>
       </div>
     </div>
   )
