@@ -21,6 +21,59 @@ a:hover {
 }
 
 
+/* CALENDAR STYLES */
+
+
+/* .css-4plepo .MainLayout-ordinaryHeaderBorder {
+  border-bottom: none;
+} */
+
+.css-pzc27e-MuiToolbar-root.Toolbar-toolbar {
+  border-bottom: none
+}
+
+/* APPOINTMENT SCHEDULED BLOCK */
+.css-3nejl.Appointment-appointment {
+  background-color: #84C7D0
+}
+
+/* APPOINTMENT SCHEDULED BLOCK ON HOVER*/
+.css-3nejl.Appointment-appointment:hover {
+  background-color: #4BD2D2;
+}
+
+/*CALENDAR TODAY BTN*/
+.css-xya8j6-MuiButtonBase-root-MuiButton-root {
+  border: 1px solid #84C7D0;
+  color: #84C7D0;
+}
+.css-xya8j6-MuiButtonBase-root-MuiButton-root:hover {
+  border: 1px solid #4BD2D2;
+  color: #4BD2D2;
+}
+
+
+/*Calendar Week Arrow*/
+.css-71a9mb-MuiButtonBase-root-MuiIconButton-root {
+  color:#84C7D0;
+}
+
+/*Calendar Week */
+.css-vnscjq-MuiButtonBase-root-MuiButton-root {
+  color: #84C7D0;
+}
+
+/*CALENDAR DAY OF WEEK */
+.css-1ydj9ep-MuiTableCell-root .Cell-highlightedText {
+  color: #84C7D0;
+}
+
+/*CALENDAR DAY OF MONTH */
+.css-i2thrp-MuiTableCell-root .Cell-highlightedText {
+  color: #4BD2D2;
+  font-weight: bold;
+}
+
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
   background: linear-gradient(0deg, rgba(132,199,208,1) 0%, rgba(176,180,212,1) 50%, rgba(176,180,212,1) 100%);
   color: #FFFFFF;
