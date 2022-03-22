@@ -1,6 +1,7 @@
 const MyCoursesExampleData = [
   {
     courseName: 'Database Workshop 1',
+    subject: 'Math',
     teacherName: 'Khristian Lopez',
     startTime: new Date(2022, 2, 20, 6, 0),
     endTime: new Date(2022, 2, 20, 9, 0),
@@ -10,6 +11,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'React Workshop 1',
+    subject: 'Math',
     teacherName: 'Quinton Maki',
     startTime: new Date(2022, 2, 21, 6, 0),
     endTime: new Date(2022, 2, 21, 7, 30),
@@ -19,6 +21,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'Fullstack Review 1',
+    subject: 'Science',
     teacherName: 'Josh Hertz',
     startTime: new Date(2022, 2, 22, 6, 0),
     endTime: new Date(2022, 2, 22, 7, 30),
@@ -28,6 +31,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'React Workshop 2',
+    subject: 'Literature',
     teacherName: 'Quinton Maki',
     startTime: new Date(2022, 2, 24, 6, 0),
     endTime: new Date(2022, 2, 24, 7, 30),
@@ -37,6 +41,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'How to Write a Meme',
+    subject: 'Literature',
     teacherName: 'Ben Bernardy',
     startTime: new Date(2022, 2, 24, 6, 0),
     endTime: new Date(2022, 2, 24, 7, 30),
@@ -46,6 +51,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'Blue Ocean Kick-off',
+    subject: 'History',
     teacherName: 'Quinton Bernardy',
     startTime: new Date(2022, 2, 24, 6, 0),
     endTime: new Date(2022, 2, 24, 7, 30),
@@ -55,6 +61,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'Mech Keys 101',
+    subject: 'Science',
     teacherName: 'Kevin Kim',
     startTime: new Date(2022, 2, 24, 6, 0),
     endTime: new Date(2022, 2, 24, 7, 30),
@@ -64,6 +71,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'Positive Mentality',
+    subject: 'Language',
     teacherName: 'Matt Chang',
     startTime: new Date(2022, 2, 24, 6, 0),
     endTime: new Date(2022, 2, 24, 7, 30),
@@ -73,6 +81,7 @@ const MyCoursesExampleData = [
   },
   {
     courseName: 'Positive Mentality',
+    subject: 'History',
     teacherName: 'Matt Chang',
     startTime: new Date(2022, 2, 24, 6, 0),
     endTime: new Date(2022, 2, 24, 7, 30),
