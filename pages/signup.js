@@ -46,9 +46,7 @@ export default function Signup() {
     return null;
   }
 
-
-
-  return !loading ? (
+  return (
     <div className={classes.root}>
       <Grid container
         spacing={0}
@@ -94,8 +92,6 @@ export default function Signup() {
         </Card>
       </Grid>
     </div>
-  ) : (
-    <div>Loading...</div>
   )
 
 }
