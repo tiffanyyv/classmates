@@ -1,5 +1,6 @@
 // Landing Page
 import Head from 'next/head'
+import Link from 'next/link'
 
 import {AppBar, Box, Toolbar, Typography, Button} from '@mui/material';
 

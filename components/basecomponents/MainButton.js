@@ -13,7 +13,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 export default function MainButton({ children, ...props }) {
 
   return (
-    <ColorButton variant="contained">{props.value}</ColorButton>
+    <ColorButton variant="contained" onClick={props.onClick}>{props.value}</ColorButton>
   )
 }
 
