@@ -11,6 +11,6 @@ export default async function getMenteeInfo(req, res) {
     const docSnap = await getDoc(docRef);
     res.status(200).json(docSnap.data());
   } catch (err) {
-    res.status(400).send(`Error adding new mentee: ${err}`);
+    res.status(400).send(`Error retrieving user info: ${err}`);
   }
 }

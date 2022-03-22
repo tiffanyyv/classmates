@@ -1,6 +1,6 @@
 // POST: /pages/mentors/index.js
 import { db } from '../../../utils/api/firebase.config';
-import { collection, doc, getDoc, addDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import defaultProfilePic from '../../../utils/constants/index';
 
 export default async function addMentor(req, res) {
@@ -14,7 +14,7 @@ export default async function addMentor(req, res) {
   } = req.body;
 
   try {
-    const docRef = await addDoc(collection(db, 'mentors'), {
+    const docRef = await setDoc(doc(db, 'mentors', uid), {
       courses: [],
       username,
       location,
