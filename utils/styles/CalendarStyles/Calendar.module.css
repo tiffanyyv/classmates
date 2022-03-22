@@ -3,3 +3,7 @@
   border-radius: 20px;
   overflow: hidden;
 }
+
+.calendarContainer {
+  margin-right: 4%;
+}

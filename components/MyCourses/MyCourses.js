@@ -83,7 +83,6 @@ export default function MyCourses({ course }) {
                 <DialogTitle>Update Course Info</DialogTitle>
                 <DialogContent>
                   <TextField
-                    error
                     autoFocus
                     margin="dense"
                     // id="courseName"
