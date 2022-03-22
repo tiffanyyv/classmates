@@ -1,5 +1,5 @@
-// GET: /pages/api/endorsements/mentors/[mentor_id].js
-// PUT: /pages/api/endorsements/mentors/[mentor_id].js
+// GET: /pages/api/endorsements/users/[user_id].js
+// PUT: /pages/api/endorsements/users/[user_id].js
 
 import { db } from '../../../../utils/api/firebase.config';
 import {
@@ -15,35 +15,35 @@ import {
   increment
 } from "firebase/firestore";
 
-export default async function getAndUpdateMentorEndorsements(req, res) {
+export default async function getAndUpdateUserEndorsements(req, res) {
   const {
-    query: { mentor_id },
+    query: { user_id },
     method
   } = req;
 
   switch (method) {
     case 'GET':
-      /* getMentorEndorsements */
+      /* getUserEndorsements */
       try {
-        const docRef = doc(db, 'mentors', mentor_id);
+        const docRef = doc(db, 'users', user_id);
         const docSnap = await getDoc(docRef);
         const result = docSnap.data().endorsements;
         res.status(200).json(result);
       } catch (err) {
-        res.status(400).send(`Error retrieving endorsements for mentor ${mentor_id}: ${err}`);
+        res.status(400).send(`Error retrieving endorsements for user ${user_id}: ${err}`);
       }
       break
     case 'PUT':
-      /* updateMentorEndorsements */
+      /* updateUserEndorsements */
       try {
-        const docRef = doc(db, 'mentors', mentor_id);
-        // auto increments endosements of mentor by 1
+        const docRef = doc(db, 'users', user_id);
+        // auto increments endosements of user by 1
         const docSnap = await updateDoc(docRef, {
           endorsements: increment(1)
         });
-        res.status(200).send(`Successfully updated endorsements for mentor ${mentor_id}`);
+        res.status(200).send(`Successfully updated endorsements for user ${user_id}`);
       } catch (err) {
-        res.status(400).send(`Error updating endorsements for mentor ${mentor_id}, ${err}`);
+        res.status(400).send(`Error updating endorsements for user ${user_id}, ${err}`);
       }
 
       break

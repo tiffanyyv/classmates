@@ -1,9 +1,11 @@
-// POST: /pages/mentors/index.js
+// POST: /pages/users/index.js
+
 import { db } from '../../../utils/api/firebase.config';
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { defaultProfilePic }from '../../../utils/constants/index';
+import { defaultProfilePic } from '../../../utils/constants/index';
+console.log(defaultProfilePic);
 
-export default async function addMentor(req, res) {
+export default async function addUser(req, res) {
   const {
     account_type,
     firstName,
@@ -14,7 +16,7 @@ export default async function addMentor(req, res) {
   } = req.body;
 
   try {
-    const docRef = await setDoc(doc(db, 'mentors', uid), {
+    const docRef = await setDoc(doc(db, 'users', uid), {
       courses: [],
       username,
       location,
@@ -29,11 +31,11 @@ export default async function addMentor(req, res) {
       description: ''
     });
 
-    res.status(200).json(`Successfully posted mentor`);
+    res.status(200).json(`Successfully posted user`);
 
   } catch (err) {
 
-    res.status(400).send(`Error posting new mentor: ${err}`);
+    res.status(400).send(`Error posting new user: ${err}`);
 
   }
 }
