@@ -1,9 +1,9 @@
 // ClassCatalog widget
 import MainButton from '../../components/basecomponents/MainButton.js';
 
-export default function ClassCatalog() {
+export default function CourseCatalog() {
   return (
-    <div className='pageData'>Class Catalog
+    <div className='pageData'>Course Catalog
     <MainButton value="Search"/>
     </div>
   )
