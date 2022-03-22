@@ -1,12 +1,7 @@
 .profileContainer {
-  /* background-color: yellow; */
   display: flex;
   flex-direction: row;
   word-wrap: normal;
-}
-
-.profilePic {
-  /* background-color: blue; */
 }
 
 @media (max-width: 960px) {

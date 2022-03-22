@@ -1,11 +1,10 @@
-// Profile View
-
 import { useState, useEffect } from 'react';
 import { Avatar } from '@mui/material';
 import styles from '../../utils/styles/Profiles.module.css';
 import defaultProfilePic from '../../utils/constants';
 
 // word-wrap normal in the global page
+// add user type: teacher or student
 export default function MyProfile(props) {
   const [userType, setUserType] = useState('mentor');
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+
 import { Avatar } from '@mui/material';
+
 import styles from '../../utils/styles/Profiles.module.css';
 import defaultProfilePic from '../../utils/constants';
 
@@ -9,6 +11,7 @@ export default function StudentProfile(props) {
 
   // increment with axios put request
   // re render page with new count
+  // add user type: teacher or student
   const handleUpvoteStudent = () => {
     setCurrentStudentRecommend(currentStudentRecommend++);
   }
