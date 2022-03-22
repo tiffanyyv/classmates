@@ -1,4 +1,4 @@
-# Classmates online mentorship
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Table of contents
 TBA
@@ -14,6 +14,8 @@ npm install
 Runs development server:
 ```bash
 npm run dev
+# or
+yarn dev
 ```
 Will be running on [http://localhost:3000](http://localhost:3000)
 This script will also run webpack and auto refresh the page whenever you make changes.
@@ -43,7 +45,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 ### Pull requests
 Please follow feature branch workflow and the guide outlined in the google drive. For all pull request please tag Chris (cmjosephs) and another member working on a similar module for code review and pull request approval.
 
-## Official Documentation
+## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -52,3 +54,8 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/)
 
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
