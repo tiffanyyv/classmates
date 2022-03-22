@@ -20,7 +20,7 @@ import MainButton from '../basecomponents/MainButton.js'
 
 export default function CreateClassModal ()  {
   const [subject, setSubject] = useState('');
-  const [privacy, setPrivacy] = useState('');
+  const [type, setType] = useState('');
   const [newStartTime, setNewStartTime] = useState(null);
   const [newEndTime, setNewEndTime] = useState(null);
   const [classObj, setClassObj] = useState({});
@@ -33,12 +33,12 @@ export default function CreateClassModal ()  {
 
   return (
     <div>
-      <FormControl component="fieldset" required>
+      <FormControl component="fieldset" required sx={{width: '50%', display: 'flex', flexWrap: 'nowrap'}}>
         <DialogTitle>Create a Class</DialogTitle>
           {/* <InputLabel>Class Name</InputLabel> */}
 
           <TextField
-            name="CourseName"
+            name="name"
             margin="dense"
             label="New Course Name"
             type="text"
@@ -48,6 +48,21 @@ export default function CreateClassModal ()  {
             // focused
             onChange={handleChange}
             placeholder="Enter a course name"
+          />
+
+          <TextField
+            multiline
+            rows={4}
+            name="description"
+            margin="dense"
+            label="Course Description"
+            type="text"
+            fullWidth
+            // variant="standard"
+            color='primary'
+            // focused
+            onChange={handleChange}
+            placeholder="Describe your course"
           />
 
           <FormControl>
@@ -61,10 +76,12 @@ export default function CreateClassModal ()  {
               handleChange(e);
               setSubject(e.target.value);
             }}
-            sx={{ width: 300 }}>
+            >
             <MenuItem value="Math">Math</MenuItem>
             <MenuItem value="Science">Science</MenuItem>
-            <MenuItem value="English">English</MenuItem>
+            <MenuItem value="History">History</MenuItem>
+            <MenuItem value="Literature">Literature</MenuItem>
+            <MenuItem value="Language">Language</MenuItem>
           </Select>
         </FormControl>
 
@@ -73,7 +90,7 @@ export default function CreateClassModal ()  {
             renderInput={(props) => <TextField {...props}/>}
             label="New Start Time"
             value={newStartTime}
-            name="newStartTime"
+            name="start_date"
             onChange={(newTimeValue) => {
               setClassObj({ ...classObj, 'startTime': newTimeValue})
               setNewStartTime(newTimeValue)
@@ -85,7 +102,7 @@ export default function CreateClassModal ()  {
           <DateTimePicker
             renderInput={(props) => <TextField {...props}/>}
             label="New End Time"
-            name="newEndTime"
+            name="end_date"
             value={newEndTime}
             onChange={(newTimeValue) => {
               setClassObj({ ...classObj, 'endTime': newTimeValue});
@@ -93,21 +110,30 @@ export default function CreateClassModal ()  {
             }}
           />
         </LocalizationProvider>
-
-          {/* <DialogTitle>Privacy Settings</DialogTitle> */}
+        <TextField
+            name="meeting_url"
+            margin="dense"
+            label="Classroom Link"
+            type="text"
+            fullWidth
+            // variant="standard"
+            color='primary'
+            onChange={handleChange}
+            placeholder="Please enter your Zoom Meeting Room Link"
+          />
         <FormControl>
-          <InputLabel>Privacy Settings</InputLabel>
-          <Select label="Privacy Settings" defaultValue="Privacy" value={privacy} name="privacy" onChange={(e) => {
+          <InputLabel>Privacy Type Settings</InputLabel>
+          <Select label="Privacy Type Settings" defaultValue="Privacy" value={type} name="type" onChange={(e) => {
             handleChange(e);
-            setPrivacy(e.target.value);
+            setType(e.target.value);
           }}
-          sx={{width: 300 }}>
+          >
             <MenuItem value="Public">Public</MenuItem>
             <MenuItem value="Private">Private</MenuItem>
           </Select>
         </FormControl>
           <TextField
-            name="ClassSize"
+            name="capacity"
             margin="dense"
             label="Class Size"
             type="Number"
@@ -122,42 +148,3 @@ export default function CreateClassModal ()  {
    </div>
   )
 }
-
-// <DialogTitle>Update Course Info</DialogTitle>
-//                 <DialogContent>
-//                   <TextField
-//                     error
-//                     autoFocus
-//                     margin="dense"
-//                     // id="courseName"
-//                     label="New Course Name"
-//                     type="text"
-//                     fullWidth
-//                     variant="standard"
-//                     color='info'
-//                     focused
-//                     onChange={(e) => setNewCourseName(e.target.value)}
-//                   />
-//                   <LocalizationProvider dateAdapter={AdapterDateFns}>
-//                     <DateTimePicker
-//                       renderInput={(props) => <TextField {...props}/>}
-//                       label="New Start Time"
-//                       value={newStartTime}
-//                       onChange={(newValue) => {
-//                         setNewStartTime(newValue);
-//                         // setCurrStartTime(newValue);
-//                       }}
-//                     />
-//                   </LocalizationProvider>
-//                   <LocalizationProvider dateAdapter={AdapterDateFns}>
-//                     <DateTimePicker
-//                       renderInput={(props) => <TextField {...props} />}
-//                       label="New End Time"
-//                       value={newEndTime}
-//                       onChange={(newValue) => {
-//                         setNewEndTime(newValue);
-//                         // setCurrEndTime(newValue);
-//                       }}
-//                     />
-//                   </LocalizationProvider>
-//                 </DialogContent>
