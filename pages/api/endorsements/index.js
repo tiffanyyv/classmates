@@ -3,14 +3,10 @@ import { db } from '../../../utils/api/firebase.config';
 import {
   collection,
   query,
-  where,
   doc,
-  getDoc,
   getDocs,
   orderBy,
   limit,
-  updateDoc,
-  increment
 } from "firebase/firestore";
 
 export default async function getTopEndorsements(req, res) {
