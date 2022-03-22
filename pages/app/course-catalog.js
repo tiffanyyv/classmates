@@ -37,7 +37,7 @@ export default function CourseCatalog() {
 
   // if search input not empty, filter based on inputted course name/teacher name
   const handleSearchSubmit = () => {
-    if (searchInput !== '') {
+    if (searchInput) {
       let filteredCourses = allCourses.filter(course => {
         return course.courseName.toLowerCase().includes(searchInput.toLowerCase()) || course.teacherName.toLowerCase().includes(searchInput.toLowerCase())
       })
@@ -49,7 +49,7 @@ export default function CourseCatalog() {
 
   // if category set to all, display all courses. otherwise, filter based on current selected category
   const filterCategories = () => {
-    if (currentCategory === 'all' || searchInput === '') {
+    if (searchInput || currentCategory === 'all') {
       setDisplayCourses(allCourses)
     } else {
       let filteredCourses = allCourses.filter(course => {
