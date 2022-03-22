@@ -30,20 +30,21 @@ export default async function getAndCreateCourses(req, res) {
   console.log(req);
   switch (method) {
     case 'GET':
+      /* getCourses */
       try {
         const querySnapshot = await getDocs(collection(db, 'courses'));
         const result = [];
         querySnapshot.forEach(doc => {
           result.push(doc.data());
         })
-        console.log('all courses: ', result);
         res.status(200).json(result);
       } catch (err) {
-        console.log('Error retrieving courses');
         res.status(400).send(`Error retrieving classes: ${err}`);
       }
+
       break
     case 'POST':
+      /* createNewCourse */
       const {
         capacity,
         description,
@@ -82,7 +83,6 @@ export default async function getAndCreateCourses(req, res) {
           photo: coursePhotos[subject],
           type
         });
-        console.log("Document written with ID: ", docRef.id);
         res.status(200).json(`Successfully posted course`);
       } catch (err) {
         res.status(400).send(`Error posting new course: ${err}`);
