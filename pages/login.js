@@ -17,7 +17,7 @@ export default function Login() {
   const classes = useStyles();
   const router = useRouter();
 
-  const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext(); // check if user context import is necessary
+  const { user, login, signInWithGoogle, signInWithFacebook, userUid } = useAuthContext(); // check if user context import is necessary
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -50,9 +50,10 @@ export default function Login() {
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
+          {console.log(userUid)}
           <form onSubmit={(e) => handleStandardLogin(e)} sx={{my:3}}>
-            <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{my:2}} disableUnderline='true' onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
+            <Input sx={{my:2}} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
+            <Input sx={{my:2}} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
             <Button sx={{my:2}} type='submit' className={classes.loginButton}>Login</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>

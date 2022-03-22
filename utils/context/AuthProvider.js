@@ -18,11 +18,13 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
+  const [userUid, setUserUid] = useState('')
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
       .then(async (response) => {
         body['uid'] = response.user.uid
+        setUserUid(response.user.uid)
         if (body.account_type === 'Mentor') {
            await fetch('/api/pages/mentors/index.js', {
             method: 'POST',
@@ -98,7 +100,7 @@ export function AuthProvider({ children }) {
       value={{
         user, loading, error,
         signup, login, logout,
-        signInWithGoogle, signInWithFacebook
+        signInWithGoogle, signInWithFacebook, userUid
       }}
     >
       {children}
