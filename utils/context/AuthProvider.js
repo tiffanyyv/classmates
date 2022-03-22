@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios'
 import { useRouter } from 'next/router';
 import {
   GoogleAuthProvider,
@@ -19,11 +20,26 @@ export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
 
-  const signup = (email, password, username) => {
-     createUserWithEmailAndPassword(auth, email, password)
+  const signup = (body) => {
+     createUserWithEmailAndPassword(auth, body.email, body.password)
       .then((response) => {
+         body['uid'] = response.user.uid
+        if (body.account_type === 'Mentor') {
+          axios.post('/pages/mentors/index.js', body)
+            .then(res => {
+              console.log(res)
+            }).catch(err => {
+              console.error(err.message)
+            })
+        } else {
+          axios.post('/pages/mentees/index.js', body)
+            .then(res => {
+              console.log(res)
+            }).catch(err => {
+              console.error(err.message)
+            })
+        }
         router.push('/app/my-courses')
-        console.log(response)
       })
       .catch((err) => {
         console.warn('Problem with sign up: ', err.message);

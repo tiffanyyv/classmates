@@ -36,7 +36,7 @@ export default function Login() {
     login(loginInfo.email, loginInfo.password)
   }
   if (user) {
-    router.push('/app')
+    router.push('/app/my-courses')
     return null;
   }
   return(
