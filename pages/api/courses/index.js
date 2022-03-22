@@ -8,10 +8,7 @@ import {
   getDocs,
   addDoc,
   query,
-  where,
-  deleteDoc,
-  updateDoc,
-  Timestamp
+  where
 } from "firebase/firestore";
 
 const coursePhotos = {
