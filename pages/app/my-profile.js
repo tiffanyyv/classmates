@@ -1,8 +1,34 @@
-// Profile View
-import { Image } from 'next/image';
+import { useState, useEffect } from 'react';
+import { Avatar } from '@mui/material';
+import styles from '../../utils/styles/Profiles.module.css';
+import {defaultProfilePic, defaultProfilePicDims} from '../../utils/constants';
 
-export default function MyProfile() {
+// word-wrap normal in the global page
+// add user type: teacher or student
+export default function MyProfile(props) {
+  const [userType, setUserType] = useState('mentor');
+
   return (
-    <div className='pageData'>My Profile</div>
+    <div className="pageData">
+      <div className={styles.profileContainer}>
+          <div className={styles.profilePic}>
+            <Avatar
+              className="my-profile-view-avatar"
+              alt="My Profile Picture"
+              src={defaultProfilePic}
+              sx={defaultProfilePicDims}
+            /></div>
+        <div className={styles.profileDescription}>
+          <h2>Current User</h2>
+          <h3>Location</h3>
+          <p>Description</p>
+        </div>
+      </div>
+        {userType === 'mentor' && <div>Recommended:</div>}
+    </div>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e3e88ca562ffd1148e1d21b671c3a554a8c6983c

@@ -18,13 +18,11 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-  const [userUid, setUserUid] = useState('')
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
       .then(async (response) => {
         body['uid'] = response.user.uid
-        setUserUid(response.user.uid)
         if (body.account_type === 'Mentor') {
            await fetch('/api/pages/mentors/index.js', {
             method: 'POST',
@@ -52,14 +50,13 @@ export function AuthProvider({ children }) {
   const login = (email, password) => {
     console.log(email, password)
     return signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        // need to set redirect to /[username]/dashboard
-        // need to set success state
+      .then(async (response) => {
+        var response = await fetch(`/api/users/${user.uid}`)
+        var jsonData = await response.json();
         router.push('/app/my-courses');
-        console.log(response)
+        console.log(jsonData)
       })
       .catch((err) => {
-        // needs to set an error state
         console.warn('Problem with log in: ', err.message);
       })
   }
@@ -73,8 +70,9 @@ export function AuthProvider({ children }) {
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(res => {
-        console.log(res)
+      .then(async response => {
+        var response = await fetch(`/api/users/${user.uid}`)
+        var jsonData = await response.json();
         router.push('/app/my-courses');
 
       })
@@ -85,7 +83,9 @@ export function AuthProvider({ children }) {
   const signInWithFacebook = () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then(res => {
+      .then(async response => {
+        var response = await fetch(`/api/users/${user.uid}`)
+        var jsonData = await response.json();
         console.log(res)
         router.push('/app/my-courses');
 
@@ -100,7 +100,7 @@ export function AuthProvider({ children }) {
       value={{
         user, loading, error,
         signup, login, logout,
-        signInWithGoogle, signInWithFacebook, userUid
+        signInWithGoogle, signInWithFacebook
       }}
     >
       {children}

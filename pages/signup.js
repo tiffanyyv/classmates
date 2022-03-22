@@ -1,7 +1,7 @@
 import { auth } from '../utils/api/firebase.config'
 
 import { useAuthContext } from '../utils/context/AuthProvider';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
@@ -20,6 +20,7 @@ export default function Signup() {
   const classes = useStyles();
   const router = useRouter();
   const [accountType, setAccountType] = useState('')
+  const [filledFormFlag, setFilledFormFlag] = useState('true')
   const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [signupInfo, setSignupInfo] = useState({
     username: '',
@@ -30,6 +31,12 @@ export default function Signup() {
     account_type: '',
     location: '',
   });
+
+  useEffect(() => {
+    if (accountType.length > 0 ) {
+      setFilledFormFlag(false)
+    }
+  },[accountType])
 
   const handleSignUpFormInput = (text, field) => {
     setSignupInfo({
@@ -85,8 +92,8 @@ export default function Signup() {
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton}>Create Account</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>
-            <Button sx={{ my: 2 }} onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
-            <Button onClick={signInWithFacebook} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+            <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
+            <Button onClick={signInWithFacebook} disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
           </div>
           <p><a href="/">Go Home</a></p>
         </Card>
