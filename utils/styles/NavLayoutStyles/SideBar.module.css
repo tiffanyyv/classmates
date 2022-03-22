@@ -21,3 +21,29 @@
   font-weight: bold;
 }
 
+.mentorPlacement {
+  margin-right: 5px;
+}
+
+.mentorName {
+  width: 125px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mentorEndorsements {
+  margin-left: 5px;
+}
+
+.leaderboardButton {
+  margin-right: 2vw;
+  margin-top: 0.5vh;
+  height: 38px;
+  border-radius: 5px;
+  background-color: #B0B4D4;
+}
+
+.leaderboardButtonText {
+  margin-top: 2%;
+  color: #ffffff;
+}
