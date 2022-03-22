@@ -21,23 +21,25 @@ export function AuthProvider({ children }) {
   const router = useRouter();
 
   const signup = (body) => {
-     createUserWithEmailAndPassword(auth, body.email, body.password)
-      .then((response) => {
-         body['uid'] = response.user.uid
+    createUserWithEmailAndPassword(auth, body.email, body.password)
+      .then(async (response) => {
+        body['uid'] = response.user.uid
         if (body.account_type === 'Mentor') {
-          axios.post('/api/pages/mentors/index.js', body)
-            .then(res => {
-              console.log(res)
-            }).catch(err => {
-              console.warn(err.message)
-            })
+           await fetch('/api/pages/mentors/index.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: body,
+          });
         } else {
-          axios.post('/api/pages/mentees/index.js', body)
-            .then(res => {
-              console.log(res)
-            }).catch(err => {
-              console.warn(err.message)
-            })
+          await fetch('/api/pages/mentees/index.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: body,
+          });
         }
         router.push('/app/my-courses')
       })
@@ -49,12 +51,12 @@ export function AuthProvider({ children }) {
   const login = (email, password) => {
     console.log(email, password)
     return signInWithEmailAndPassword(auth, email, password)
-    .then((response) => {
-      // need to set redirect to /[username]/dashboard
-      // need to set success state
-      router.push('/app/my-courses');
-      console.log(response)
-    })
+      .then((response) => {
+        // need to set redirect to /[username]/dashboard
+        // need to set success state
+        router.push('/app/my-courses');
+        console.log(response)
+      })
       .catch((err) => {
         // needs to set an error state
         console.warn('Problem with log in: ', err.message);
