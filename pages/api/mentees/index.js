@@ -14,7 +14,7 @@ export default async function addMentee(req, res) {
   } = req.body;
 
   try {
-    const docRef = await addDoc(collection(db, 'courses'), {
+    const docRef = await addDoc(collection(db, 'mentees'), {
       courses: [],
       username,
       location,
@@ -29,11 +29,11 @@ export default async function addMentee(req, res) {
       description: ''
     });
 
-    res.status(200).json(`Successfully posted course`);
+    res.status(200).json(`Successfully posted mentee`);
 
   } catch (err) {
 
-    res.status(400).send(`Error posting new course: ${err}`);
+    res.status(400).send(`Error posting new mentee: ${err}`);
 
   }
 }
