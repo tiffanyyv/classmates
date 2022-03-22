@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Avatar } from '@mui/material';
 import styles from '../../utils/styles/Profiles.module.css';
-import defaultProfilePic from '../../utils/constants';
+import {defaultProfilePic, defaultProfilePicDims} from '../../utils/constants';
 
 // word-wrap normal in the global page
 // add user type: teacher or student
@@ -16,7 +16,7 @@ export default function MyProfile(props) {
               className="my-profile-view-avatar"
               alt="My Profile Picture"
               src={defaultProfilePic}
-              sx={{ width: 300, height: 300 }}
+              sx={defaultProfilePicDims}
             /></div>
         <div className={styles.profileDescription}>
           <h2>Current User</h2>

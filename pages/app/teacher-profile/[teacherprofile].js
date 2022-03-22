@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { Avatar } from '@mui/material';
 
-import styles from '../../utils/styles/Profiles.module.css';
-import defaultProfilePic from '../../utils/constants';
+import styles from '../../../utils/styles/Profiles.module.css';
+import {defaultProfilePic, defaultProfilePicDims} from '../../../utils/constants';
 
 export default function TeacherProfile(props) {
   const [userType, setUserType] = useState('mentor');
@@ -13,11 +13,11 @@ export default function TeacherProfile(props) {
   // re render page with new count
   // add user type: teacher or student
   const handleUpvoteTeacher = () => {
-    setCurrentTeacherRecommend(currentTeacherRecommend++);
+    setCurrentTeacherRecommend(currentTeacherRecommend + 1);
   }
 
   const handleDownvoteTeacher = () => {
-    setCurrentTeacherRecommend(currentTeacherRecommend--);
+    setCurrentTeacherRecommend(currentTeacherRecommend - 1);
   }
 
   return (
@@ -28,7 +28,7 @@ export default function TeacherProfile(props) {
               className="my-profile-view-avatar"
               alt="Teacher Profile Picture"
               src={defaultProfilePic}
-              sx={{ width: 300, height: 300 }}
+              sx={defaultProfilePicDims}
             /></div>
         <div className={styles.profileDescription}>
           <h2>Current User</h2>
@@ -41,8 +41,8 @@ export default function TeacherProfile(props) {
           <div>
             <div>Would you recommend this teacher?</div>
             <span onClick={handleUpvoteTeacher}>Yes</span>
-            <span>{" "}|{" "}</span>
-            <span onClick={handleDownvoteStudent}>No</span>
+            <span> | </span>
+            <span onClick={handleDownvoteTeacher}>No</span>
           </div>
         }
     </div>

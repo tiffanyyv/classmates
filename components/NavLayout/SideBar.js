@@ -14,7 +14,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
-import defaultProfilePic from '../../utils/constants';
+import {defaultProfilePic} from '../../utils/constants';
 import styles from '../../utils/styles/NavLayoutStyles/SideBar.module.css';
 import { openedMixin, closedMixin, SideBarDrawerHeader, SideBarAppBar, SideBarDrawer } from '../../components/basecomponents/SideBarStyles.js';
 
@@ -69,14 +69,12 @@ export default function SideBar({ children, ...props }) {
           </Typography>
           <Container className={styles.profileIcon} sx={{ flexGrow: 0 }}>
             <Typography className={styles.profileName}>Current User</Typography>
-            <Link href="/app/my-profile">
             <Avatar
               className={styles.profileAvatar}
               alt="Remy Sharp"
               src={defaultProfilePic}
               sx={{ width: 50, height: 50 }}
             />
-            </Link>
           </Container>
         </Toolbar>
       </SideBarAppBar>
