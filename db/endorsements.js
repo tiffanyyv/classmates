@@ -1,10 +1,21 @@
 // https://firebase.google.com/docs/firestore/quickstart
 import { app, db } from './firestoreConfigPH';
-import { collection, query, where, doc, getDoc, getDocs, orderBy, limit } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  limit,
+  updateDoc,
+  increment
+} from "firebase/firestore";
 
 /* READ */
-// should be top 10 percentile
-const getTopRankings = async (req, res) => {
+
+const getTopEndorsements = async (req, res) => {
   try {
     const q = query(collection(db, 'mentors'), orderBy('endorsements', 'desc'), limit(10));
     const querySnapshot = await getDocs(q);
@@ -28,7 +39,7 @@ const getTopRankings = async (req, res) => {
 };
 
 // getMentorRankings
-const getMentorRankings = async (req, res) => {
+const getMentorEndorsements = async (req, res) => {
   // let { id } = req.query
   let id = '1';
 
@@ -46,14 +57,24 @@ const getMentorRankings = async (req, res) => {
 };
 
 // updateMentorRanking
-const updateMentorRanking = async (req, res) => {
+// https://firebase.google.com/docs/firestore/manage-data/add-data
+const updateMentorEndorsements = async (req, res) => {
 
+  const { id } = req.query; // mentor uid
+  try {
+    const docRef = doc(db, 'mentors', id);
+    // auto increments endosements of mentor by 1
+    const docSnap = await updateDoc(docRef, {
+      endorsements: increment(1)
+    });
 
+    console.log('updated mentor endorsements: ', docSnap);
+    // res.send(result);
+  } catch (err) {
+    console.log('No such document', err);
+    // res.status(400).send(err);
+  }
 }
 
-// updateMenteeRanking
-const updateMenteeRanking = async (req, res) => {
 
-}
-
-export { getTopRankings, getMentorRankings, updateMentorRanking, updateMenteeRanking };
+export { getTopEndorsements, getMentorEndorsements, updateMentorEndorsements};

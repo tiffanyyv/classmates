@@ -1,5 +1,16 @@
-import { collection, doc, getDoc, getDocs, addDoc, query, where, Timestamp } from "firebase/firestore";
 import { db } from './firestoreConfigPH';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  deleteDoc,
+  updateDoc,
+  Timestamp
+} from "firebase/firestore";
 
 const coursePhotos = {
   'Science': 'https://epi-rsc.rsc-cdn.org/globalassets/05-journals-books-databases/our-journals/00-journal-pages-heros/Chemical-Science-HERO.jpg?version=9e72b3c3',
@@ -49,7 +60,7 @@ const getCoursesById = async (req, res) => {
 // getCoursesByMentorId
 const getCoursesByMentorId = async (req, res) => {
   // get mentor's uid from req.query
-  let id = 1;
+  let id = '1';
 
   try {
     const q = query(collection(db, 'courses'), where('mentor.id', '==', id));
@@ -70,14 +81,20 @@ const getCoursesByMentorId = async (req, res) => {
 // https://firebase.google.com/docs/firestore/query-data/queries#array_membership
 const getCoursesByMenteeId = async (req, res) => {
   // get mentorId from req.query
-  let id = 1;
+  let mentor_id = Number('1');
 
   try {
-    const q = query(collection(db, 'courses'), where('mentees', 'array-contains', id));
+
+    const coursesQuery = query(collection(db, 'courses'));
     const result = [];
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(coursesQuery);
     querySnapshot.forEach(doc => {
-      result.push(doc.data());
+      const menteeList =  doc.data().mentees;
+      menteeList.forEach(mentee => {
+        if (mentee.id === id) {
+          result.push(mentee);
+        }
+      })
     });
     console.log('courses by mentee id ', result);
     // res.json(result);
@@ -140,9 +157,8 @@ const createNewCourse = async (req, res) => {
   let meetingUrl = '';
   let photo = coursePhotos[name];
 
-  // https://firebase.google.com/docs/reference/android/com/google/firebase/Timestamp
   try {
-    const docRef = await addDoc(doc(db, 'classes'), {
+    const docRef = await addDoc(collection(db, 'courses'), {
       name: name,
       "start_date": startDate.toISOString(),
       "end_date": endDate.toISOString(),
@@ -161,32 +177,33 @@ const createNewCourse = async (req, res) => {
       "meeting_url": meetingUrl,
       photo: photo
     });
-    console.log("Document written with ID: ", docRef.id);
+    console.log("Document written with ID: ", docRef);
   } catch (err) {
-    console.log('Error posting new class: ', err);
+    console.log('Error posting new course: ', err);
   }
 }
 
 /* UPDATE */
-//updateCourseStudentList
-const updateCourseStudentList = async (req, res) => {
-
-}
-
-
 //updateCourseInfo
 const updateCourseInfo = async (req, res) => {
+  // get courseId from req.query
   // let { id } = req.query;
-  let id = '1'
-
+  // get parameters to change from req.body
 
 }
 
 /* DELETE */
-//removeClass
-const removeClass = (req, res) => {
-
-}
+//removeCourse
+const removeCourse = async (req, res) => {
+  // grab course id from req.query
+  let id = 'ByrYv9GozbxkpzTjoLiO';
+  try {
+    const querySnapshot = await deleteDoc(doc(db, 'courses', id));
+    console.log(querySnapshot);
+  } catch (err) {
+    console.log(`Error deleting course ${id}: ${err}`);
+  }
+};
 
 module.exports = {
   getCourses,
@@ -196,4 +213,5 @@ module.exports = {
   getCoursesBySubjectName,
   getAllSubjects,
   createNewCourse,
+  removeCourse
 };
