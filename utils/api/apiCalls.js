@@ -78,7 +78,7 @@ export const getAllSubjects = () => {
 
 export const getCoursesBySubjectName = (subject_name) => {
   return axios.get(`http://localhost:3000/api/courses/subjects/${subject_name}`)
-    .then(({ data }) => console.log(data))
+    .then(({ data }) => data)
     .catch(err => console.warn(err));
 }
 
@@ -117,21 +117,21 @@ export const addUser = (body) => {
 /* userId === uid (same as mentor/mentee id) */
 export const getUserInfo = (userId) => {
   return axios.get(`http://localhost:3000/api/users/${userId}`)
-    .then(({ data }) => console.log(data))
+    .then(({ data }) => data)
     .catch(err => console.warn(err));
 }
 
 /* ENDORSEMENTS */
 export const getTopEndorsements = () => {
   return axios.get('http://localhost:3000/api/endorsements')
-    .then(({ data }) => console.log(data))
+    .then(({ data }) => data)
     .catch((err) => console.warn(err.message));
 }
 
 /* userId === uid (same as mentor/mentee id) */
 export const getUserEndorsements = (user_id) => {
   return axios.get(`http://localhost:3000/api/endorsements/users/${user_id}`)
-    .then(({ data }) => console.log(data))
+    .then(({ data }) => data)
     .catch((err) => console.warn(err.message));
 }
 

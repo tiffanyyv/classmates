@@ -54,12 +54,12 @@ export default function CourseCatalogCard({ course }) {
       <CardMedia
         component="img"
         height="175"
-        image={course.courseThumbnail}
+        image={course.photo}
         alt=""
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
-          {course.courseName}
+          {course.name}
         </Typography>
 
         <Stack spacing={1}>
@@ -67,7 +67,7 @@ export default function CourseCatalogCard({ course }) {
             <strong>Subject: </strong>{course.subject}
           </Typography>
           <Stack direction="row" spacing={1}>
-            <Link href={`/app/teacher-profile/${course.teacherName}`} passHref>
+            <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
               <Avatar
                 alt="Teacher Avatar"
                 src={defaultProfilePic}
@@ -76,7 +76,7 @@ export default function CourseCatalogCard({ course }) {
               />
             </Link>
             <Typography variant="body2" color="text.secondary">
-              <strong>{course.teacherName}</strong>
+              <strong>{course.mentor.name.first_name} {course.mentor.name.last_name}</strong>
             </Typography>
           </Stack>
 
@@ -85,12 +85,12 @@ export default function CourseCatalogCard({ course }) {
             <Dialog onClose={handleShowCourseInfo} open={showCourseInfo} fullWidth={true}>
               <DialogTitle>Course Info</DialogTitle>
               <DialogContent>
-                <DialogContentText><strong>Course Name:</strong> {course.courseName}</DialogContentText>
+                <DialogContentText><strong>Course Name:</strong> {course.name}</DialogContentText>
                 <DialogContentText><strong>Subject:</strong> </DialogContentText>
-                <DialogContentText><strong>Taught By:</strong> {course.teacherName}</DialogContentText>
-                <DialogContentText><strong>Course Begins:</strong> {`${course.startTime}`}</DialogContentText>
-                <DialogContentText><strong>Course Ends:</strong> {`${course.endTime}`}</DialogContentText>
-                <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.zoomLink)}/>
+                <DialogContentText><strong>Taught By:</strong> {course.mentor.name.first_name} {course.mentor.name.last_name}</DialogContentText>
+                <DialogContentText><strong>Course Begins:</strong> {`${course.start_date}`}</DialogContentText>
+                <DialogContentText><strong>Course Ends:</strong> {`${course.end_date}`}</DialogContentText>
+                <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
               </DialogContent>
             </Dialog>
 
@@ -99,9 +99,11 @@ export default function CourseCatalogCard({ course }) {
             <Dialog onClose={handleShowStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Attendance List</DialogTitle>
               <DialogContent>
-                {course.studentList.map((student, index) => (
-                  <Stack direction="row" spacing={1}>
-                    <Link href={`/app/student-profile/${student}`} passHref>
+                {course.mentees.length === 0 &&
+                <DialogContentText>No Students Currently Attending</DialogContentText>}
+                {course.mentees.map((student, index) => (
+                  <Stack direction="row" spacing={1} key={`${index}`}>
+                    <Link href={`/app/student-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
                       <Avatar
                         alt="Student Avatar"
                         src={defaultProfilePic}
@@ -109,7 +111,7 @@ export default function CourseCatalogCard({ course }) {
                         className={styles.cardUserAvatar}
                       />
                     </Link>
-                    <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
+                    <DialogContentText >{student.name.first_name} {student.name.last_name}</DialogContentText>
                   </Stack>
                 ))}
               </DialogContent>

@@ -28,11 +28,13 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(index);
-  const [userType, setUserType] = useState('mentor');
 
-  const [newCourseName, setNewCourseName] = useState(course.courseName);
-  const [newStartTime, setNewStartTime] = useState(course.startTime);
-  const [newEndTime, setNewEndTime] = useState(course.endTime);
+  const [newCourseName, setNewCourseName] = useState(course.name);
+  const [newStartTime, setNewStartTime] = useState(course.start_date);
+  const [newEndTime, setNewEndTime] = useState(course.end_date);
+
+  const [userType, setUserType] = useState('mentor');
+  const [userID, setUserID] = useState(51);
 
   const handleStudentList = () => {
     if (userType === 'mentor') {
@@ -42,7 +44,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
   const handleEditModal = () => {
     setEditCourseInfo(!editCourseInfo)
-    setNewCourseName(course.courseName)
+    setNewCourseName(course.name)
   }
 
   const handleSubmitEditCourse = () => {
@@ -59,13 +61,13 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
       <CardMedia
         component="img"
         height="175"
-        image={course.courseThumbnail}
+        image={course.photo}
         alt=""
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           <Stack direction="row">
-            {course.courseName}
+            {course.name}
             {userType === 'mentor' &&
               <EditIcon onClick={handleEditModal} className={styles.editCourseButton}/>}
               <Dialog open={editCourseInfo} onClose={handleEditModal}>
@@ -115,7 +117,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
         <Stack spacing={1}>
           <Stack direction="row" spacing={1}>
-          <Link href={`/app/teacher-profile/${course.teacherName}`} passHref>
+          <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
               <Avatar
                 alt="Teacher Avatar"
                 src={defaultProfilePic}
@@ -124,19 +126,19 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
               />
             </Link>
             <Typography variant="body2" color="text.secondary">
-              <strong>{course.teacherName}</strong>
+              <strong>{course.mentor.name.first_name} {course.mentor.name.last_name}</strong>
             </Typography>
           </Stack>
 
           <Typography variant="body2" color="text.secondary">
-            <strong >Course Start Time: </strong> {`${course.startTime}`}
+            <strong >Course Start Time: </strong> {`${course.start_date}`}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <strong> Course End Time: </strong> {`${course.endTime}`}
+            <strong> Course End Time: </strong> {`${course.end_date}`}
           </Typography>
 
           <Stack spacing={1}>
-            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.zoomLink)}/>
+            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
             {userType === 'mentor' &&
               <>
                 <MainButton value="Attendance List" onClick={handleStudentList}/>
@@ -145,9 +147,9 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
                 <DialogContent>
-                  {course.studentList.map((student, index) => (
+                  {course.mentees.map((student, index) => (
                     <Stack direction="row" spacing={1} key={`${index}`}>
-                      <Link href={`/app/student-profile/${student}`} passHref>
+                      <Link href={`/app/student-profile/${student.name.first_name}_${student.name.last_name}`} passHref>
                         <Avatar
                           alt="Student Avatar"
                           src={defaultProfilePic}
@@ -155,7 +157,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
                           className={styles.cardUserAvatar}
                         />
                       </Link>
-                      <DialogContentText>{`${student}`}</DialogContentText>
+                      <DialogContentText>{`${student.name.first_name} ${student.name.last_name}`}</DialogContentText>
                     </Stack>
                   ))}
                 </DialogContent>
