@@ -25,7 +25,7 @@ export default async function getRemoveAndUpdateCourse(req, res) {
       /* getCoursesById */
       try {
         // id field is Number value
-        const q = query(collection(db, 'courses'), where('id', '==', Number(course_id)));
+        const q = query(collection(db, 'courses'), where('id', '==', course_id));
         const result = [];
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach(doc => {

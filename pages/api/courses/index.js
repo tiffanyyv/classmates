@@ -46,31 +46,30 @@ export default async function getAndCreateCourses(req, res) {
         mentorLastName,
         name,
         start_date,
-        subject,
-        type
+        subject
       } = req.body;
 
       // look up default photo based on subject
       try {
         const docRef = await addDoc(collection(db, 'courses'), {
           name,
-          "start_date": start_date,
-          "end_date": end_date,
+          start_date,
+          end_date,
           mentees: [],
           subject,
           mentor: {
             "id": mentorId,
             "name": {
               "first_name": mentorFirstName,
-              "last_name": mentorLastName
+              "last_name": mentorLastName,
+              "photo": "https://robohash.org/"+mentorFirstName+mentorLastName
             }
           },
           capacity,
           endorsements: 0,
           description,
-          "meeting_url": meeting_url,
-          photo: coursePhotos[subject],
-          type
+          meeting_url,
+          photo: coursePhotos[subject]
         });
         res.status(200).json(`Successfully posted course`);
       } catch (err) {
