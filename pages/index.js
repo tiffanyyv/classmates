@@ -3,11 +3,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import {AppBar, Box, Toolbar, Typography, Button} from '@mui/material';
+import { useAuthContext } from '../utils/context/AuthProvider';
 
 import styles from '../utils/styles/NavLayoutStyles/HomePage.module.css';
 
-
 export default function LandingPage() {
+  const { logout} = useAuthContext();
   return (
     <div className={styles.homePage}>
     <Box sx={{ flexGrow: 1 }}>

@@ -24,7 +24,7 @@ export default function Signup() {
   const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [signupInfo, setSignupInfo] = useState({
     username: '',
-    firstName: '',
+    firstname: '',
     lastname: '',
     email: '',
     password: '',
@@ -92,8 +92,8 @@ export default function Signup() {
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton}>Create Account</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>
-            <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={signInWithGoogle} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
-            <Button onClick={signInWithFacebook} disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+            <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
+            <Button onClick={(e) => signInWithFacebook(signupInfo) } disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
           </div>
           <p><a href="/">Go Home</a></p>
         </Card>

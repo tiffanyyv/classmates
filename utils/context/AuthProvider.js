@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios'
 import { useRouter } from 'next/router';
 import {
   GoogleAuthProvider,
@@ -18,27 +19,29 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
+  const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
       .then(async (response) => {
         body['uid'] = response.user.uid
+        var postBody = {
+          account_type: body.account_type,
+          uid: body.uid,
+          firstName: body.firstName,
+          lastName: body.lastname,
+          username: body.username,
+          location: body.location
+        }
+        console.log(postBody)
         if (body.account_type === 'Mentor') {
-           await fetch('/api/pages/mentors/index.js', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: body,
-          });
-        } else {
-          await fetch('/api/pages/mentees/index.js', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: body,
-          });
+          axios.post(`http://localhost:3000/api/users`, postBody)
+            .then(response => {
+              console.log(response)
+            })
+            .catch(err => {
+              console.warn(err, 'Error on Signup Post request ');
+            })
         }
         router.push('/app/my-courses')
       })
@@ -48,13 +51,17 @@ export function AuthProvider({ children }) {
   }
 
   const login = (email, password) => {
-    console.log(email, password)
     return signInWithEmailAndPassword(auth, email, password)
       .then(async (response) => {
-        var response = await fetch(`/api/users/${user.uid}`)
-        var jsonData = await response.json();
+        console.log(response.user.uid, "USER")
+        axios.get(`http://localhost:3000/api/users/${response.user.uid}`)
+          .then(response => {
+            setLoginDataObject(response)
+          })
+          .catch(error => {
+            console.warn(err)
+          })
         router.push('/app/my-courses');
-        console.log(jsonData)
       })
       .catch((err) => {
         console.warn('Problem with log in: ', err.message);
@@ -67,12 +74,11 @@ export function AuthProvider({ children }) {
   }
 
   // OAuth Google + FB
-  const signInWithGoogle = () => {
+  const signInWithGoogle = (accountInfoObj) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
-        var response = await fetch(`/api/users/${user.uid}`)
-        var jsonData = await response.json();
+        console.log(accountInfoObj)
         router.push('/app/my-courses');
 
       })
@@ -80,7 +86,7 @@ export function AuthProvider({ children }) {
         console.warn(error)
       })
   }
-  const signInWithFacebook = () => {
+  const signInWithFacebook = (accountInfoObj) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
@@ -100,7 +106,7 @@ export function AuthProvider({ children }) {
       value={{
         user, loading, error,
         signup, login, logout,
-        signInWithGoogle, signInWithFacebook
+        signInWithGoogle, signInWithFacebook, setLoginDataObject
       }}
     >
       {children}
