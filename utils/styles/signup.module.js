@@ -20,13 +20,13 @@ const useStyles = makeStyles({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#4267B2',
+    backgroundColor: '#B0B4D4',
     color: 'white',
     variant: 'contained',
     display: 'flex',
     width: 250,
     '&:hover': {
-      backgroundColor: '#B0B4D4',
+      backgroundColor: '#acb0cd',
       color: 'white',
     }
   },
@@ -34,13 +34,13 @@ const useStyles = makeStyles({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#4267B2',
+    backgroundColor: '#B0B4D4',
     color: 'white',
     variant: 'contained',
     display: 'flex',
     width: 250,
     '&:hover': {
-      backgroundColor: '#B0B4D4',
+      backgroundColor: '#acb0cd',
       color: 'white',
     }
   },
@@ -48,13 +48,13 @@ const useStyles = makeStyles({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#4267B2',
+    backgroundColor: '#B0B4D4',
     color: 'white',
     variant: 'contained',
     display: 'flex',
     width: 250,
     '&:hover': {
-      backgroundColor: '#B0B4D4',
+      backgroundColor: '#acb0cd',
       color: 'white',
     }
   },
