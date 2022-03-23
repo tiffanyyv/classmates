@@ -11,7 +11,7 @@ import {
 
 export default async function getTopEndorsements(req, res) {
   try {
-    const q = query(collection(db, 'mentors'), orderBy('endorsements', 'desc'), limit(10));
+    const q = query(collection(db, 'users'), orderBy('endorsements', 'desc'), limit(10));
     const querySnapshot = await getDocs(q);
 
     const result = [];

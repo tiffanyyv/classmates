@@ -4,7 +4,6 @@ import { collection, doc, getDoc } from "firebase/firestore";
 
 export default async function getUserInfo(req, res) {
   const { user_id } = req.query;
-  console.log('req: ', req);
 
   try {
     const docRef = doc(db, 'users', user_id);
