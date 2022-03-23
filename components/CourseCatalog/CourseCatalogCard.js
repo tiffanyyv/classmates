@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Link from 'next/link';
+
 import {
   Avatar,
   Card,
@@ -19,7 +21,8 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import EditIcon from '@mui/icons-material/Edit';
 
 import MainButton from '../basecomponents/MainButton.js'
-import defaultProfilePic from '../../utils/constants/index.js'
+import { defaultProfilePic } from '../../utils/constants/index.js'
+import styles from '../../utils/styles/CourseCatalogStyles/CourseCatalog.module.css';
 
 export default function CourseCatalogCard({ course }) {
   const [userType, setUserType] = useState('mentor');
@@ -64,11 +67,14 @@ export default function CourseCatalogCard({ course }) {
             <strong>Subject: </strong>{course.subject}
           </Typography>
           <Stack direction="row" spacing={1}>
-            <Avatar
-                  alt="Remy Sharp"
-                  src={defaultProfilePic}
-                  sx={{ width: 20, height: 20 }}
-                />
+            <Link href={`/app/teacher-profile/${course.teacherName}`} passHref>
+              <Avatar
+                alt="Teacher Avatar"
+                src={defaultProfilePic}
+                sx={{ width: 20, height: 20 }}
+                className={styles.cardUserAvatar}
+              />
+            </Link>
             <Typography variant="body2" color="text.secondary">
               <strong>{course.teacherName}</strong>
             </Typography>
@@ -94,7 +100,17 @@ export default function CourseCatalogCard({ course }) {
               <DialogTitle>Attendance List</DialogTitle>
               <DialogContent>
                 {course.studentList.map((student, index) => (
-                  <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
+                  <Stack direction="row" spacing={1}>
+                    <Link href={`/app/student-profile/${student}`} passHref>
+                      <Avatar
+                        alt="Student Avatar"
+                        src={defaultProfilePic}
+                        sx={{ width: 20, height: 20 }}
+                        className={styles.cardUserAvatar}
+                      />
+                    </Link>
+                    <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
+                  </Stack>
                 ))}
               </DialogContent>
             </Dialog>
