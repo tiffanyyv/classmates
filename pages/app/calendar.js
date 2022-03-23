@@ -53,19 +53,27 @@ export default function Calendar() {
   const [userType, setUserType] = useState('');
   const [currUserId, setCurrUserId] = useState('51');
 
-  const getCourseData = () => {
+  const getCoursesData = () => {
     if (userType === 'Mentor') {
       getCoursesByMentorId(currUserId)
         .then(res => {
           // setAppointmentData(res);
-          let apptDataResult = res.map(course => {
+          let apptDataResult = res.map((course) => {
             return {
               title: course.name,
               startDate: new Date(course.start_date),
               endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url
+              zoomLink: course.meeting_url,
+              capacity: course.capacity,
+              description: course.description,
+              id: course.id,
+              subject: course.subject,
+              photo: course.photo,
+              mentor: course.mentor,
+              mentees: course.mentees,
             }
           })
+          // console.log(apptDataResult);
           setAppointmentData(apptDataResult);
         })
         .catch(err => {
@@ -79,7 +87,14 @@ export default function Calendar() {
               title: course.name,
               startDate: new Date(course.start_date),
               endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url
+              zoomLink: course.meeting_url,
+              capacity: course.capacity,
+              description: course.description,
+              id: course.id,
+              subject: course.subject,
+              photo: course.photo,
+              mentor: course.mentor,
+              mentees: course.mentees,
             }
           })
           setAppointmentData(apptDataResult);
@@ -95,10 +110,14 @@ export default function Calendar() {
       .then(res => {
         setUserType(res.account_type);
       })
+
+      return () => setUserType('')
   }, [])
 
   useEffect(() => {
-    getCourseData();
+    getCoursesData();
+
+    return () => setAppointmentData([]);
 }, [userType]);
 
 
@@ -131,13 +150,13 @@ export default function Calendar() {
               {userType === 'Mentor' &&
               <div className={styles.createClassContainer}>
                 <div className={styles.createClass}>
-                  <CreateClassModal getCourseData={getCourseData}/>
+                  <CreateClassModal getCoursesData={getCoursesData}/>
                 </div>
               </div>
               }
               <Appointments />
               <AppointmentTooltip
-              // contentComponent={TooltipContent}
+              contentComponent={TooltipContent}
               />
             </Scheduler>
           </Paper>

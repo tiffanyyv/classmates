@@ -25,7 +25,7 @@ const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
 
 
-export default function CreateClassModal({ getCourseData }) {
+export default function CreateClassModal({ getCoursesData }) {
   const { user } = useAuthContext();
   const [subject, setSubject] = useState('');
   const [type, setType] = useState('');
@@ -48,7 +48,7 @@ export default function CreateClassModal({ getCourseData }) {
     e.preventDefault();
     createNewCourse(classObj);
     setOpen(false);
-    getCourseData();
+    getCoursesData();
   }
 
   useEffect(() => {
@@ -58,9 +58,14 @@ export default function CreateClassModal({ getCourseData }) {
           ...classObj,
           mentorFirstName: data.name.first_name,
           mentorLastName: data.name.last_name,
-          mentorId: '51'
+          mentorId: '53'
         })
       })
+      .catch(err => {
+        console.error(err);
+      })
+
+      return () => setClassObj({})
   }, [])
 
   return (
@@ -159,7 +164,7 @@ export default function CreateClassModal({ getCourseData }) {
               placeholder="Please enter your Zoom Meeting Room Link"
             />
             {/* ----------------------TYPE SELECTOR-------------------------- */}
-            <FormControl className={styles.classForm}>
+            {/* <FormControl className={styles.classForm}>
               <InputLabel>Privacy Type Settings</InputLabel>
               <Select
                 required
@@ -176,7 +181,7 @@ export default function CreateClassModal({ getCourseData }) {
                 <MenuItem value="Public">Public</MenuItem>
                 <MenuItem value="Private">Private</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
              {/* ----------------------CLASS CAPACITY-------------------------- */}
             <TextField
               required
