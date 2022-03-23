@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios'
 import { useRouter } from 'next/router';
 import {
   GoogleAuthProvider,
@@ -18,14 +19,32 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
+  //In case we need an object containing the information
+  const [loginDataObj, setLoginDataObject] = useState({})
 
-  // console.log(user);
-
-  const signup = (email, password, username) => {
-     createUserWithEmailAndPassword(auth, email, password)
-      .then((response) => {
+  const signup = (body) => {
+    createUserWithEmailAndPassword(auth, body.email, body.password)
+      .then(async (response) => {
+        body['uid'] = response.user.uid
+        var postBody = {
+          account_type: body.account_type,
+          uid: body.uid,
+          firstName: body.firstName,
+          lastName: body.lastname,
+          username: body.username,
+          location: body.location
+        }
+        console.log(postBody)
+        if (body.account_type === 'Mentor') {
+          axios.post(`http://localhost:3000/api/users`, postBody)
+            .then(response => {
+              console.log(response)
+            })
+            .catch(err => {
+              console.warn(err, 'Error on Signup Post request ');
+            })
+        }
         router.push('/app/my-courses')
-        console.log(response)
       })
       .catch((err) => {
         console.warn('Problem with sign up: ', err.message);
@@ -33,16 +52,21 @@ export function AuthProvider({ children }) {
   }
 
   const login = (email, password) => {
-    console.log(email, password)
     return signInWithEmailAndPassword(auth, email, password)
-    .then((response) => {
-      // need to set redirect to /[username]/dashboard
-      // need to set success state
-      router.push('/app/my-courses');
-      console.log(response)
-    })
+      .then(async (response) => {
+        console.log(response.user.uid, "USER")
+        axios.get(`http://localhost:3000/api/users/${response.user.uid}`)
+          .then(response => {
+            //setting state in case we need extra information
+            //if the auth doesnt work we can pass in this way
+            setLoginDataObject(response)
+          })
+          .catch(error => {
+            console.warn(err)
+          })
+        router.push('/app/my-courses');
+      })
       .catch((err) => {
-        // needs to set an error state
         console.warn('Problem with log in: ', err.message);
       })
   }
@@ -53,11 +77,11 @@ export function AuthProvider({ children }) {
   }
 
   // OAuth Google + FB
-  const signInWithGoogle = () => {
+  const signInWithGoogle = (accountInfoObj) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(res => {
-        console.log(res)
+      .then(async response => {
+        console.log(accountInfoObj)
         router.push('/app/my-courses');
 
       })
@@ -65,10 +89,12 @@ export function AuthProvider({ children }) {
         console.warn(error)
       })
   }
-  const signInWithFacebook = () => {
+  const signInWithFacebook = (accountInfoObj) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then(res => {
+      .then(async response => {
+        var response = await fetch(`/api/users/${user.uid}`)
+        var jsonData = await response.json();
         console.log(res)
         router.push('/app/my-courses');
 
