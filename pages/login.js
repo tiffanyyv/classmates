@@ -18,8 +18,8 @@ import useStyles from '../utils/styles/signup.module'
 export default function Login() {
   const classes = useStyles();
   const router = useRouter();
-  const [account_type, setAccount_Type] = useState('')
   const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext(); // check if user context import is necessary
+  const [account_type, setAccount_Type] = useState('')
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -35,14 +35,16 @@ export default function Login() {
 
   const handleStandardLogin = (e) => {
     e.preventDefault();
-    console.log(loginInfo.email, loginInfo.password)
+    // console.log(loginInfo.email, loginInfo.password)
     login(loginInfo.email, loginInfo.password)
-      // .then(() => setIsLoading(false));
   }
+
+  // Change reroute to dynamic route
   if (user) {
     router.push('/app/my-courses');
     return null;
   }
+
   return (
     <div className={classes.root}>
       <Grid container

@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
   //In case we need an object containing the information
-  const [loginDataObj, setLoginDataObject] = useState({})
+  // const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
@@ -44,6 +44,7 @@ export function AuthProvider({ children }) {
               console.warn(err, 'Error on Signup Post request ');
             })
         }
+        // Change reroute to dynamic route
         router.push('/app/my-courses')
       })
       .catch((err) => {
@@ -59,11 +60,12 @@ export function AuthProvider({ children }) {
           .then(response => {
             //setting state in case we need extra information
             //if the auth doesnt work we can pass in this way
-            setLoginDataObject(response)
+            // setLoginDataObject(response)
           })
           .catch(error => {
             console.warn(err)
           })
+        // Change reroute to dynamic route
         router.push('/app/my-courses');
       })
       .catch((err) => {
@@ -82,6 +84,7 @@ export function AuthProvider({ children }) {
     signInWithPopup(auth, provider)
       .then(async response => {
         console.log(accountInfoObj)
+        // Change reroute to dynamic route
         router.push('/app/my-courses');
 
       })
@@ -96,6 +99,7 @@ export function AuthProvider({ children }) {
         var response = await fetch(`/api/users/${user.uid}`)
         var jsonData = await response.json();
         console.log(res)
+        // Change reroute to dynamic route
         router.push('/app/my-courses');
 
       })
