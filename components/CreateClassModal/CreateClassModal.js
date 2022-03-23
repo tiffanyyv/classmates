@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -14,11 +14,11 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
-
+import { useAuthContext } from '../../utils/context/AuthProvider';
 import MainButton from '../basecomponents/MainButton.js'
 import styles from '../../utils/styles/CreateClassModalStyles/CreateClassModalStyles.module.css';
 
-import apiCalls from '../../utils/api/apiCalls.js';
+import { createNewCourse, getUserInfo } from '../../utils/api/apiCalls.js';
 
 const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
@@ -26,12 +26,15 @@ const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
 
 export default function CreateClassModal() {
+  const { user } = useAuthContext();
   const [subject, setSubject] = useState('');
   const [type, setType] = useState('');
   const [newStartTime, setNewStartTime] = useState(null);
   const [newEndTime, setNewEndTime] = useState(null);
   const [classObj, setClassObj] = useState({});
   const [open, setOpen] = useState(false);
+
+  console.log(user)
 
   const handleChange = (e) => {
     if(e.target.name === 'capacity') {
@@ -41,11 +44,24 @@ export default function CreateClassModal() {
     }
   }
 
-  // const handleFormSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios.post()
+  const handleCreate = (e) => {
+    e.preventDefault();
+    createNewCourse(classObj);
+    setOpen(false);
+  }
 
-  // }
+  useEffect (() => {
+    getUserInfo(51)
+     .then((data) => {
+       console.log(data)
+       setClassObj({
+       ...classObj,
+       mentorFirstName: data.name.first_name,
+       mentorLastName: data.name.last_name,
+       mentorId: '51'
+    })
+      })
+   }, [])
 
   return (
     <div>
@@ -54,7 +70,7 @@ export default function CreateClassModal() {
         <DialogTitle className={styles.formHeader}>Create a Class</DialogTitle>
         <DialogContent>
           {/* ----------------------COURSE NAME-------------------------- */}
-          <FormControl component="fieldset" required className={styles.classForm}>
+          <FormControl component="fieldset" required className={styles.classForm} >
             <TextField
               required
               name="name"
@@ -110,7 +126,7 @@ export default function CreateClassModal() {
                   value={newStartTime}
                   name="start_date"
                   onChange={(newTimeValue) => {
-                    setClassObj({ ...classObj, 'startTime': newTimeValue })
+                    setClassObj({ ...classObj, 'start_date': newTimeValue })
                     setNewStartTime(newTimeValue)
                   }}
                 />
@@ -124,7 +140,7 @@ export default function CreateClassModal() {
                   name="end_date"
                   value={newEndTime}
                   onChange={(newTimeValue) => {
-                    setClassObj({ ...classObj, 'endTime': newTimeValue });
+                    setClassObj({ ...classObj, 'end_date': newTimeValue });
                     setNewEndTime(newTimeValue)
                   }}
                 />
@@ -172,7 +188,7 @@ export default function CreateClassModal() {
               color='primary'
               onChange={handleChange}
             />
-            <MainButton value="Submit" />
+            <MainButton value="Submit" onClick={handleCreate}/>
           </FormControl>
         </DialogContent>
       </Dialog>

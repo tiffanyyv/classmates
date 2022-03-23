@@ -117,7 +117,7 @@ export const addUser = (body) => {
 /* userId === uid (same as mentor/mentee id) */
 export const getUserInfo = (userId) => {
   return axios.get(`http://localhost:3000/api/users/${userId}`)
-    .then(({ data }) => console.log(data))
+    .then(({ data }) => data)
     .catch(err => console.warn(err));
 }
 
