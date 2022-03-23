@@ -2,8 +2,6 @@
 
 import { db } from '../../../utils/api/firebase.config';
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { defaultProfilePic } from '../../../utils/constants/index';
-console.log(defaultProfilePic);
 
 export default async function addUser(req, res) {
   const {
