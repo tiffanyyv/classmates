@@ -35,7 +35,6 @@ export default function Login() {
 
   const handleStandardLogin = (e) => {
     e.preventDefault();
-    setIsLoading(true);
     console.log(loginInfo.email, loginInfo.password)
     login(loginInfo.email, loginInfo.password)
       // .then(() => setIsLoading(false));
