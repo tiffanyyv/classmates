@@ -43,8 +43,6 @@ import {
 
 //import render Calendar component
 
-
-
 //use username from GET request, current is just mock data
 
 
@@ -55,18 +53,7 @@ export default function Calendar() {
   const [userType, setUserType] = useState('');
   const [currUserId, setCurrUserId] = useState('51');
 
-  // const getCourseData = () {
-
-  // }
-
-  useEffect(() => {
-    getUserInfo(currUserId)
-      .then(res => {
-        setUserType(res.account_type);
-      })
-  }, [])
-
-  useEffect(() => {
+  const getCourseData = () => {
     if (userType === 'Mentor') {
       getCoursesByMentorId(currUserId)
         .then(res => {
@@ -101,6 +88,17 @@ export default function Calendar() {
         console.log(err);
       })
     }
+  }
+
+  useEffect(() => {
+    getUserInfo(currUserId)
+      .then(res => {
+        setUserType(res.account_type);
+      })
+  }, [])
+
+  useEffect(() => {
+    getCourseData();
 }, [userType]);
 
 
@@ -133,7 +131,7 @@ export default function Calendar() {
               {userType === 'Mentor' &&
               <div className={styles.createClassContainer}>
                 <div className={styles.createClass}>
-                  <CreateClassModal />
+                  <CreateClassModal getCourseData={getCourseData}/>
                 </div>
               </div>
               }

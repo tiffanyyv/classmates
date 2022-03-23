@@ -25,7 +25,7 @@ const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
 
 
-export default function CreateClassModal() {
+export default function CreateClassModal({ getCourseData }) {
   const { user } = useAuthContext();
   const [subject, setSubject] = useState('');
   const [type, setType] = useState('');
@@ -34,7 +34,7 @@ export default function CreateClassModal() {
   const [classObj, setClassObj] = useState({});
   const [open, setOpen] = useState(false);
 
-  console.log(user)
+  console.log(getCourseData)
 
   const handleChange = (e) => {
     if(e.target.name === 'capacity') {
@@ -48,6 +48,7 @@ export default function CreateClassModal() {
     e.preventDefault();
     createNewCourse(classObj);
     setOpen(false);
+    getCourseData();
   }
 
   useEffect(() => {
