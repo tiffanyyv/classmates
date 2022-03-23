@@ -25,7 +25,7 @@ export default async function addUser(req, res) {
         'last_name': lastName
       },
       id: uid,
-      photo: defaultProfilePic,
+      photo: "https://robohash.org/"+firstName+lastName,
       account_type,
       endorsements: 0,
       description: ''
