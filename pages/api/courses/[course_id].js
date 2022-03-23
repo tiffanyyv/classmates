@@ -38,42 +38,22 @@ export default async function getRemoveAndUpdateCourse(req, res) {
 
       break
     case 'PUT':
-      const update = req.body;
+      // update course name: use key "name"
+      // update course start and end dates: use "start_date" and "end_date"
+
       /* updateCourseInfo */
-
-      // update course name
-
-      // update course start time and end time
-
-      // update student list to add student object
-      const putBody = {
-        mentee_id,
-        mentee_firstName,
-        mentee_lastName
+      const update = req.body;
+      // ex: {
+      //  name,
+      //  start_date,
+      //  end_date
+      //}
+      try {
+        await updateDoc(doc(db, 'courses', course_id), update);
+        res.status(200).send(`Successfully updated course ${course_id}`);
+      } catch (err) {
+        res.status(400).send(`Error updating course ${course_id}`);
       }
-      if (course_type === 'Public') {
-        // post to courses collection
-
-
-        // update: add to mentees list on this course obj
-
-      } else {
-        // post to notifications collection
-        // if mentee_status === declined --> delete from notifications collection
-        // if mentee_status === accepted --> delete from notifications collection and add to courses collection
-
-        const post = {
-          course_id,
-          course_name,
-          mentor_id,
-          mentor_name,
-          mentee_id,
-          mentee_name,
-          mentee_status: 'pending' // pending initially, accepted, declined
-        }
-      }
-
-
       break
     case 'DELETE':
       /* removeCourse */

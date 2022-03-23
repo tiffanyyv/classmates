@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
-import { Card, Grid, ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { Card, Grid, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -51,6 +51,7 @@ export default function Login() {
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
+          <Typography sx={{fontSize: 26, mb: 1}}>Login</Typography>
           <form onSubmit={(e) => handleStandardLogin(e)} sx={{ my: 3 }}>
           {/* <ToggleButtonGroup
             color="primary"

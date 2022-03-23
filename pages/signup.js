@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
-import { Card, Grid, Select } from '@mui/material';
+import { Card, Grid, Select, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -64,6 +64,7 @@ export default function Signup() {
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
+        <Typography sx={{fontSize: 26, mb: 1}}>Signup</Typography>
           <form onSubmit={(e) => handleSubmitSignUpInput(e)} sx={{ my: 3 }}>
             <InputLabel id="accountDropDown">Account Type</InputLabel>
             <Select
@@ -83,12 +84,12 @@ export default function Signup() {
               display: 'flex',
               flexDirection: 'row'
             }}>
-              <Input sx={{ my: .5 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstName')} placeholder="First Name" className={classes.userInput}></Input>
-              <Input sx={{ my: .5 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
+              <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstName')} placeholder="First Name" className={classes.userInput}></Input>
+              <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
             </div>
-            <Input sx={{ my: .5 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
-            <Input sx={{ my: .5 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{ my: .5 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
+            <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton}>Create Account</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>

@@ -36,8 +36,11 @@
 .reporter {
   width: 100vw;
   text-align: center;
-  margin-top: 30vh;
+  margin-top: 20vh;
   font-size: 25px;
   font-weight: 100;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  line-height: 40px;
 }

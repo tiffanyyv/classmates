@@ -27,8 +27,4 @@ export default function MyProfile(props) {
         {userType === 'mentor' && <div>Recommended:</div>}
     </div>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> e3e88ca562ffd1148e1d21b671c3a554a8c6983c

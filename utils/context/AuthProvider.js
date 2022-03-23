@@ -19,6 +19,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
+  //In case we need an object containing the information
   const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
@@ -56,6 +57,8 @@ export function AuthProvider({ children }) {
         console.log(response.user.uid, "USER")
         axios.get(`http://localhost:3000/api/users/${response.user.uid}`)
           .then(response => {
+            //setting state in case we need extra information
+            //if the auth doesnt work we can pass in this way
             setLoginDataObject(response)
           })
           .catch(error => {
