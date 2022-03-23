@@ -5,13 +5,40 @@ import { Grid } from '@mui/material';
 
 import MyCourses from '../../components/MyCourses/MyCourses.js';
 import MyCoursesExampleData from '../../components/MyCourses/data/MyCourses.example.js';
+import { getUserInfo, getCoursesByMenteeId, getCoursesByMentorId } from '../../utils/api/apiCalls.js';
 
 export default function myCourses() {
   const [myCoursesData, setCoursesData] = useState([]);
+  const [userID, setUserID] = useState('50');
+  const [userType, setUserType] = useState('');
 
   useEffect(() => {
-    setCoursesData(MyCoursesExampleData)
+    getUserInfo(userID)
+      .then(res => setUserType(res.account_type))
+      .catch(err => console.log('Error getting user information'))
   }, []);
+
+  useEffect(() => {
+    fetchAllCourses();
+  }, [userType])
+
+  const fetchUserInfo = () => {
+    return getUserInfo(userID)
+      .then(res => setUserType(res.account_type))
+      .catch(err => console.log('Error getting user information'))
+  }
+
+  const fetchAllCourses = () => {
+    if (userType === 'Mentor') {
+      getCoursesByMentorId(userID)
+        .then(res => setCoursesData(res))
+        .catch(err => console.log('Error getting course info'))
+    } else if (userType === 'Mentee') {
+      getCoursesByMenteeId(userID)
+        .then(res => setCoursesData(res))
+        .catch(err => console.log('Error getting course info'))
+    }
+  }
 
   const handleDeleteCourse = (index) => {
     let myCoursesCopy = [...myCoursesData];
