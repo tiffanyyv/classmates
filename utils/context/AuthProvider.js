@@ -34,7 +34,6 @@ export function AuthProvider({ children }) {
           username: body.username,
           location: body.location
         }
-        console.log(postBody)
         if (body.account_type === 'Mentor') {
           axios.post(`http://localhost:3000/api/users`, postBody)
             .then(response => {
@@ -81,9 +80,7 @@ export function AuthProvider({ children }) {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
-        console.log(accountInfoObj)
         router.push('/app/my-courses');
-
       })
       .catch(error => {
         console.warn(error)
@@ -93,11 +90,7 @@ export function AuthProvider({ children }) {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
-        var response = await fetch(`/api/users/${user.uid}`)
-        var jsonData = await response.json();
-        console.log(res)
         router.push('/app/my-courses');
-
       })
       .catch(error => {
         console.warn(error)
