@@ -44,12 +44,16 @@ a:hover {
 
 /*CALENDAR TODAY BTN*/
 .css-xya8j6-MuiButtonBase-root-MuiButton-root {
-  border: 1px solid #84C7D0;
-  color: #84C7D0;
+  border: 1px solid #B0B4D4;
+  color: #FFFFFF;
+  background-color: #B0B4D4;
 }
 .css-xya8j6-MuiButtonBase-root-MuiButton-root:hover {
-  border: 1px solid #4BD2D2;
-  color: #4BD2D2;
+  /* border: 1px solid #4BD2D2; */
+  /* color: #4BD2D2; */
+  border: 1px solid #acb0cd;
+  background-color: #acb0cd;
+  color: #FFFFFF;
 }
 
 

@@ -8,7 +8,7 @@ import {
   DialogTitle,
   Dialog,
   DialogContent,
-  Stack
+  Stack,
   } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateTimePicker from '@mui/lab/DateTimePicker';
