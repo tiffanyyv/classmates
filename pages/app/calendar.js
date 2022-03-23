@@ -13,29 +13,32 @@ import {
   TodayButton,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
+
+import { useAuthContext } from '../../utils/context/AuthProvider';
 import TooltipContent from '../../components/Calendar/subcomponents/TooltipContent.js';
 import styles from '../../utils/styles/CalendarStyles/Calendar.module.css';
 import { TimeTableCell, DayScaleCell } from '../../components/Calendar/Calendar.js';
-import { data } from '../../components/Calendar/data/dummyData.js';
+import { mentorData, menteeData } from '../../components/Calendar/data/dummyData.js';
 import CreateClassModal from '../../components/CreateClassModal/CreateClassModal.js'
+import { getCoursesByMentorId } from '../../utils/api/apiCalls.js';
+
 
 //import render Calendar component
 
 
 
 //use username from GET request, current is just mock data
-// let username = 'Matt';
 
 
-export default function Calendar() {
+export default function Calendar({ courses }) {
   //import user state (mentor/mentee)
-
+  const { user } = useAuthContext();
   const [appointmentData, setAppointmentData] = useState([]);
-
-
+  const [userType, setUserType] = useState('mentee');
   useEffect(() => {
-    setAppointmentData(data);
+    setAppointmentData(mentorData);
   }, []);
+
 
   return (
     <div className="pageData">
@@ -53,7 +56,7 @@ export default function Calendar() {
               defaultCurrentViewName="Week"
               />
               <WeekView
-                startDayHour={9}
+                startDayHour={6}
                 endDayHour={22}
                 timeTableCellComponent={TimeTableCell}
                 dayScaleCellComponent={DayScaleCell}
@@ -61,11 +64,13 @@ export default function Calendar() {
               <Toolbar />
               <DateNavigator />
               <TodayButton />
+              {userType === 'mentor' &&
               <div className={styles.createClassContainer}>
                 <div className={styles.createClass}>
                   <CreateClassModal />
                 </div>
               </div>
+              }
               <Appointments />
               <AppointmentTooltip
               // contentComponent={TooltipContent}
@@ -76,4 +81,14 @@ export default function Calendar() {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps({ params }) {
+
+  const req = await fetch('http://localhost:3000/api/courses/mentors/54');
+  const data = await req.json();
+
+  return {
+    props: {courses: data},
+  }
 }
