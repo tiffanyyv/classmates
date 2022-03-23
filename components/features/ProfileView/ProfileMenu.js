@@ -1,21 +1,31 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import { Tooltip, IconButton, Typography } from '@mui/material';
 import { Avatar, Menu, MenuItem } from '@mui/material';
 
 import styles from '../../../utils/styles/NavLayoutStyles/SideBar.module.css';
-import defaultProfilePic from '../../../utils/constants';
-import { useAuthContext } from '../../../utils/context/AuthProvider'
+import {defaultProfilePic} from '../../../utils/constants';
+import { useAuthContext } from '../../../utils/context/AuthProvider';
+
+import { getUserInfo } from '../../../utils/api/apiCalls.js'
 
 
 const settings = ['Profile', 'Logout'];
 
 const ProfileMenu = () => {
   const [AnchorUser, setAnchorUser] = useState(null);
+  const [userType, setUserType] = useState('');
+  const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
+    photo: ''
+  })
 
   const { logout } = useAuthContext();
+
+  useEffect(() => {
+    fetchUserInfo()
+  }, [])
 
   const handleOpenUserMenu = (event) => {
     setAnchorUser(event.currentTarget);
@@ -25,14 +35,23 @@ const ProfileMenu = () => {
     setAnchorUser(null);
   };
 
+  const fetchUserInfo = () => {
+    getUserInfo('51').then(res => {
+      setCurrentUserProfileInfo({
+        photo: res.photo
+      })
+    })
+  }
+
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
             className={styles.profileAvatar}
-            alt="Remy Sharp"
-            src={defaultProfilePic}
+            alt="User Avatar"
+            src={currentUserProfileInfo.photo}
             sx={{ width: 50, height: 50 }}
           />
         </IconButton>
