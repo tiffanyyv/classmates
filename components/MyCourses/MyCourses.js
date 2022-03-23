@@ -24,7 +24,7 @@ import MainButton from '../basecomponents/MainButton.js'
 import { defaultProfilePic } from '../../utils/constants/index.js'
 import styles from '../../utils/styles/MyCoursesStyles/MyCourses.module.css';
 
-export default function MyCourses({ course, index, handleDeleteCourse, handleEditCourse }) {
+export default function MyCourses({ course, index, handleDeleteCourse, handleEditCourse, userType }) {
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(index);
@@ -33,11 +33,8 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
   const [newStartTime, setNewStartTime] = useState(course.start_date);
   const [newEndTime, setNewEndTime] = useState(course.end_date);
 
-  const [userType, setUserType] = useState('mentor');
-  const [userID, setUserID] = useState(51);
-
   const handleStudentList = () => {
-    if (userType === 'mentor') {
+    if (userType === 'Mentor') {
       setShowStudentList(!showStudentList)
     }
   }
@@ -68,7 +65,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
         <Typography gutterBottom variant="h6" component="div">
           <Stack direction="row">
             {course.name}
-            {userType === 'mentor' &&
+            {userType === 'Mentor' &&
               <EditIcon onClick={handleEditModal} className={styles.editCourseButton}/>}
               <Dialog open={editCourseInfo} onClose={handleEditModal}>
                 <DialogTitle>Update Course Info</DialogTitle>
@@ -139,7 +136,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
           <Stack spacing={1}>
             <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
-            {userType === 'mentor' &&
+            {userType === 'Mentor' &&
               <>
                 <MainButton value="Attendance List" onClick={handleStudentList}/>
                 <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)}/>

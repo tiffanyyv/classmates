@@ -67,6 +67,7 @@ export default function myCourses() {
             index={index}
             handleDeleteCourse={handleDeleteCourse}
             handleEditCourse={handleEditCourse}
+            userType={userType}
           />
         ))}
       </Grid>
