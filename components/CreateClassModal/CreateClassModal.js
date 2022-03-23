@@ -34,7 +34,7 @@ export default function CreateClassModal({ getCourseData }) {
   const [classObj, setClassObj] = useState({});
   const [open, setOpen] = useState(false);
 
-  console.log(getCourseData)
+  // console.log(getCourseData)
 
   const handleChange = (e) => {
     if(e.target.name === 'capacity') {
@@ -54,7 +54,6 @@ export default function CreateClassModal({ getCourseData }) {
   useEffect(() => {
     getUserInfo(51)
       .then((data) => {
-        console.log(data)
         setClassObj({
           ...classObj,
           mentorFirstName: data.name.first_name,
