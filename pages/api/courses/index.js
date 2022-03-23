@@ -61,7 +61,8 @@ export default async function getAndCreateCourses(req, res) {
             "id": mentorId,
             "name": {
               "first_name": mentorFirstName,
-              "last_name": mentorLastName
+              "last_name": mentorLastName,
+              "photo": "https://robohash.org/"+mentorFirstName+mentorLastName
             }
           },
           capacity,
