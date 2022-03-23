@@ -11,6 +11,7 @@ import Select from '@mui/material/Select';
 import CourseCatalogCard from '../../components/CourseCatalog/CourseCatalogCard.js'
 import MainButton from '../../components/basecomponents/MainButton.js';
 import MyCoursesExampleData from '../../components/MyCourses/data/MyCourses.example.js';
+// import { getUserInfo,  } from '../../utils/api/apiCalls.js';
 
 // search based on: teacher name, class name
 // filter based on category or all
