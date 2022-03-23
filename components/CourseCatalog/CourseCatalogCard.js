@@ -25,7 +25,7 @@ import { defaultProfilePic } from '../../utils/constants/index.js'
 import styles from '../../utils/styles/CourseCatalogStyles/CourseCatalog.module.css';
 
 export default function CourseCatalogCard({ course }) {
-  const [userType, setUserType] = useState('mentor');
+  const [userType, setUserType] = useState('student');
   const [showCourseInfo, setShowCourseInfo] = useState(false);
   const [showStudentList, setShowStudentList] = useState(false);
 
