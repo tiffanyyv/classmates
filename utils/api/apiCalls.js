@@ -124,7 +124,7 @@ export const getUserInfo = (userId) => {
 /* ENDORSEMENTS */
 export const getTopEndorsements = () => {
   return axios.get('http://localhost:3000/api/endorsements')
-    .then(({ data }) => console.log(data))
+    .then(({ data }) => data)
     .catch((err) => console.warn(err.message));
 }
 
