@@ -55,7 +55,7 @@ const ProfileMenu = () => {
       >
         <MenuItem>
           <Typography textAlign="center">
-            <Link href="/app/my-profile">Profile</Link>
+            <Link href="/app/my-profile"><a>Profile</a></Link>
           </Typography>
         </MenuItem>
         <MenuItem onClick={logout}>

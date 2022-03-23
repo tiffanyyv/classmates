@@ -15,10 +15,10 @@ export default function LandingPage() {
             <Typography className={styles.siteTitle} variant="h4" component="div" sx={{ flexGrow: 1 }}>
               ClassMates
             </Typography>
-            <Link href="/login">
+            <Link href="/login" passHref>
               <Button color="inherit" className={styles.loginButton}>Login</Button>
             </Link>
-            <Link href="/signup">
+            <Link href="/signup" passHref>
               <Button color="inherit" className={styles.signupButton}>Sign Up</Button>
             </Link>
           </Toolbar>

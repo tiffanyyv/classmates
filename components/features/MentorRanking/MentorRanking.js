@@ -20,7 +20,6 @@ export default function Leaderboard() {
     <div className={styles.leaderboardButton}>
       <Button
         className={styles.leaderboardButtonText}
-        id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
@@ -33,9 +32,6 @@ export default function Leaderboard() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
       >
         {topRankings.map((mentor, index) => (
           <MentorItem key={index} mentor={mentor} placement={index}/>
