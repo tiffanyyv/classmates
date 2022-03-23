@@ -1,13 +1,10 @@
 import {
+  Avatar,
   Card,
   CardContent,
   CardMedia,
-  CardActionArea,
   Typography,
-  Box,
   Stack,
-  List,
-  ListItem,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -20,10 +17,12 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
+import Link from 'next/link'
+
 import MainButton from '../basecomponents/MainButton.js'
+import defaultProfilePic from '../../utils/constants/index.js'
 
-export default function MyCourses({ course }) {
-
+export default function MyCourses({ course, handleDeleteCourse, index }) {
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [userType, setUserType] = useState('mentor');
@@ -31,8 +30,9 @@ export default function MyCourses({ course }) {
   const [currStartTime, setCurrStartTime] = useState(course.startTime);
   const [currEndTime, setCurrEndTime] = useState(course.endTime);
   const [newCourseName, setNewCourseName] = useState('');
-  const [newStartTime, setNewStartTime] = useState(null);
-  const [newEndTime, setNewEndTime] = useState(null);
+  const [newStartTime, setNewStartTime] = useState(currStartTime);
+  const [newEndTime, setNewEndTime] = useState(currEndTime);
+  const [currentIndex, setCurrentIndex] = useState(index);
 
   const handleStudentList = () => {
     if (userType === 'mentor') {
@@ -54,26 +54,23 @@ export default function MyCourses({ course }) {
       setCurrCourseName(newCourseName)
     }
   }
+
   const mentorProfile = () => {
+
+  }
+
+  const handleOpenZoomLink = (url) => {
+    window.open(url, '_blank', 'noreferrer')
   }
 
   return (
-    <Card sx={{ maxWidth: 350, margin: 1.5 }}>
+    <Card sx={{ maxWidth: 300, margin: 1.5 }}>
       <CardMedia
         component="img"
-        height="200"
+        height="175"
         image={course.courseThumbnail}
         alt=""
-        onClick={handleStudentList}
       />
-      <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
-        <DialogTitle>Students</DialogTitle>
-        <List>
-          {course.studentList.map((student, index) => (
-            <ListItem key={`${index}`}>{`${student}`}</ListItem>
-          ))}
-        </List>
-      </Dialog>
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           <Stack direction="row">
@@ -86,7 +83,6 @@ export default function MyCourses({ course }) {
                   <TextField
                     autoFocus
                     margin="dense"
-                    // id="courseName"
                     label="New Course Name"
                     type="text"
                     fullWidth
@@ -103,7 +99,6 @@ export default function MyCourses({ course }) {
                       value={newStartTime}
                       onChange={(newValue) => {
                         setNewStartTime(newValue);
-                        // setCurrStartTime(newValue);
                       }}
                     />
                   </LocalizationProvider>
@@ -114,7 +109,6 @@ export default function MyCourses({ course }) {
                       value={newEndTime}
                       onChange={(newValue) => {
                         setNewEndTime(newValue);
-                        // setCurrEndTime(newValue);
                       }}
                     />
                   </LocalizationProvider>
@@ -124,18 +118,43 @@ export default function MyCourses({ course }) {
               </Dialog>
           </Stack>
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <strong>Mentor:</strong> {course.mentorName}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <strong >Course Start Time:</strong> {`${currStartTime}`}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <strong> Course End Time:</strong> {`${currEndTime}`}
-        </Typography>
-        <a href={`${course.zoomLink}`} target="_blank" rel="noreferrer">
-          Zoom Link
-        </a>
+
+        <Stack spacing={1}>
+          <Stack direction="row" spacing={1}>
+            <Avatar
+                  alt="Remy Sharp"
+                  src={defaultProfilePic}
+                  sx={{ width: 25, height: 25 }}
+                />
+            <Typography variant="body2" color="text.secondary">
+              <strong>{course.teacherName}</strong>
+            </Typography>
+          </Stack>
+
+          <Typography variant="body2" color="text.secondary">
+            <strong >Course Start Time: </strong> {`${currStartTime}`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <strong> Course End Time: </strong> {`${currEndTime}`}
+          </Typography>
+
+          <Stack spacing={1}>
+            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.zoomLink)}/>
+            {userType === 'mentor' &&
+              <>
+                <MainButton value="Attendance List" onClick={handleStudentList}/>
+                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)}/>
+              </>}
+            <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
+              <DialogTitle>Students</DialogTitle>
+                <DialogContent>
+                  {course.studentList.map((student, index) => (
+                    <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
+                  ))}
+                </DialogContent>
+            </Dialog>
+          </Stack>
+        </Stack>
       </CardContent >
     </Card >
   )
