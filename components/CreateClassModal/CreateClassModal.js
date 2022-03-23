@@ -31,6 +31,7 @@ export default function CreateClassModal() {
     setClassObj({ ...classObj, [e.target.name]: e.target.value })
   }
 
+  console.log(classObj);
   return (
     <div>
       <MainButton value="Create a Class" onClick={() => setOpen(true)} />
@@ -46,9 +47,10 @@ export default function CreateClassModal() {
               fullWidth
               color='primary'
               onChange={handleChange}
-              placeholder="E.g (Calculus II, Economics 101)"
+              placeholder="E.g. Calculus II"
             />
             <TextField
+              required
               className={styles.classForm}
               multiline
               rows={4}
@@ -59,12 +61,13 @@ export default function CreateClassModal() {
               color='primary'
 
               onChange={handleChange}
-              placeholder="Describe your course"
+              placeholder="E.g. Advanced Level Calculus for those looking to build upon their Calculus fundamentals."
             />
 
             <FormControl className={styles.subjectSelector}>
               <InputLabel>Select a Subject</InputLabel>
               <Select
+                required
                 label="Select a Subject"
                 defaultValue="Select a subject"
                 value={subject}
@@ -86,6 +89,7 @@ export default function CreateClassModal() {
             <Stack direction="row" spacing={1} className={styles.stackMargin}>
               <LocalizationProvider dateAdapter={AdapterDateFns} className={styles.dateTimePick}>
                 <DateTimePicker
+                  required
                   renderInput={(params) => <TextField {...params} fullWidth />}
                   label="New Start Time"
                   value={newStartTime}
@@ -98,6 +102,7 @@ export default function CreateClassModal() {
               </LocalizationProvider>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
+                  required
                   renderInput={(props) => <TextField {...props} fullWidth />}
                   label="New End Time"
                   name="end_date"
@@ -111,6 +116,7 @@ export default function CreateClassModal() {
             </Stack>
 
             <TextField
+              required
               className={styles.classForm}
               name="meeting_url"
               margin="dense"
@@ -124,6 +130,7 @@ export default function CreateClassModal() {
             <FormControl className={styles.classForm}>
               <InputLabel>Privacy Type Settings</InputLabel>
               <Select
+                required
                 label="Privacy Type Settings"
                 defaultValue="Privacy"
                 value={type}
@@ -140,6 +147,7 @@ export default function CreateClassModal() {
             </FormControl>
 
             <TextField
+              required
               className={styles.classSizeMargin}
               name="capacity"
               margin="dense"
