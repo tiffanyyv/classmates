@@ -26,44 +26,46 @@ import { data } from '../../components/Calendar/data/dummyData.js';
 let username = 'Matt';
 
 
-export default function Calendar () {
-//import user state (mentor/mentee)
+export default function Calendar() {
+  //import user state (mentor/mentee)
 
   const [appointmentData, setAppointmentData] = useState([]);
 
 
-    useEffect(() => {
-      setAppointmentData(data);
+  useEffect(() => {
+    setAppointmentData(data);
   }, []);
 
   return (
-    <>
-      <Head>
+    <div className="pageData">
+      <div className={styles.calendarContainer}>
+        <Head>
           <title>{`${username}'s Calendar`}</title>
-      </Head>
-      <div>
-        <Paper elevation={6} className={styles.paper}>
-        <Scheduler
-          data={appointmentData}
-          height={'800'}
-        >
-          <ViewState />
-          <WeekView
-            startDayHour={9}
-            endDayHour={22}
-            timeTableCellComponent={TimeTableCell}
-            dayScaleCellComponent={DayScaleCell}
-          />
-          <Toolbar />
-          <DateNavigator />
-          <TodayButton />
-          <Appointments />
-          <AppointmentTooltip
-          // contentComponent={TooltipContent}
-          />
-        </Scheduler>
-      </Paper>
+        </Head>
+        <div>
+          <Paper elevation={6} className={styles.paper}>
+            <Scheduler
+              data={appointmentData}
+              height={'800'}
+            >
+              <ViewState />
+              <WeekView
+                startDayHour={9}
+                endDayHour={22}
+                timeTableCellComponent={TimeTableCell}
+                dayScaleCellComponent={DayScaleCell}
+              />
+              <Toolbar />
+              <DateNavigator />
+              <TodayButton />
+              <Appointments />
+              <AppointmentTooltip
+              // contentComponent={TooltipContent}
+              />
+            </Scheduler>
+          </Paper>
+        </div>
+      </div>
     </div>
-    </>
   )
 }
