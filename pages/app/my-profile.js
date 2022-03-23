@@ -5,7 +5,14 @@ import {defaultProfilePic, defaultProfilePicDims} from '../../utils/constants';
 
 // word-wrap normal in the global page
 // add user type: teacher or student
-export default function MyProfile(props) {
+
+// account type: account_type
+// first name: name.first_name
+// last name: name.last_name
+// location: location
+// description: description
+// endorsements: endorsements
+export default function MyProfile() {
   const [userType, setUserType] = useState('mentor');
 
   return (
