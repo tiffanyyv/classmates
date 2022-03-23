@@ -13,8 +13,14 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import axios from 'axios';
+
 import MainButton from '../basecomponents/MainButton.js'
 import styles from '../../utils/styles/CreateClassModalStyles/CreateClassModalStyles.module.css';
+
+const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
+
+
 
 
 export default function CreateClassModal() {
@@ -80,11 +86,9 @@ export default function CreateClassModal() {
                   setSubject(e.target.value);
                 }}
               >
-                <MenuItem value="Math">Math</MenuItem>
-                <MenuItem value="Science">Science</MenuItem>
-                <MenuItem value="History">History</MenuItem>
-                <MenuItem value="Literature">Literature</MenuItem>
-                <MenuItem value="Language">Language</MenuItem>
+                {subjects.map((subject, index) => (
+                  <MenuItem value={subject} key={`${subject}, ${index}`}>{subject}</MenuItem>
+                ))}
               </Select>
             </FormControl>
 
