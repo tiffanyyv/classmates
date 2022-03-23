@@ -18,10 +18,6 @@ const ProfileMenu = () => {
   const [AnchorUser, setAnchorUser] = useState(null);
   const [userType, setUserType] = useState('');
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
-    fullName: 'Current User',
-    location: '',
-    description: '',
-    endorsements: 0,
     photo: ''
   })
 
@@ -41,12 +37,7 @@ const ProfileMenu = () => {
 
   const fetchUserInfo = () => {
     getUserInfo('51').then(res => {
-      console.log(res)
       setCurrentUserProfileInfo({
-        fullName: res.name.first_name + ' ' + res.name.last_name,
-        location: res.location,
-        description: res.description,
-        endorsements: res.endorsements,
         photo: res.photo
       })
     })
@@ -59,7 +50,7 @@ const ProfileMenu = () => {
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
             className={styles.profileAvatar}
-            alt="Remy Sharp"
+            alt="User Avatar"
             src={currentUserProfileInfo.photo}
             sx={{ width: 50, height: 50 }}
           />

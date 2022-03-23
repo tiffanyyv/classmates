@@ -22,15 +22,13 @@ import { openedMixin, closedMixin, SideBarDrawerHeader, SideBarAppBar, SideBarDr
 
 import { getUserInfo } from '../../utils/api/apiCalls.js'
 
+// clean up useEffect and currentUserProfileInfo
+
 export default function SideBar({ children, ...props }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
     fullName: 'Current User',
-    location: '',
-    description: '',
-    endorsements: 0,
-    photo: ''
   })
 
   useEffect(() => {
@@ -50,10 +48,6 @@ export default function SideBar({ children, ...props }) {
       console.log(res)
       setCurrentUserProfileInfo({
         fullName: res.name.first_name + ' ' + res.name.last_name,
-        location: res.location,
-        description: res.description,
-        endorsements: res.endorsements,
-        photo: res.photo
       })
     })
   }
