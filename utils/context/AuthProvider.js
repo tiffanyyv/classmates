@@ -106,7 +106,7 @@ export function AuthProvider({ children }) {
       value={{
         user, loading, error,
         signup, login, logout,
-        signInWithGoogle, signInWithFacebook, setLoginDataObject
+        signInWithGoogle, signInWithFacebook
       }}
     >
       {children}
