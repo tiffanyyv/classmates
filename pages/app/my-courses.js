@@ -19,21 +19,30 @@ export default function myCourses() {
     setCoursesData(myCoursesCopy);
   }
 
+  const handleEditCourse = (courseIndex, newCourseName, newStartTime, newEndTime) => {
+    let myCoursesCopy = [...myCoursesData];
+    let currentCourse = myCoursesCopy[courseIndex];
+    currentCourse.name = newCourseName;
+    currentCourse.start_date = newStartTime;
+    currentCourse.end_date = newEndTime;
+    setCoursesData(myCoursesCopy);
+  }
+
   return (
     <div className='pageData'>
       <h2>My Courses</h2>
       <br></br>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} columns={6}>
         {myCoursesData.map((course, index) => (
-          <MyCourses course={course} key={`${index}`} index={index} handleDeleteCourse={handleDeleteCourse}/>
+          <MyCourses
+            course={course}
+            key={`${index}`}
+            index={index}
+            handleDeleteCourse={handleDeleteCourse}
+            handleEditCourse={handleEditCourse}
+          />
         ))}
       </Grid>
     </div>
   )
 }
-
-// export async getServerSideProps(context) {
-//   return {
-//     props: {}
-//   }
-// }
