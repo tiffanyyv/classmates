@@ -54,7 +54,6 @@ export default function Calendar() {
   const [currUserId, setCurrUserId] = useState('51');
 
   const getCourseData = () => {
-    console.log(userType)
     if (userType === 'Mentor') {
       getCoursesByMentorId(currUserId)
         .then(res => {
