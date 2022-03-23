@@ -25,19 +25,21 @@ export default function CreateClassModal() {
   const [classObj, setClassObj] = useState({});
   const [open, setOpen] = useState(false);
 
-
-
   const handleChange = (e) => {
-    setClassObj({ ...classObj, [e.target.name]: e.target.value })
+    if(e.target.name === 'capacity') {
+      setClassObj({ ...classObj, [e.target.name]: Number(e.target.value) })
+    } else {
+      setClassObj({ ...classObj, [e.target.name]: e.target.value })
+    }
   }
 
-  console.log(classObj);
   return (
     <div>
       <MainButton value="Create a Class" onClick={() => setOpen(true)} />
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle className={styles.formHeader}>Create a Class</DialogTitle>
         <DialogContent>
+          {/* ----------------------COURSE NAME-------------------------- */}
           <FormControl component="fieldset" required className={styles.classForm}>
             <TextField
               required
@@ -49,6 +51,7 @@ export default function CreateClassModal() {
               onChange={handleChange}
               placeholder="E.g. Calculus II"
             />
+            {/* ----------------------COURSE DESCRIPTION-------------------------- */}
             <TextField
               required
               className={styles.classForm}
@@ -63,7 +66,7 @@ export default function CreateClassModal() {
               onChange={handleChange}
               placeholder="E.g. Advanced Level Calculus for those looking to build upon their Calculus fundamentals."
             />
-
+            {/* ----------------------SELECT SUBJECT-------------------------- */}
             <FormControl className={styles.subjectSelector}>
               <InputLabel>Select a Subject</InputLabel>
               <Select
@@ -85,7 +88,7 @@ export default function CreateClassModal() {
               </Select>
             </FormControl>
 
-
+            {/* ----------------------START TIME PICKER-------------------------- */}
             <Stack direction="row" spacing={1} className={styles.stackMargin}>
               <LocalizationProvider dateAdapter={AdapterDateFns} className={styles.dateTimePick}>
                 <DateTimePicker
@@ -100,6 +103,7 @@ export default function CreateClassModal() {
                   }}
                 />
               </LocalizationProvider>
+               {/* ----------------------END TIME PICKER-------------------------- */}
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   required
@@ -114,7 +118,7 @@ export default function CreateClassModal() {
                 />
               </LocalizationProvider>
             </Stack>
-
+            {/* ----------------------ZOOM LINK-------------------------- */}
             <TextField
               required
               className={styles.classForm}
@@ -126,7 +130,7 @@ export default function CreateClassModal() {
               onChange={handleChange}
               placeholder="Please enter your Zoom Meeting Room Link"
             />
-
+            {/* ----------------------TYPE SELECTOR-------------------------- */}
             <FormControl className={styles.classForm}>
               <InputLabel>Privacy Type Settings</InputLabel>
               <Select
@@ -145,7 +149,7 @@ export default function CreateClassModal() {
                 <MenuItem value="Private">Private</MenuItem>
               </Select>
             </FormControl>
-
+             {/* ----------------------CLASS CAPACITY-------------------------- */}
             <TextField
               required
               className={styles.classSizeMargin}
