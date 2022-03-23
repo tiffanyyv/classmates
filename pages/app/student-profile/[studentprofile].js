@@ -1,19 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getUserInfo } from '../../../utils/api/apiCalls.js';
 
 import { Avatar } from '@mui/material';
 
 import styles from '../../../utils/styles/Profiles.module.css';
 import {defaultProfilePic, defaultProfilePicDims} from '../../../utils/constants';
 
-// account type: account_type
-// first name: name.first_name
-// last name: name.last_name
-// location: location
-// description: description
-// endorsements: endorsements
+
 export default function StudentProfile(props) {
-  const [userType, setUserType] = useState('mentor');
+  const [userType, setUserType] = useState('Mentor');
+  const [userID, setUserID] = useState('51');
   const [currentStudentRecommend, setCurrentStudentRecommend] = useState(10);
+  const [studentID, setStudentID] = useState('');
+  const [currentStudentInfo, setCurrentStudentInfo] = useState({
+    // studentID: '',
+    fullName: '',
+    location: '',
+    description: '',
+    endorsements: 0
+  });
+
+  useEffect(() => {
+    fetchUserInfo();
+    fetchStudentInfo();
+  }, [])
+
+  const fetchUserInfo = () => {
+    getUserInfo(userID)
+    .then(res => {
+      // console.log(window.location.pathname.split('/')[3])
+      // setCurrentStudentInfo({...currentStudentInfo, studentID: window.location.pathname.split('/')[3]})
+      setStudentID(window.location.pathname.split('/')[3])
+      console.log('thiS IS STUDENT ID ', studentID)
+      setUserType(res.account_type)
+    }).catch(err => {
+      console.log('Error getting user data')
+    })
+  }
+
+  const fetchStudentInfo = () => {
+    getUserInfo(studentID).then(res => {
+      console.log('THIS IS STUDENT ', res)
+    })
+  }
+
 
   // increment with axios put request
   // re render page with new count
@@ -42,7 +72,7 @@ export default function StudentProfile(props) {
           <p>Description</p>
         </div>
       </div>
-        {userType === 'mentor' &&
+        {userType === 'Mentor' &&
           <div>
             <div>Recommended: {currentStudentRecommend}</div>
             <div>Would you recommend this student?</div>
