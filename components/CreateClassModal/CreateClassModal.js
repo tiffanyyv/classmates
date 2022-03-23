@@ -50,18 +50,18 @@ export default function CreateClassModal() {
     setOpen(false);
   }
 
-  useEffect (() => {
+  useEffect(() => {
     getUserInfo(51)
-     .then((data) => {
-       console.log(data)
-       setClassObj({
-       ...classObj,
-       mentorFirstName: data.name.first_name,
-       mentorLastName: data.name.last_name,
-       mentorId: '51'
-    })
+      .then((data) => {
+        console.log(data)
+        setClassObj({
+          ...classObj,
+          mentorFirstName: data.name.first_name,
+          mentorLastName: data.name.last_name,
+          mentorId: '51'
+        })
       })
-   }, [])
+  }, [])
 
   return (
     <div>
