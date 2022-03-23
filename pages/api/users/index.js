@@ -2,8 +2,6 @@
 
 import { db } from '../../../utils/api/firebase.config';
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { defaultProfilePic } from '../../../utils/constants/index';
-console.log(defaultProfilePic);
 
 export default async function addUser(req, res) {
   const {
@@ -25,7 +23,7 @@ export default async function addUser(req, res) {
         'last_name': lastName
       },
       id: uid,
-      photo: defaultProfilePic,
+      photo: "https://robohash.org/"+firstName+lastName,
       account_type,
       endorsements: 0,
       description: ''
