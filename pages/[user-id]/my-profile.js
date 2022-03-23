@@ -9,7 +9,8 @@ import { defaultProfilePic, defaultProfilePicDims } from '../../utils/constants'
 // word-wrap normal in the global page
 // add user type: teacher or student
 
-export default function MyProfile() {
+export default function MyProfile(props) {
+  console.log(props.userId);
   const [userType, setUserType] = useState('Mentor');
   const [userID, setUserID] = useState('51');
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
@@ -61,4 +62,13 @@ export default function MyProfile() {
       {userType === 'Mentor' && <div>Recommended: {currentUserProfileInfo.endorsements}</div>}
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+  // console.log(context);
+  const userId = context.params['user-id'];
+  console.log(userId);
+  return {
+    props: { userId },
+  }
 }

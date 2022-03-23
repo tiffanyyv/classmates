@@ -54,22 +54,26 @@ export function AuthProvider({ children }) {
 
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
-      .then(async (response) => {
+      .then((response) => {
         console.log(response.user.uid, "USER")
-        axios.get(`http://localhost:3000/api/users/${response.user.uid}`)
+        router.push(`/${response.user.uid}/my-courses`);
+        return response.user.uid
+      })
+      .catch((err) => {
+        console.warn('Problem with log in: ', err.message);
+      })
+      .then(async (userId) => {
+        axios.get(`http://localhost:3000/api/users/${userId}`)
           .then(response => {
             //setting state in case we need extra information
             //if the auth doesnt work we can pass in this way
             // setLoginDataObject(response)
+            // Change reroute to dynamic route
+            console.log('AXIOS RESPONSE', response);
           })
-          .catch(error => {
-            console.warn(err)
+          .catch(err => {
+            console.warn('Problem with initial data fetch: ', err);
           })
-        // Change reroute to dynamic route
-        router.push('/app/my-courses');
-      })
-      .catch((err) => {
-        console.warn('Problem with log in: ', err.message);
       })
   }
 
@@ -100,8 +104,7 @@ export function AuthProvider({ children }) {
         var jsonData = await response.json();
         console.log(res)
         // Change reroute to dynamic route
-        router.push('/app/my-courses');
-
+        router.push(`/${user.uid}/my-courses`);
       })
       .catch(error => {
         console.warn(error)

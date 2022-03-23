@@ -14,7 +14,7 @@ import { getUserInfo } from '../../../utils/api/apiCalls.js'
 
 const settings = ['Profile', 'Logout'];
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ userId }) => {
   const [AnchorUser, setAnchorUser] = useState(null);
   const [userType, setUserType] = useState('');
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
@@ -74,7 +74,7 @@ const ProfileMenu = () => {
       >
         <MenuItem>
           <Typography textAlign="center">
-            <Link href="/app/my-profile"><a>Profile</a></Link>
+            <Link href={`/${userId}/my-profile`}><a>Profile</a></Link>
           </Typography>
         </MenuItem>
         <MenuItem onClick={logout}>
