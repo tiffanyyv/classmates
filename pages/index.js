@@ -29,6 +29,7 @@ export default function LandingPage() {
         <h7>"THIS is official documentation" - Q. Maki CTO GeeksforGeeks</h7>
         <h7>"Good sh** guys" - E. Zhang CTO Apple</h7>
         <h7>"The Harvard of online Mentorship" - K. Lopez CTO Google</h7>
+        <h7>"Our next BILLION dollar acquisition" - Galvanize</h7>
       </div>
     </div>
   )

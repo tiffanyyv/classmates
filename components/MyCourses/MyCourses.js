@@ -20,12 +20,12 @@ import { useState } from 'react';
 import Link from 'next/link'
 
 import MainButton from '../basecomponents/MainButton.js'
-import defaultProfilePic from '../../utils/constants/index.js'
+import { defaultProfilePic } from '../../utils/constants/index.js'
 
 export default function MyCourses({ course, handleDeleteCourse, index }) {
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
-  const [userType, setUserType] = useState('mentor');
+  const [userType, setUserType] = useState('student');
   const [currCourseName, setCurrCourseName] = useState(course.courseName);
   const [currStartTime, setCurrStartTime] = useState(course.startTime);
   const [currEndTime, setCurrEndTime] = useState(course.endTime);
@@ -77,24 +77,24 @@ export default function MyCourses({ course, handleDeleteCourse, index }) {
             {currCourseName}
             {userType === 'mentor' &&
               <EditIcon onClick={handleEditCourse} />}
-              <Dialog open={editCourseInfo} onClose={handleEditCourse}>
-                <DialogTitle>Update Course Info</DialogTitle>
-                <DialogContent>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    label="New Course Name"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                    color='info'
-                    focused
-                    onChange={(e) => setNewCourseName(e.target.value)}
-                  />
-                  <Stack direction="row" spacing={2}>
+            <Dialog open={editCourseInfo} onClose={handleEditCourse}>
+              <DialogTitle>Update Course Info</DialogTitle>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="New Course Name"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  color='info'
+                  focused
+                  onChange={(e) => setNewCourseName(e.target.value)}
+                />
+                <Stack direction="row" spacing={2}>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
-                      renderInput={(props) => <TextField {...props}/>}
+                      renderInput={(props) => <TextField {...props} />}
                       label="New Start Time"
                       value={newStartTime}
                       onChange={(newValue) => {
@@ -112,20 +112,20 @@ export default function MyCourses({ course, handleDeleteCourse, index }) {
                       }}
                     />
                   </LocalizationProvider>
-                  </Stack>
-                </DialogContent>
-                <MainButton value="Submit Changes" onClick={handleSubmitCourseChanges}/>
-              </Dialog>
+                </Stack>
+              </DialogContent>
+              <MainButton value="Submit Changes" onClick={handleSubmitCourseChanges} />
+            </Dialog>
           </Stack>
         </Typography>
 
         <Stack spacing={1}>
           <Stack direction="row" spacing={1}>
             <Avatar
-                  alt="Remy Sharp"
-                  src={defaultProfilePic}
-                  sx={{ width: 25, height: 25 }}
-                />
+              alt="Remy Sharp"
+              src={defaultProfilePic}
+              sx={{ width: 25, height: 25 }}
+            />
             <Typography variant="body2" color="text.secondary">
               <strong>{course.teacherName}</strong>
             </Typography>
@@ -139,19 +139,19 @@ export default function MyCourses({ course, handleDeleteCourse, index }) {
           </Typography>
 
           <Stack spacing={1}>
-            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.zoomLink)}/>
+            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.zoomLink)} />
             {userType === 'mentor' &&
               <>
-                <MainButton value="Attendance List" onClick={handleStudentList}/>
-                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)}/>
+                <MainButton value="Attendance List" onClick={handleStudentList} />
+                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)} />
               </>}
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
-                <DialogContent>
-                  {course.studentList.map((student, index) => (
-                    <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
-                  ))}
-                </DialogContent>
+              <DialogContent>
+                {course.studentList.map((student, index) => (
+                  <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
+                ))}
+              </DialogContent>
             </Dialog>
           </Stack>
         </Stack>
