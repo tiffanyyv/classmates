@@ -5,6 +5,12 @@ import { Avatar } from '@mui/material';
 import styles from '../../../utils/styles/Profiles.module.css';
 import {defaultProfilePic, defaultProfilePicDims} from '../../../utils/constants';
 
+// account type: account_type
+// first name: name.first_name
+// last name: name.last_name
+// location: location
+// description: description
+// endorsements: endorsements
 export default function StudentProfile(props) {
   const [userType, setUserType] = useState('mentor');
   const [currentStudentRecommend, setCurrentStudentRecommend] = useState(10);
