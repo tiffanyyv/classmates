@@ -1,0 +1,23 @@
+.classForm {
+  margin-top: 2%;
+}
+
+
+.subjectSelector {
+  width: 100%;
+  margin-top: 2%
+}
+
+.stackMargin {
+  margin-top: 2%;
+}
+
+.classSizeMargin {
+  margin: 2% 0 2% 0;
+}
+
+.formHeader {
+  background-image: linear-gradient(to top, #FFFFFF 5%, rgba(132,199,208,1) 35%, rgba(176,180,212,1)90%);
+  color: #FFFFFF;
+  /* text-align: center; */
+}
