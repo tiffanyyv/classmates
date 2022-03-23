@@ -17,13 +17,14 @@ import TooltipContent from '../../components/Calendar/subcomponents/TooltipConte
 import styles from '../../utils/styles/CalendarStyles/Calendar.module.css';
 import { TimeTableCell, DayScaleCell } from '../../components/Calendar/Calendar.js';
 import { data } from '../../components/Calendar/data/dummyData.js';
+import CreateClassModal from '../../components/CreateClassModal/CreateClassModal.js'
 
 //import render Calendar component
 
 
 
 //use username from GET request, current is just mock data
-let username = 'Matt';
+// let username = 'Matt';
 
 
 export default function Calendar() {
@@ -40,7 +41,7 @@ export default function Calendar() {
     <div className="pageData">
       <div className={styles.calendarContainer}>
         <Head>
-          <title>{`${username}'s Calendar`}</title>
+          <title>My Calendar</title>
         </Head>
         <div>
           <Paper elevation={6} className={styles.paper}>
@@ -48,7 +49,9 @@ export default function Calendar() {
               data={appointmentData}
               height={'800'}
             >
-              <ViewState />
+              <ViewState
+              defaultCurrentViewName="Week"
+              />
               <WeekView
                 startDayHour={9}
                 endDayHour={22}
@@ -58,6 +61,11 @@ export default function Calendar() {
               <Toolbar />
               <DateNavigator />
               <TodayButton />
+              <div className={styles.createClassContainer}>
+                <div className={styles.createClass}>
+                  <CreateClassModal />
+                </div>
+              </div>
               <Appointments />
               <AppointmentTooltip
               // contentComponent={TooltipContent}
