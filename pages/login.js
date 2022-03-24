@@ -35,7 +35,6 @@ export default function Login() {
 
   const handleStandardLogin = (e) => {
     e.preventDefault();
-    // console.log(loginInfo.email, loginInfo.password)
     login(loginInfo.email, loginInfo.password)
   }
 
