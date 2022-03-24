@@ -11,7 +11,6 @@ import { useAuthContext } from '../../../utils/context/AuthProvider';
 
 import { getUserInfo } from '../../../utils/api/apiCalls.js'
 
-
 const settings = ['Profile', 'Logout'];
 
 const ProfileMenu = ({ userId }) => {
