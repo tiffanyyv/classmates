@@ -15,17 +15,12 @@ import { getUserInfo } from '../../../utils/api/apiCalls.js'
 const settings = ['Profile', 'Logout'];
 
 const ProfileMenu = ({ userId }) => {
+  const { logout } = useAuthContext();
   const [AnchorUser, setAnchorUser] = useState(null);
   const [userType, setUserType] = useState('');
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
     photo: ''
   })
-
-  const { logout } = useAuthContext();
-
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
 
   const handleOpenUserMenu = (event) => {
     setAnchorUser(event.currentTarget);
@@ -36,13 +31,16 @@ const ProfileMenu = ({ userId }) => {
   };
 
   const fetchUserInfo = () => {
-    getUserInfo('51').then(res => {
+    getUserInfo(userId).then(res => {
       setCurrentUserProfileInfo({
         photo: res.photo
       })
     })
   }
 
+  useEffect(() => {
+    fetchUserInfo()
+  }, [])
 
   return (
     <Box sx={{ flexGrow: 0 }}>

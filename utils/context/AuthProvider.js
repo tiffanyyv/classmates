@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        console.log(response.user.uid, "USER")
+        // console.log(response.user.uid, "USER")
         router.push(`/${response.user.uid}/my-courses`);
         return response.user.uid
       })
@@ -69,7 +69,7 @@ export function AuthProvider({ children }) {
             //if the auth doesnt work we can pass in this way
             // setLoginDataObject(response)
             // Change reroute to dynamic route
-            console.log('AXIOS RESPONSE', response);
+            // console.log('AXIOS RESPONSE', response);
           })
           .catch(err => {
             console.warn('Problem with initial data fetch: ', err);
