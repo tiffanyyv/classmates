@@ -24,7 +24,7 @@ import MainButton from '../basecomponents/MainButton.js'
 import { defaultProfilePic } from '../../utils/constants/index.js'
 import styles from '../../utils/styles/MyCoursesStyles/MyCourses.module.css';
 
-export default function MyCourses({ course, index, handleDeleteCourse, handleEditCourse, userType }) {
+export default function MyCoursesCard({ course, index, handleDeleteCourse, handleEditCourse, userInfo }) {
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(index);
@@ -34,7 +34,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
   const [newEndTime, setNewEndTime] = useState(course.end_date);
 
   const handleStudentList = () => {
-    if (userType === 'Mentor') {
+    if (userInfo.userType === 'Mentor') {
       setShowStudentList(!showStudentList)
     }
   }
@@ -46,7 +46,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
   const handleSubmitEditCourse = () => {
     handleEditModal();
-    handleEditCourse(currentIndex, newCourseName, newStartTime, newEndTime);
+    handleEditCourse(course, newCourseName, newStartTime, newEndTime);
   }
 
   const handleOpenZoomLink = (url) => {
@@ -54,7 +54,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
   }
 
   return (
-    <Card sx={{ maxWidth: 300, margin: 1.5 }}>
+    <Card sx={{ width: 300, margin: 1.5 }}>
       <CardMedia
         component="img"
         height="175"
@@ -65,7 +65,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
         <Typography gutterBottom variant="h6" component="div">
           <Stack direction="row">
             {course.name}
-            {userType === 'Mentor' &&
+            {userInfo.userType === 'Mentor' &&
               <EditIcon onClick={handleEditModal} className={styles.editCourseButton}/>}
               <Dialog open={editCourseInfo} onClose={handleEditModal}>
                 <DialogTitle>Update Course Info</DialogTitle>
@@ -117,7 +117,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
           <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
               <Avatar
                 alt="Teacher Avatar"
-                src={defaultProfilePic}
+                src={course.mentor.photo}
                 sx={{ width: 20, height: 20 }}
                 className={styles.cardUserAvatar}
               />
@@ -136,10 +136,12 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
           <Stack spacing={1}>
             <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
-            {userType === 'Mentor' &&
+            {userInfo.userType === 'Mentee' &&
+              <MainButton value="Drop Course"/>}
+            {userInfo.userType === 'Mentor' &&
               <>
                 <MainButton value="Attendance List" onClick={handleStudentList}/>
-                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)}/>
+                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(course.id)}/>
               </>}
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
@@ -149,11 +151,12 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
                       <Link href={`/app/student-profile/${student.name.first_name}_${student.name.last_name}`} passHref>
                         <Avatar
                           alt="Student Avatar"
-                          src={defaultProfilePic}
+                          src={student.photo}
                           sx={{ width: 20, height: 20 }}
                           className={styles.cardUserAvatar}
                         />
                       </Link>
+                      {student.id}
                       <DialogContentText>{`${student.name.first_name} ${student.name.last_name}`}</DialogContentText>
                     </Stack>
                   ))}
