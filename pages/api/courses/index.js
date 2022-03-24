@@ -11,8 +11,8 @@ import {
   query,
   where
 } from "firebase/firestore";
-import { coursePhotos } from '../../../utils/constants/index';
 
+import { coursePhotos } from '../../../utils/constants/index';
 
 export default async function getAndCreateCourses(req, res) {
   const {

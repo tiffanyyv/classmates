@@ -15,6 +15,7 @@ export default async function getTopEndorsements(req, res) {
     const querySnapshot = await getDocs(q);
 
     const result = [];
+
     querySnapshot.forEach(doc => {
       result.push(doc.data());
       console.log(doc.data());
@@ -29,10 +30,7 @@ export default async function getTopEndorsements(req, res) {
     });
 
     res.status(200).json(transformResult);
-
   } catch (err) {
-
     res.status(400).send(`Error retrieving top endorsements: ${err}`);
-
   }
 }
