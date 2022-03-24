@@ -23,8 +23,8 @@ import { createNewCourse, getUserInfo } from '../../utils/api/apiCalls.js';
 const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
 
-export default function CreateClassModal({ getCoursesData }) {
-  const { user } = useAuthContext();
+export default function CreateClassModal({ getCoursesData, userInfo }) {
+  console.log('this is userInfo in CreateClassModal: ', userInfo);
   const [subject, setSubject] = useState('');
   const [type, setType] = useState('');
   const [newStartTime, setNewStartTime] = useState(null);
@@ -48,19 +48,13 @@ export default function CreateClassModal({ getCoursesData }) {
   }
 
   useEffect(() => {
-    getUserInfo(51)
-      .then((data) => {
-        setClassObj({
-          ...classObj,
-          mentorFirstName: data.name.first_name,
-          mentorLastName: data.name.last_name,
-          mentorId: '51'
-        })
-      })
-      .catch(err => {
-        console.error(err);
-      })
-      return () => setClassObj({})
+    setClassObj({
+      ...classObj,
+      mentorFirstName: userInfo.name.first_name,
+      mentorLastName: userInfo.name.last_name,
+      mentorId: userInfo.id
+    })
+    return () => setClassObj({})
   }, [])
 
   return (

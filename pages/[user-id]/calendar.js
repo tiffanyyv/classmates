@@ -32,12 +32,11 @@ import {
 //implement userID dynamic rendering
 
 
-export default function Calendar() {
+export default function Calendar({ userInfo, formattedAllCoursesData }) {
   //import user state (mentor/mentee)
-  const { user } = useAuthContext();
-  const [appointmentData, setAppointmentData] = useState([]);
-  const [userType, setUserType] = useState('Mentor');
-  const [currUserId, setCurrUserId] = useState('51');
+  const [appointmentData, setAppointmentData] = useState(formattedAllCoursesData);
+  const [userType, setUserType] = useState(userInfo.account_type);
+  const [currUserId, setCurrUserId] = useState(userInfo.id);
 
   const getCoursesData = () => {
     if (userType === 'Mentor') {
@@ -58,7 +57,7 @@ export default function Calendar() {
               mentees: course.mentees,
             }
           })
-          console.log(apptDataResult);
+          // console.log(apptDataResult);
           setAppointmentData(apptDataResult);
         })
         .catch(err => {
@@ -90,20 +89,20 @@ export default function Calendar() {
     }
   }
 
-  useEffect(() => {
-    getUserInfo(currUserId)
-      .then(res => {
-        setUserType(res.account_type);
-      })
+//   useEffect(() => {
+//     getUserInfo(currUserId)
+//       .then(res => {
+//         setUserType(res.account_type);
+//       })
 
-      return () => setUserType('')
-  }, [])
+//       return () => setUserType('')
+//   }, [])
 
-  useEffect(() => {
-    getCoursesData();
+//   useEffect(() => {
+//     getCoursesData();
 
-    return () => setAppointmentData([]);
-}, [userType]);
+//     return () => setAppointmentData([]);
+// }, [userType]);
 
   return (
     <div className="pageData">
@@ -132,7 +131,7 @@ export default function Calendar() {
               {userType === 'Mentor' &&
               <div className={styles.createClassContainer}>
                 <div className={styles.createClass}>
-                  <CreateClassModal getCoursesData={getCoursesData}/>
+                  <CreateClassModal getCoursesData={getCoursesData} userInfo={userInfo}/>
                 </div>
               </div>
               }
@@ -148,18 +147,34 @@ export default function Calendar() {
   )
 }
 
-// export async function getServerSideProps(context) {
-//   const userId = context.params['user-id'];
-//   const userInfo = await getUserInfo(userId);
-//   let courseData;
+export async function getServerSideProps(context) {
+  const userId = context.params['user-id'];
+  const userInfo = await getUserInfo(userId);
+  let allCoursesData;
 
-//   if (userInfo.account_type === 'Mentor') {
-//     courseData = await getCoursesByMentorId(userInfo.id)
-//   } else if (userInfo.account_type === 'Mentee') {
-//     courseData = await getCoursesByMenteeId(userInfo.id)
-//   }
+  if (userInfo.account_type === 'Mentor') {
+    allCoursesData = await getCoursesByMentorId(userInfo.id)
+  } else if (userInfo.account_type === 'Mentee') {
+    allCoursesData = await getCoursesByMenteeId(userInfo.id)
+  }
 
-//   return {
-//     props: { userInfo, courseData, mappedApptData }
-//   }
-// }
+  let formattedAllCoursesData = allCoursesData.map((course) => {
+    return {
+      title: course.name,
+      startDate: new Date(course.start_date),
+      endDate: new Date(course.end_date),
+      zoomLink: course.meeting_url,
+      capacity: course.capacity,
+      description: course.description,
+      id: course.id,
+      subject: course.subject,
+      photo: course.photo,
+      mentor: course.mentor,
+      mentees: course.mentees,
+    }
+  });
+
+  return {
+    props: { userInfo, formattedAllCoursesData }
+  }
+}
