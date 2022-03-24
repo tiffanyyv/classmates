@@ -64,7 +64,7 @@ export default function CreateClassModal({ getCourseData }) {
   }, [])
 
   return (
-    <div>
+    <>
       <MainButton value="Create a Class" onClick={() => setOpen(true)} />
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle className={styles.formHeader}>Create a Class</DialogTitle>
@@ -192,6 +192,6 @@ export default function CreateClassModal({ getCourseData }) {
           </FormControl>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }

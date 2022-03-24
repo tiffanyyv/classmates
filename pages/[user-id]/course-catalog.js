@@ -1,28 +1,44 @@
 // ClassCatalog widget
 import { useEffect, useState } from 'react';
-import { Grid } from '@mui/material';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import {
+  Grid,
+  Typography,
+  Stack,
+  TextField,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select
+} from '@mui/material';
 
 import CourseCatalogCard from '../../components/CourseCatalog/CourseCatalogCard.js'
+import CreateClassModal from '../../components/CreateClassModal/CreateClassModal.js'
 import MainButton from '../../components/basecomponents/MainButton.js';
-import MyCoursesExampleData from '../../components/MyCourses/data/MyCourses.example.js';
-// import { getUserInfo,  } from '../../utils/api/apiCalls.js';
+import { getUserInfo, getAllCourses, updateCourseMenteeList } from '../../utils/api/apiCalls.js';
 
 // search based on: teacher name, class name
 // filter based on category or all
 export default function CourseCatalog() {
   const [searchInput, setSearchInput] = useState('');
-  const [allCourses, setAllCourses] = useState(MyCoursesExampleData);
-  const [displayCourses, setDisplayCourses] = useState(allCourses);
-  const [currentCategory, setCurrentCategory] = useState('');
+  const [allCourses, setAllCourses] = useState([]);
+  const [displayCourses, setDisplayCourses] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState('all');
   const [openCreateClass, setOpenCreateClass] = useState(false);
+  const [userInfo, setUserInfo] = useState({ userType: '', userID: '51', first_name: '', last_name: '' })
 
-  // after get request, set allCourses to results
+  useEffect(() => {
+    getUserInfo(userInfo.userID)
+      .then(res => setUserInfo({ userType: res.account_type, userID: res.id, first_name: res.name.first_name, last_name: res.name.last_name }))
+      .catch(err => console.log('Error getting user information'));
+    getAllCourses()
+      .then(() => getAllCourses())
+      .then(res => setAllCourses(res))
+      .catch(err => console.log('Error getting course catalog'));
+  }, []);
+
+  useEffect(() => {
+    setDisplayCourses(allCourses)
+  }, [allCourses])
 
   const handleCreateClass = () => {
     setOpenCreateClass(!openCreateClass);
@@ -35,6 +51,17 @@ export default function CourseCatalog() {
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
+
+  const handleStudentAddCourse = (currentCourse) => {
+    let studentBody = {
+      mentee_id: userInfo.userID,
+      mentee_firstName: userInfo.first_name,
+      mentee_lastName: userInfo.last_name
+    }
+    updateCourseMenteeList(currentCourse.id, studentBody)
+      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
+      .catch(err => console.log('Could not sign up for class'))
+  }
 
   // if search input not empty, filter based on inputted course name/teacher name
   const handleSearchSubmit = () => {
@@ -62,6 +89,7 @@ export default function CourseCatalog() {
 
   return (
     <div className='pageData'>
+      <Typography gutterBottom variant="h5" component="div"><strong>Course Catalog</strong></Typography>
       <Stack spacing={2} direction="row">
         <TextField id="standard-basic" label="Search by course name, teacher" variant="standard" sx={{ width: '30%' }} onChange={e => handleSearchInput(e)} />
         <FormControl sx={{ width: '10%' }}>
@@ -83,14 +111,20 @@ export default function CourseCatalog() {
         </FormControl>
         <Stack direction="row" spacing={1}>
           <MainButton value="Search" onClick={handleSearchSubmit} />
-          <MainButton value="Add a Class +" onClick={handleCreateClass} />
+          <MainButton value="Create A Class +" onClick={handleCreateClass} />
+          <CreateClassModal />
         </Stack>
       </Stack>
       <br></br>
       <br></br>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} columns={6}>
         {displayCourses.map((course, index) => (
-          <CourseCatalogCard course={course} key={`${index}`} />
+          <CourseCatalogCard
+            course={course}
+            key={`${index}`}
+            userInfo={userInfo}
+            handleStudentAddCourse={handleStudentAddCourse}
+          />
         ))}
       </Grid>
     </div>
