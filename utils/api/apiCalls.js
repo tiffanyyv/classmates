@@ -35,20 +35,19 @@ export const createNewCourse = (body) => {
     .then(({ data }) => data)
     .catch((err) => console.warn(err.message));
 }
-/* example body */
+/* createNewCourse example body */
 /*
 {
-    capacity: Number,
-    description: String,
-    end_date: String,
-    start_date: String,
-    endorsements: Number,
-    meeting_url: String,
-    mentorId: String,
-    mentorFirstName: String,
-    mentorLastName: String,
-    name: String,
-    subject: String,
+  "capacity": Number,
+  "description": String,
+  "end_date": String,
+  "start_date": String,
+  "meeting_url": String,
+  "mentorId": String,
+  "mentorFirstName": String,
+  "mentorLastName": String,
+  "name": String,
+  "subject": String
 }
 */
 
@@ -59,16 +58,17 @@ export const removeCourse = (course_id) => {
 }
 
 export const updateCourseInfo = (course_id, body) => {
-  // req.body example
-  // {
-  // ‘name’: string
-  // ‘start_time’: string: timestamp
-  // ‘end_time’: string timestamp
-  // }
   return axios.put(`http://localhost:3000/api/courses/${course_id}`, body)
     .then(({ data }) => data)
     .catch(err => console.warn(err))
 }
+/* updateCourseInfo example body */
+/* {
+  "name": string
+  "start_time": string ISO timestamp
+  "end_time": string ISO timestamp
+}
+*/
 
 export const getAllSubjects = () => {
   return axios.get(`http://localhost:3000/api/courses/subjects/`)
@@ -82,17 +82,33 @@ export const getCoursesBySubjectName = (subject_name) => {
     .catch(err => console.warn(err));
 }
 
-export const updateCourseMenteeList = (course_id, body) => {
+export const addMenteeToCourse = (course_id, body) => {
   return axios.put(`http://localhost:3000/api/courses/course/${course_id}`, body)
     .then(({ data }) => data)
     .catch(err => console.warn(err));
 }
-/* updateCourseMenteeList example body */
-// {
-//  mentee_id
-//  mentee_firstName
-//  mentee_lastName
-// }
+/* addMenteeToCourse example body */
+/*
+{
+  "mentee_id": "1",
+  "mentee_firstName": "Jeth",
+  "mentee_lastName": "Venturoli"
+}
+*/
+
+export const removeMenteeFromCourse = (course_id, body) => {
+  return axios.put(`http://localhost:3000/api/courses/${course_id}`, body)
+    .then(({ data }) => data)
+    .catch(err => console.warn(err));
+}
+/* removeMenteeFromCourse example body */
+/*
+{
+  "mentees": {
+    "id" : "1"
+  }
+}
+*/
 
 /* USERS */
 export const addUser = (body) => {
@@ -119,6 +135,20 @@ export const getUserInfo = (userId) => {
     .catch(err => console.warn(err));
 }
 
+/* userId === uid (same as mentor/mentee id) */
+export const updateUserInfo = (userId, body) => {
+  return axios.put(`http://localhost:3000/api/users/${userId}`, body)
+    .then(({ data }) => data)
+    .catch(err => console.warn(err));
+}
+
+/* updateUserInfo example body */
+/*
+{
+  "description": "Javascript"
+}
+*/
+
 /* ENDORSEMENTS */
 export const getTopEndorsements = () => {
   return axios.get('http://localhost:3000/api/endorsements')
@@ -139,8 +169,19 @@ export const updateUserEndorsements = (user_id, body) => {
     .then(({ data }) => data)
     .catch((err) => console.warn(err.message));
 }
+/* updateUserEndorsements example body:
+{
+  "type": "increase" (or "decrease")
+}
+*/
 
-/* Example body:
+/* userId === uid (same as mentor/mentee id) */
+export const updateCourseEndorsements = (course_id, body) => {
+  return axios.put(`/api/endorsements/courses/${course_id}`, body)
+    .then(({ data }) => data)
+    .catch((err) => console.warn(err.message));
+}
+/* updateCourseEndorsements example body:
 {
   "type": "increase" (or "decrease")
 }

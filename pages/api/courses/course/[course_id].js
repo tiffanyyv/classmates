@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 
 /* add student to course's mentee list */
-export default async function updateCourseMenteeList(req, res) {
+export default async function addMenteeToCourse(req, res) {
   const { course_id } = req.query;
   const {
     mentee_id,
