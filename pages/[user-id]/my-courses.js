@@ -11,11 +11,10 @@ import { getUserInfo, getCoursesByMenteeId, getCoursesByMentorId } from '../../u
 export default function MyCoursesPage() {
   const router = useRouter();
   var pathUserId = router.asPath.split('/');
+  const userID = pathUserId[1];
 
   const [myCoursesData, setCoursesData] = useState([]);
-  const [userID, setUserID] = useState(pathUserId[1]);
   const [userType, setUserType] = useState('');
-
 
   const fetchUserInfo = () => {
     return getUserInfo(userID)
@@ -52,13 +51,16 @@ export default function MyCoursesPage() {
 
   useEffect(() => {
     getUserInfo(userID)
-      .then(res => setUserType(res.account_type))
-      .catch(err => console.log('Error getting user information'))
+      .then(response => {
+        if (!response?.account_type) {
+          throw new Error('No account type associated with user.')
+        }
+        setUserType(response.account_type)
+      })
+      .catch(err => console.log('Error getting user information: ', err))
+      .then(fetchAllCourses)
+      .catch((err) => console.warn(err))
   }, []);
-
-  useEffect(() => {
-    fetchAllCourses();
-  }, [userType])
 
   return (
     <div className='pageData'>
