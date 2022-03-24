@@ -20,16 +20,23 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import EditIcon from '@mui/icons-material/Edit';
 
-import MainButton from '../basecomponents/MainButton.js'
-import { defaultProfilePic } from '../../utils/constants/index.js'
+import MainButton from '../basecomponents/MainButton.js';
+import { defaultProfilePic } from '../../utils/constants/index.js';
+import StudentProfile from '../UserProfileView/StudentProfileView.js';
+import TeacherProfile from '../UserProfileView/TeacherProfileView.js';
 import styles from '../../utils/styles/CourseCatalogStyles/CourseCatalog.module.css';
 
-export default function CourseCatalogCard({ course }) {
-  const [userType, setUserType] = useState('student');
+export default function CourseCatalogCard({ course, handleStudentAddCourse, userInfo }) {
+  // const [userType, setUserType] = useState('student');
   const [showCourseInfo, setShowCourseInfo] = useState(false);
   const [showStudentList, setShowStudentList] = useState(false);
-
   const [editCourseInfo, setEditCourseInfo] = useState(false);
+
+  const [showNewModal, setShowNewModal] = useState(false);
+
+  const handleNewModal = () => {
+    setShowNewModal(!showNewModal)
+  }
 
   const handleShowCourseInfo = () => {
     setShowCourseInfo(!showCourseInfo)
@@ -39,18 +46,12 @@ export default function CourseCatalogCard({ course }) {
     setShowStudentList(!showStudentList)
   }
 
-  // write out after connecting with API
-  // student will join class and be added to the list
-  // need to check if class is public or private
-  const handleJoinClass = () => {
-  }
-
   const handleOpenZoomLink = (url) => {
     window.open(url, '_blank', 'noreferrer')
   }
 
   return (
-    <Card sx={{ maxWidth: 300, margin: 1.5 }}>
+    <Card sx={{ width: 300, margin: 1.5 }}>
       <CardMedia
         component="img"
         height="175"
@@ -70,7 +71,7 @@ export default function CourseCatalogCard({ course }) {
             <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
               <Avatar
                 alt="Teacher Avatar"
-                src={defaultProfilePic}
+                src={course.mentor.photo}
                 sx={{ width: 20, height: 20 }}
                 className={styles.cardUserAvatar}
               />
@@ -83,44 +84,56 @@ export default function CourseCatalogCard({ course }) {
           <Stack spacing={1}>
             <MainButton value="Course Info" onClick={handleShowCourseInfo} />
             <Dialog onClose={handleShowCourseInfo} open={showCourseInfo} fullWidth={true}>
-              <DialogTitle>Course Info</DialogTitle>
+              <DialogTitle><strong>{course.name}</strong></DialogTitle>
               <DialogContent>
-                <DialogContentText><strong>Course Name:</strong> {course.name}</DialogContentText>
-                <DialogContentText><strong>Subject:</strong> </DialogContentText>
-                <DialogContentText><strong>Taught By:</strong> {course.mentor.name.first_name} {course.mentor.name.last_name}</DialogContentText>
-                <DialogContentText><strong>Course Begins:</strong> {`${course.start_date}`}</DialogContentText>
-                <DialogContentText><strong>Course Ends:</strong> {`${course.end_date}`}</DialogContentText>
-                <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
+                <Stack spacing={1}>
+                  <DialogContentText><strong>Subject:</strong> {course.subject}</DialogContentText>
+                  <DialogContentText><strong>Taught By:</strong> {course.mentor.name.first_name} {course.mentor.name.last_name}</DialogContentText>
+                  <DialogContentText><strong>Description:</strong> {course.description}</DialogContentText>
+                  <DialogContentText><strong>Course Begins:</strong> {`${course.start_date}`}</DialogContentText>
+                  <DialogContentText><strong>Course Ends:</strong> {`${course.end_date}`}</DialogContentText>
+                  <DialogContentText><strong>Student Recommendations:</strong> {course.endorsements}</DialogContentText>
+                  <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
+                  <MainButton value="Would You Recommend This Course?"/>
+                </Stack>
               </DialogContent>
             </Dialog>
 
-            {userType === 'mentor' &&
+            {userInfo.userType === 'Mentor' &&
               <MainButton value="Attendance List" onClick={handleShowStudentList} />}
             <Dialog onClose={handleShowStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Attendance List</DialogTitle>
               <DialogContent>
                 {course.mentees.length === 0 &&
                 <DialogContentText>No Students Currently Attending</DialogContentText>}
+
                 {course.mentees.map((student, index) => (
                   <Stack direction="row" spacing={1} key={`${index}`}>
-                    <Link href={`/app/student-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
+                    {/* <Link href={`/app/student-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref> */}
                       <Avatar
                         alt="Student Avatar"
-                        src={defaultProfilePic}
+                        src={student.photo}
                         sx={{ width: 20, height: 20 }}
                         className={styles.cardUserAvatar}
+                        onClick={handleNewModal}
                       />
-                    </Link>
+                    <Dialog onClose={handleNewModal} open={showNewModal}>
+                      <DialogTitle>Test Modal</DialogTitle>
+                      <DialogContent>
+                        <StudentProfile studentID={student.name.id}/>
+                        <DialogContentText>Is this modal-ception?</DialogContentText>
+                      </DialogContent>
+                    </Dialog>
+                    {/* </Link> */}
                     <DialogContentText >{student.name.first_name} {student.name.last_name}</DialogContentText>
                   </Stack>
                 ))}
               </DialogContent>
             </Dialog>
-            {userType === 'student' &&
-              <MainButton value="Join class" onClick={handleJoinClass} />}
+            {userInfo.userType === 'Mentee' &&
+              <MainButton value="Join class" onClick={() => handleStudentAddCourse(course)} />}
           </Stack>
         </Stack>
-
       </CardContent>
     </Card>
   )
