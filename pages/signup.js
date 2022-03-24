@@ -52,9 +52,8 @@ export default function Signup() {
     signup(signupInfo)
   }
 
-  // Change reroute to dynamic route
   if (user) {
-    router.push('/app/my-courses')
+    router.push(`/${user.uid}/my-courses`)
     return null;
   }
 

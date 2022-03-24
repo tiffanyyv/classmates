@@ -40,10 +40,10 @@ export default function Login() {
   }
 
   // Change reroute to dynamic route
-  // if (user) {
-  //   router.push('/app/my-courses');
-  //   return null;
-  // }
+  if (user) {
+    router.push(`${user.uid}/my-courses`);
+    return null;
+  }
 
   return (
     <div className={classes.root}>

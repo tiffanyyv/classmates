@@ -17,7 +17,6 @@ const settings = ['Profile', 'Logout'];
 const ProfileMenu = ({ userId }) => {
   const { logout } = useAuthContext();
   const [AnchorUser, setAnchorUser] = useState(null);
-  const [userType, setUserType] = useState('');
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
     photo: ''
   })
@@ -30,16 +29,11 @@ const ProfileMenu = ({ userId }) => {
     setAnchorUser(null);
   };
 
-  const fetchUserInfo = () => {
-    getUserInfo(userId).then(res => {
-      setCurrentUserProfileInfo({
-        photo: res.photo
-      })
-    })
-  }
-
   useEffect(() => {
-    fetchUserInfo()
+    getUserInfo(userId)
+      .then(res => {
+      setCurrentUserProfileInfo({photo: res.photo});
+      });
   }, [])
 
   return (

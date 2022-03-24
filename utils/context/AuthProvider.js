@@ -24,7 +24,8 @@ export function AuthProvider({ children }) {
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
-      .then(async (response) => {
+      .catch((err) => console.warn('Problem with authentication creation: ', err.message))
+      .then((response) => {
         body['uid'] = response.user.uid
         var postBody = {
           account_type: body.account_type,
@@ -34,22 +35,10 @@ export function AuthProvider({ children }) {
           username: body.username,
           location: body.location
         }
-        console.log(postBody)
-        if (body.account_type === 'Mentor') {
-          axios.post(`http://localhost:3000/api/users`, postBody)
-            .then(response => {
-              console.log(response)
-            })
-            .catch(err => {
-              console.warn(err, 'Error on Signup Post request ');
-            })
-        }
-        // Change reroute to dynamic route
-        router.push('/app/my-courses')
+        axios.post(`http://localhost:3000/api/users`, postBody)
       })
-      .catch((err) => {
-        console.warn('Problem with sign up: ', err.message);
-      })
+      .catch((err) => console.warn('Problem with sign up: ', err.message))
+      .then(response => router.push(`/${response.user.uid}/my-courses`))
   }
 
   const login = (email, password) => {
@@ -61,19 +50,6 @@ export function AuthProvider({ children }) {
       })
       .catch((err) => {
         console.warn('Problem with log in: ', err.message);
-      })
-      .then(async (userId) => {
-        axios.get(`http://localhost:3000/api/users/${userId}`)
-          .then(response => {
-            //setting state in case we need extra information
-            //if the auth doesnt work we can pass in this way
-            // setLoginDataObject(response)
-            // Change reroute to dynamic route
-            // console.log('AXIOS RESPONSE', response);
-          })
-          .catch(err => {
-            console.warn('Problem with initial data fetch: ', err);
-          })
       })
   }
 
@@ -89,7 +65,7 @@ export function AuthProvider({ children }) {
       .then(async response => {
         console.log(accountInfoObj)
         // Change reroute to dynamic route
-        router.push('/app/my-courses');
+        router.push(`/${response.user.uid}/my-courses`);
 
       })
       .catch(error => {
@@ -104,7 +80,7 @@ export function AuthProvider({ children }) {
         var jsonData = await response.json();
         console.log(res)
         // Change reroute to dynamic route
-        router.push(`/${user.uid}/my-courses`);
+        router.push(`/${response.user.uid}/my-courses`);
       })
       .catch(error => {
         console.warn(error)

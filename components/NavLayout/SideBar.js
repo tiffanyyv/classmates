@@ -25,6 +25,7 @@ import { getUserInfo } from '../../utils/api/apiCalls.js'
 // clean up useEffect and currentUserProfileInfo
 
 export default function SideBar({ children, userId, ...props }) {
+  // console.log(userId);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
@@ -49,7 +50,13 @@ export default function SideBar({ children, userId, ...props }) {
   }
 
   useEffect(() => {
-    fetchUserInfo()
+    // fetchUserInfo()
+    getUserInfo(userId).then(res => {
+      // console.log(res)
+      setCurrentUserProfileInfo({
+        fullName: res.name.first_name + ' ' + res.name.last_name,
+      })
+    })
   }, [])
 
   // hard coded data, eventually change sampleUser to [username]

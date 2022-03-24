@@ -1,26 +1,21 @@
 // MyCourses widget
 // Conditionally render Student or Mentor View
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 
 import MyCourses from '../../components/MyCourses/MyCourses.js';
 import MyCoursesExampleData from '../../components/MyCourses/data/MyCourses.example.js';
 import { getUserInfo, getCoursesByMenteeId, getCoursesByMentorId } from '../../utils/api/apiCalls.js';
 
-export default function myCourses() {
+export default function MyCoursesPage() {
+  const router = useRouter();
+  var pathUserId = router.asPath.split('/');
+
   const [myCoursesData, setCoursesData] = useState([]);
-  const [userID, setUserID] = useState('50');
+  const [userID, setUserID] = useState(pathUserId[1]);
   const [userType, setUserType] = useState('');
 
-  useEffect(() => {
-    getUserInfo(userID)
-      .then(res => setUserType(res.account_type))
-      .catch(err => console.log('Error getting user information'))
-  }, []);
-
-  useEffect(() => {
-    fetchAllCourses();
-  }, [userType])
 
   const fetchUserInfo = () => {
     return getUserInfo(userID)
@@ -54,6 +49,16 @@ export default function myCourses() {
     currentCourse.end_date = newEndTime;
     setCoursesData(myCoursesCopy);
   }
+
+  useEffect(() => {
+    getUserInfo(userID)
+      .then(res => setUserType(res.account_type))
+      .catch(err => console.log('Error getting user information'))
+  }, []);
+
+  useEffect(() => {
+    fetchAllCourses();
+  }, [userType])
 
   return (
     <div className='pageData'>
