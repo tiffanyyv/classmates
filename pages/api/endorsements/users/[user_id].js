@@ -20,6 +20,8 @@ export default async function getAndUpdateUserEndorsements(req, res) {
     query: { user_id },
     method
   } = req;
+  const { type } = req.body;
+  let num;
 
   switch (method) {
     case 'GET':
@@ -35,16 +37,32 @@ export default async function getAndUpdateUserEndorsements(req, res) {
       break
     case 'PUT':
       /* updateUserEndorsements */
-      try {
-        const docRef = doc(db, 'users', user_id);
-        // auto increments endosements of user by 1
-        const docSnap = await updateDoc(docRef, {
-          endorsements: increment(1)
-        });
-        res.status(200).send(`Successfully updated endorsements for user ${user_id}`);
-      } catch (err) {
-        res.status(400).send(`Error updating endorsements for user ${user_id}, ${err}`);
+      if (type === 'increase') {
+        try {
+          const docRef = doc(db, 'users', user_id);
+          // auto increments endosements of user by 1
+          const docSnap = await updateDoc(docRef, {
+            endorsements: increment(1)
+          });
+          res.status(200).send(`Successfully updated endorsements for user ${user_id}`);
+        } catch (err) {
+          res.status(400).send(`Error updating endorsements for user ${user_id}, ${err}`);
+        }
+      } else if (type === 'decrease') {
+        try {
+          const docRef = doc(db, 'users', user_id);
+          // auto decrements endosements of user by 1
+          const docSnap = await updateDoc(docRef, {
+            endorsements: increment(-1)
+          });
+          res.status(200).send(`Successfully updated endorsements for user ${user_id}`);
+        } catch (err) {
+          res.status(400).send(`Error updating endorsements for user ${user_id}, ${err}`);
+        }
+      } else {
+        res.status(400).send(`Please pass in type increase or decrease in req.body`);
       }
+
 
       break
     default:
