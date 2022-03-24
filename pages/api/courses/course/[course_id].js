@@ -32,26 +32,5 @@ export default async function updateCourseMenteeList(req, res) {
     res.status(400).send(`Error adding student to course ${course_id}: ${err}`);
   }
 }
-  // if (course_type === 'Public') {
-    //   // post to courses collection
-
-
-    //   // update: add to mentees list on this course obj
-
-    // } else {
-    //   // post to notifications collection
-    //   // if mentee_status === declined --> delete from notifications collection
-    //   // if mentee_status === accepted --> delete from notifications collection and add to courses collection
-
-    //   const post = {
-    //     course_id,
-    //     course_name,
-    //     mentor_id,
-    //     mentor_name,
-    //     mentee_id,
-    //     mentee_name,
-    //     mentee_status: 'pending' // pending initially, accepted, declined
-    //   }
-    // }
 
 

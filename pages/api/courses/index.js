@@ -53,7 +53,6 @@ export default async function getAndCreateCourses(req, res) {
 
       try {
         const docRef = doc(collection(db, 'courses'));
-        console.log('docRef: ', docRef.id);
         await setDoc(doc(db, 'courses', docRef.id), {
           id: docRef.id,
           name,
@@ -79,7 +78,6 @@ export default async function getAndCreateCourses(req, res) {
       } catch (err) {
         res.status(400).send(`Error posting new course: ${err}`);
       }
-
 
       break
     default:
