@@ -115,7 +115,7 @@ export default function Calendar() {
           <Paper elevation={6} className={styles.paper}>
             <Scheduler
               data={appointmentData}
-              height={'800'}
+              height={'950'}
             >
               <ViewState
               defaultCurrentViewName="Week"
