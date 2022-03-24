@@ -39,8 +39,8 @@ export function AuthProvider({ children }) {
             console.warn('Account Already Exists')
           })
       })
-      .catch((err) => console.warn('Problem with sign up: ', err.message))
       .then(response => router.push(`/${response.user.uid}/my-courses`))
+      .catch((err) => console.warn('Problem with sign up: ', err.message))
   }
 
   const login = (email, password) => {
@@ -84,6 +84,7 @@ export function AuthProvider({ children }) {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
     .then( async response => {
+      console.log(response)
       accountInfoObj['uid'] = response.user.uid
       var postBody = {
         account_type: accountInfoObj.account_type,
@@ -94,7 +95,6 @@ export function AuthProvider({ children }) {
         location: accountInfoObj.location
       }
       await axios.post(`http://localhost:3000/api/users`, postBody)
-
     })
     .catch((err) => console.warn('Problem with sign up: ', err.message))
 

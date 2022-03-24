@@ -19,9 +19,12 @@ import { auth } from '../utils/api/firebase.config'
 import { useAuthContext } from '../utils/context/AuthProvider';
 
 export default function Signup() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [googleOpen, setGoogleOpen] = useState(false);
+  const [facebookOpen, setFacebookOpen] = useState(false);
+  const handleGoogleOpen = () => setGoogleOpen(true);
+  const handleFacebookOpen = () => setFacebookOpen(true);
+  const handleGoogleClose = () => setGoogleOpen(false);
+  const handleFacebookClose = () => setFacebookOpen(false);
   const classes = useStyles();
   const router = useRouter();
   const [accountType, setAccountType] = useState('')
@@ -83,31 +86,41 @@ export default function Signup() {
         <Card className={classes.card}>
           <Typography sx={{ fontSize: 26, mb: 1 }}>Signup</Typography>
           <form onSubmit={(e) => handleSubmitSignUpInput(e)} sx={{ my: 3 }}>
-            <Button sx={{ my: 2 }} onClick={handleOpen} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
-            <InputLabel id="accountDropDown">Account Type</InputLabel>
+            <Button sx={{ my: 2 }} onClick={handleGoogleOpen} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
+            <Button sx={{ my: 2 }} onClick={handleFacebookOpen} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+
+            <InputLabel id="accountDropDown" >Account Type</InputLabel>
             <Select
               labelId='accountDropDown'
               id="accountDropDown"
               label="Account Type"
               value={accountType}
               className={classes.userInput}
-              sx={{ height: 30 }}
+              sx={{height: 30 }}
               onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
             >
               <MenuItem value={'Mentor'}>Mentor</MenuItem>
               <MenuItem value={'Mentee'}>Mentee</MenuItem>
             </Select>
-            <Input sx={{ my: .5 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
+            <Stack direction="row" spacing={1} sx={{my: 1}}>
+            <TextField size='small' placeholder='First Name' sx={{width:'50%', backgroundColor: '#F5F5F5'}} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')}></TextField>
+            <TextField size='small' placeholder='Last Name' sx={{width:'50%', backgroundColor: '#F5F5F5'}} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')}></TextField>
+            </Stack>
+            <TextField size='small' placeholder='Username' sx={{width:'100%', backgroundColor: '#F5F5F5'}}  onChange={(e) => handleSignUpFormInput(e.target.value, 'username')}></TextField>
+            <TextField size='small' placeholder='Email' sx={{width:'100%', backgroundColor: '#F5F5F5', my: 1}} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')}></TextField>
+            <TextField size='small' placeholder='Location'  sx={{width:'100%', backgroundColor: '#F5F5F5', mb:1}} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')}></TextField>
+            <TextField size='small' type='password' placeholder='Password' sx={{width:'100%', backgroundColor: '#F5F5F5', mb:1}} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }}></TextField>
+            {/* <Input sx={{ my: .5 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
 
             <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
 
             <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')} placeholder="First Name" className={classes.userInput}></Input>
             <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }} placeholder="Password" className={classes.userInput} type="password"></Input>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input> */}
+            {/* <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }} placeholder="Password" className={classes.userInput} type="password"></Input> */}
             <Typography sx={{ fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton} disabled={filledFormFlag}>Create Account</Button>
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={googleOpen} onClose={handleGoogleClose}>
               <FormControl sx={{
                 position: 'absolute',
                 alignItems: 'center',
@@ -148,7 +161,47 @@ export default function Signup() {
                 <Button sx={{ my: 2,  }} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.moduleGoogleButton} startIcon={<GoogleIcon />}>Sign in with Google</Button>
               </FormControl>
             </Modal>
-            <Button onClick={(e) => signInWithFacebook(signupInfo)} disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+            <Modal open={facebookOpen} onClose={handleFacebookClose}>
+              <FormControl sx={{
+                position: 'absolute',
+                alignItems: 'center',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                borderRadius: 5,
+                boxShadow: 24,
+                p: 4,
+              }}>
+                <Typography sx={{fontSize: 28}}>Facebook Signup</Typography>
+                <InputLabel id="accountDropDown"></InputLabel>
+                <Select
+                  labelId='accountDropDown'
+                  id="accountDropDown"
+                  value={accountType}
+                  sx={{ height: 30, margin: 2, width: 336}}
+                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
+                >
+                  <MenuItem value={'Mentor'}>Mentor</MenuItem>
+                  <MenuItem value={'Mentee'}>Mentee</MenuItem>
+                </Select>
+                <Stack direction="row" spacing={1}>
+                  <TextField size='small' variant="filled" placeholder='First name' sx={{
+                    my: .3,
+                    borderRadius: 5,
+                    width: '50%',
+                  }} required onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')}></TextField>
+                  <TextField size='small' variant="filled" placeholder='Last name' sx={{
+                    my: .3,
+                    borderRadius: 5,
+                    width: '50%',
+                  }} required onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')}></TextField>
+                </Stack>
+                <TextField size='small' variant="filled" placeholder='Location' sx={{ my: .3, width: 337}}  required onChange={(e) => handleSignUpFormInput(e.target.value, 'location')}></TextField>
+                <Button onClick={(e) => signInWithFacebook(signupInfo)} className={classes.moduleFacebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+              </FormControl>
+            </Modal>
           </form>
           <div className={{ flexDirection: 'column' }}>
           </div>

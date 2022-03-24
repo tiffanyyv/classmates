@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 50,
-    maxWidth: 350,
+    maxWidth: 400,
     marginBottom: 150,
     minWidth: 350,
   },
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: '100%',
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: '100%',
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -66,7 +66,7 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: 336,
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -80,7 +80,7 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: '100%',
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -91,7 +91,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     mb: 500,
     borderRadius: 5,
-    width: 250,
+    width:'100%',
   }
 });
 
