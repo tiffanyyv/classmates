@@ -6,8 +6,8 @@ import { Tooltip, IconButton, Typography } from '@mui/material';
 import { Avatar, Menu, MenuItem } from '@mui/material';
 
 import styles from '../../../utils/styles/NavLayoutStyles/SideBar.module.css';
-import {defaultProfilePic} from '../../../utils/constants';
-import { useAuthContext } from '../../../utils/context/AuthProvider';
+import { defaultProfilePic } from '../../../utils/constants';
+import { useAuthContext } from '../../../utils/context/AuthProvider'
 
 import { getUserInfo } from '../../../utils/api/apiCalls.js'
 
