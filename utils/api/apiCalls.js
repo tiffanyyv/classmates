@@ -105,7 +105,7 @@ export const removeMenteeFromCourse = (course_id, body) => {
 /*
 {
   "mentees": {
-    "id" : "22",
+    "id" : "1"
   }
 }
 */
