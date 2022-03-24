@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios'
+import { addUser } from '../api/apiCalls'
 import { useRouter } from 'next/router';
 import {
   GoogleAuthProvider,
@@ -19,52 +20,33 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-  //In case we need an object containing the information
-  const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
-      .then(async (response) => {
+      .catch((err) => console.warn('Problem with authentication creation: ', err.message))
+      .then((response) => {
         body['uid'] = response.user.uid
         var postBody = {
           account_type: body.account_type,
           uid: body.uid,
-          firstName: body.firstName,
+          firstName: body.firstname,
           lastName: body.lastname,
           username: body.username,
           location: body.location
         }
-        console.log(postBody)
-        if (body.account_type === 'Mentor') {
-          axios.post(`http://localhost:3000/api/users`, postBody)
-            .then(response => {
-              console.log(response)
-            })
-            .catch(err => {
-              console.warn(err, 'Error on Signup Post request ');
-            })
-        }
-        router.push('/app/my-courses')
+        addUser(postBody)
+          .catch(err => {
+            console.warn('Account Already Exists')
+          })
       })
-      .catch((err) => {
-        console.warn('Problem with sign up: ', err.message);
-      })
+      .catch((err) => console.warn('Problem with sign up: ', err.message))
+      .then(response => router.push(`/${response.user.uid}/my-courses`))
   }
 
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
-      .then(async (response) => {
-        console.log(response.user.uid, "USER")
-        axios.get(`http://localhost:3000/api/users/${response.user.uid}`)
-          .then(response => {
-            //setting state in case we need extra information
-            //if the auth doesnt work we can pass in this way
-            setLoginDataObject(response)
-          })
-          .catch(error => {
-            console.warn(err)
-          })
-        router.push('/app/my-courses');
+      .then((response) => {
+        router.push(`/${response.user.uid}/my-courses`);
       })
       .catch((err) => {
         console.warn('Problem with log in: ', err.message);
@@ -78,30 +60,43 @@ export function AuthProvider({ children }) {
 
   // OAuth Google + FB
   const signInWithGoogle = (accountInfoObj) => {
+
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(async response => {
-        console.log(accountInfoObj)
-        router.push('/app/my-courses');
+      .then( async response => {
+        accountInfoObj['uid'] = response.user.uid
+        var postBody = {
+          account_type: accountInfoObj.account_type,
+          uid: accountInfoObj.uid,
+          firstName: accountInfoObj.firstname,
+          lastName: accountInfoObj.lastname,
+          username: response.user.displayName,
+          location: accountInfoObj.location
+        }
+        await axios.post(`http://localhost:3000/api/users`, postBody)
 
       })
-      .catch(error => {
-        console.warn(error)
-      })
+      .catch((err) => console.warn('Problem with sign up: ', err.message))
+      //.then(response => router.push(`/${response.user.uid}/my-courses`))
   }
   const signInWithFacebook = (accountInfoObj) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then(async response => {
-        var response = await fetch(`/api/users/${user.uid}`)
-        var jsonData = await response.json();
-        console.log(res)
-        router.push('/app/my-courses');
+    .then( async response => {
+      accountInfoObj['uid'] = response.user.uid
+      var postBody = {
+        account_type: accountInfoObj.account_type,
+        uid: accountInfoObj.uid,
+        firstName: accountInfoObj.firstname,
+        lastName: accountInfoObj.lastname,
+        username: response.user.displayName,
+        location: accountInfoObj.location
+      }
+      await axios.post(`http://localhost:3000/api/users`, postBody)
 
-      })
-      .catch(error => {
-        console.warn(error)
-      })
+    })
+    .catch((err) => console.warn('Problem with sign up: ', err.message))
+
   }
 
   return (
