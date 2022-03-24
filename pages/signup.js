@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
-import { Card, Grid, Select, Typography } from '@mui/material';
+import { Card, Grid, Select, Typography, Modal, TextField, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -19,6 +19,9 @@ import { auth } from '../utils/api/firebase.config'
 import { useAuthContext } from '../utils/context/AuthProvider';
 
 export default function Signup() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const classes = useStyles();
   const router = useRouter();
   const [accountType, setAccountType] = useState('')
@@ -36,10 +39,10 @@ export default function Signup() {
   });
 
   useEffect(() => {
-    if (accountType.length > 0 && signupInfo.username.length > 0 && signupInfo.firstname.length > 0 && signupInfo.lastname.length > 0 && signupInfo.email.length > 0 && signupInfo.password.length > 0  && signupInfo.location.length > 0) {
+    if (accountType.length > 0 && signupInfo.username.length > 0 && signupInfo.firstname.length > 0 && signupInfo.lastname.length > 0 && signupInfo.email.length > 0 && signupInfo.password.length > 0 && signupInfo.location.length > 0) {
       setFilledFormFlag(false)
     }
-  },[accountType,signupInfo.username, signupInfo.firstname, signupInfo.lastname, signupInfo.email, signupInfo.password, signupInfo.location ])
+  }, [accountType, signupInfo.username, signupInfo.firstname, signupInfo.lastname, signupInfo.email, signupInfo.password, signupInfo.location])
 
   const handleSignUpFormInput = (text, field) => {
     setSignupInfo({
@@ -55,9 +58,9 @@ export default function Signup() {
 
   const handlePasswordLength = () => {
     console.log(signupInfo.password.length)
-    if (signupInfo.password.length  <= 4.9) {
+    if (signupInfo.password.length <= 4.9) {
       setPasswordLengthColor('red')
-    }else  {
+    } else {
       setPasswordLengthColor('green')
     }
   }
@@ -78,8 +81,9 @@ export default function Signup() {
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
-        <Typography sx={{fontSize: 26, mb: 1}}>Signup</Typography>
+          <Typography sx={{ fontSize: 26, mb: 1 }}>Signup</Typography>
           <form onSubmit={(e) => handleSubmitSignUpInput(e)} sx={{ my: 3 }}>
+            <Button sx={{ my: 2 }} onClick={handleOpen} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <InputLabel id="accountDropDown">Account Type</InputLabel>
             <Select
               labelId='accountDropDown'
@@ -93,18 +97,58 @@ export default function Signup() {
               <MenuItem value={'Mentor'}>Mentor</MenuItem>
               <MenuItem value={'Mentee'}>Mentee</MenuItem>
             </Select>
-                <Input sx={{ my: .5 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
+            <Input sx={{ my: .5 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
 
-              <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
 
-              <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')} placeholder="First Name" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')} placeholder="First Name" className={classes.userInput}></Input>
             <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
             <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => {handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }} placeholder="Password" className={classes.userInput} type="password"></Input>
-            <Typography sx={{fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
-            <Button sx={{ my: 2 }} type='submit' className={classes.loginButton}>Create Account</Button>
-            <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
-            <Button onClick={(e) => signInWithFacebook(signupInfo) } disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }} placeholder="Password" className={classes.userInput} type="password"></Input>
+            <Typography sx={{ fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
+            <Button sx={{ my: 2 }} type='submit' className={classes.loginButton} disabled={filledFormFlag}>Create Account</Button>
+            <Modal open={open} onClose={handleClose}>
+              <FormControl sx={{
+                position: 'absolute',
+                alignItems: 'center',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                borderRadius: 5,
+                boxShadow: 24,
+                p: 4,
+              }}>
+                <Typography sx={{fontSize: 28}}>Google Signup</Typography>
+                <InputLabel id="accountDropDown"></InputLabel>
+                <Select
+                  labelId='accountDropDown'
+                  id="accountDropDown"
+                  value={accountType}
+                  sx={{ height: 30, margin: 2, width: 336}}
+                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
+                >
+                  <MenuItem value={'Mentor'}>Mentor</MenuItem>
+                  <MenuItem value={'Mentee'}>Mentee</MenuItem>
+                </Select>
+                <Stack direction="row" spacing={1}>
+                  <TextField size='small' variant="filled" placeholder='First name' sx={{
+                    my: .3,
+                    borderRadius: 5,
+                    width: '50%',
+                  }} required onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')}></TextField>
+                  <TextField size='small' variant="filled" placeholder='Last name' sx={{
+                    my: .3,
+                    borderRadius: 5,
+                    width: '50%',
+                  }} required onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')}></TextField>
+                </Stack>
+                <TextField size='small' variant="filled" placeholder='Location' sx={{ my: .3, width: 337}}  required onChange={(e) => handleSignUpFormInput(e.target.value, 'location')}></TextField>
+                <Button sx={{ my: 2,  }} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.moduleGoogleButton} startIcon={<GoogleIcon />}>Sign in with Google</Button>
+              </FormControl>
+            </Modal>
+            <Button onClick={(e) => signInWithFacebook(signupInfo)} disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
           </form>
           <div className={{ flexDirection: 'column' }}>
           </div>
@@ -115,4 +159,5 @@ export default function Signup() {
   )
 
 }
-
+{/* <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
+            <Button onClick={(e) => signInWithFacebook(signupInfo) } disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button> */}

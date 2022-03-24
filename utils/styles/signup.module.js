@@ -30,7 +30,35 @@ const useStyles = makeStyles({
       color: 'white',
     }
   },
+  moduleGoogleButton: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#B0B4D4',
+    color: 'white',
+    variant: 'contained',
+    display: 'flex',
+    width: 336,
+    '&:hover': {
+      backgroundColor: '#acb0cd',
+      color: 'white',
+    }
+  },
   facebookButton: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#B0B4D4',
+    color: 'white',
+    variant: 'contained',
+    display: 'flex',
+    width: 250,
+    '&:hover': {
+      backgroundColor: '#acb0cd',
+      color: 'white',
+    }
+  },
+  moduleFacebookButton: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',

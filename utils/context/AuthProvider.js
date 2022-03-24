@@ -73,6 +73,7 @@ export function AuthProvider({ children }) {
           username: response.user.displayName,
           location: accountInfoObj.location
         }
+        console.log(postBody)
         await axios.post(`http://localhost:3000/api/users`, postBody)
 
       })

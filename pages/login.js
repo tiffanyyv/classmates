@@ -57,15 +57,6 @@ export default function Login() {
         <Card className={classes.card}>
           <Typography sx={{fontSize: 26, mb: 1}}>Login</Typography>
           <form onSubmit={(e) => handleStandardLogin(e)} sx={{ my: 3 }}>
-          {/* <ToggleButtonGroup
-            color="primary"
-            value={account_type}
-            exclusive
-            onChange={(e) => {handleLoginFormInput(e.target.value, 'account_type'), setAccount_Type(e.target.value)}}
-          >
-            <ToggleButton value="Mentor">Mentor Login</ToggleButton>
-            <ToggleButton value="Mentee">Mentee Login</ToggleButton>
-          </ToggleButtonGroup> */}
             <Input sx={{ my: 2 }} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
             <Input sx={{ my: 2 }} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton}>Login</Button>
