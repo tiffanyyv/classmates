@@ -19,8 +19,6 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-  //In case we need an object containing the information
-  // const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
@@ -44,9 +42,7 @@ export function AuthProvider({ children }) {
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        // console.log(response.user.uid, "USER")
         router.push(`/${response.user.uid}/my-courses`);
-        return response.user.uid
       })
       .catch((err) => {
         console.warn('Problem with log in: ', err.message);
@@ -62,11 +58,8 @@ export function AuthProvider({ children }) {
   const signInWithGoogle = (accountInfoObj) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(async response => {
-        console.log(accountInfoObj)
-        // Change reroute to dynamic route
+      .then(response => {
         router.push(`/${response.user.uid}/my-courses`);
-
       })
       .catch(error => {
         console.warn(error)
@@ -75,11 +68,7 @@ export function AuthProvider({ children }) {
   const signInWithFacebook = (accountInfoObj) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then(async response => {
-        var response = await fetch(`/api/users/${user.uid}`)
-        var jsonData = await response.json();
-        console.log(res)
-        // Change reroute to dynamic route
+      .then(response => {
         router.push(`/${response.user.uid}/my-courses`);
       })
       .catch(error => {
