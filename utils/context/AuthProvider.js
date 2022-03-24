@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
   //In case we need an object containing the information
-  const [loginDataObj, setLoginDataObject] = useState({})
+  // const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
@@ -34,7 +34,6 @@ export function AuthProvider({ children }) {
           username: body.username,
           location: body.location
         }
-        if (body.account_type === 'Mentor') {
           axios.post(`http://localhost:3000/api/users`, postBody)
             .then(response => {
               console.log(response)
@@ -42,7 +41,8 @@ export function AuthProvider({ children }) {
             .catch(err => {
               console.warn(err, 'Error on Signup Post request ');
             })
-        }
+
+        // Change reroute to dynamic route
         router.push('/app/my-courses')
       })
       .catch((err) => {
@@ -50,23 +50,28 @@ export function AuthProvider({ children }) {
       })
   }
 
-  const login = (email, password) => {
+  const login = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
-      .then(async (response) => {
+      .then((response) => {
         console.log(response.user.uid, "USER")
-        axios.get(`http://localhost:3000/api/users/${response.user.uid}`)
-          .then(response => {
-            //setting state in case we need extra information
-            //if the auth doesnt work we can pass in this way
-            setLoginDataObject(response)
-          })
-          .catch(error => {
-            console.warn(err)
-          })
-        router.push('/app/my-courses');
+        router.push(`/${response.user.uid}/my-courses`);
+        return response.user.uid
       })
       .catch((err) => {
         console.warn('Problem with log in: ', err.message);
+      })
+      .then(async (userId) => {
+        await axios.get(`http://localhost:3000/api/users/${userId}`)
+          .then(response => {
+            //setting state in case we need extra information
+            //if the auth doesnt work we can pass in this way
+            // setLoginDataObject(response)
+            // Change reroute to dynamic route
+            //console.log('AXIOS RESPONSE', response);
+          })
+          .catch(err => {
+            console.warn('Problem with initial data fetch: ', err);
+          })
       })
   }
 
@@ -80,6 +85,23 @@ export function AuthProvider({ children }) {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
+        accountInfoObj['uid'] = response.user.uid
+        var postBody = {
+          account_type: body.account_type,
+          uid: body.uid,
+          firstName: body.firstName,
+          lastName: body.lastname,
+          username: body.username,
+          location: body.location
+        }
+        axios.post(`http://localhost:3000/api/users`, postBody)
+            .then(response => {
+              console.log(response)
+            })
+            .catch(err => {
+              console.warn(err, 'Error on Signup Post request ');
+            })
+        // Change reroute to dynamic route
         router.push('/app/my-courses');
       })
       .catch(error => {
@@ -90,7 +112,10 @@ export function AuthProvider({ children }) {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
-        router.push('/app/my-courses');
+
+        console.log(res)
+        // Change reroute to dynamic route
+        router.push(`/${user.uid}/my-courses`);
       })
       .catch(error => {
         console.warn(error)

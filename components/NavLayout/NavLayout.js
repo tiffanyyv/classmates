@@ -29,7 +29,7 @@ export default function NavLayout({ children }) {
 
   return (
     <div className={styles.loggedInView}>
-      <SideBar>
+      <SideBar userId={user?.uid}>
 
       </SideBar>
       <div>
