@@ -23,6 +23,7 @@ export default function Signup() {
   const router = useRouter();
   const [accountType, setAccountType] = useState('')
   const [filledFormFlag, setFilledFormFlag] = useState('true')
+  const [passwordLengthColor, setPasswordLengthColor] = useState('red')
   const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [signupInfo, setSignupInfo] = useState({
     username: '',
@@ -35,10 +36,10 @@ export default function Signup() {
   });
 
   useEffect(() => {
-    if (accountType.length > 0 ) {
+    if (accountType.length > 0 && signupInfo.username.length > 0 && signupInfo.firstname.length > 0 && signupInfo.lastname.length > 0 && signupInfo.email.length > 0 && signupInfo.password.length > 0  && signupInfo.location.length > 0) {
       setFilledFormFlag(false)
     }
-  },[accountType])
+  },[accountType,signupInfo.username, signupInfo.firstname, signupInfo.lastname, signupInfo.email, signupInfo.password, signupInfo.location ])
 
   const handleSignUpFormInput = (text, field) => {
     setSignupInfo({
@@ -52,6 +53,16 @@ export default function Signup() {
     signup(signupInfo)
   }
 
+  const handlePasswordLength = () => {
+    console.log(signupInfo.password.length)
+    if (signupInfo.password.length  <= 4.9) {
+      setPasswordLengthColor('red')
+    }else  {
+      setPasswordLengthColor('green')
+    }
+  }
+
+  // Change reroute to dynamic route
   if (user) {
     router.push(`/${user.uid}/my-courses`)
     return null;
@@ -82,22 +93,20 @@ export default function Signup() {
               <MenuItem value={'Mentor'}>Mentor</MenuItem>
               <MenuItem value={'Mentee'}>Mentee</MenuItem>
             </Select>
-            <Input sx={{ my: .5 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
-            <div className={{
-              display: 'flex',
-              flexDirection: 'row'
-            }}>
-              <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstName')} placeholder="First Name" className={classes.userInput}></Input>
-              <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
-            </div>
-            <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>
+                <Input sx={{ my: .5 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
+
+              <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
+
+              <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')} placeholder="First Name" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
+            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => {handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }} placeholder="Password" className={classes.userInput} type="password"></Input>
+            <Typography sx={{fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton}>Create Account</Button>
-          </form>
-          <div className={{ flexDirection: 'column' }}>
             <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <Button onClick={(e) => signInWithFacebook(signupInfo) } disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
+          </form>
+          <div className={{ flexDirection: 'column' }}>
           </div>
           <Link href="/"><a>Go Home</a></Link>
         </Card>
