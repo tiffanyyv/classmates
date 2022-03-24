@@ -42,26 +42,17 @@ export default async function getRemoveAndUpdateCourse(req, res) {
 
       /* updateCourseInfo */
       const update = req.body;
-      // MUST MATCH EXACTLY!
-      /* ex: {
-        name,
+      // REQ BODY MUST MATCH EXACTLY!
+      /* ex:
+      To update course name, start_date or end_date pass in req body obj with properties:
+      {
+        "name": "new name",
           OR
-        start_date,
+        "start_date": "new start_date",
           OR
-        end_date,
-         OR
-         mentees obj
-        {
-          id: '',
-          name: {
-            first_name: '',
-            last_name: ''
-          },
-          photo: ''
-        }
-      } */
-
-      /*
+        "end_date": "new end_date"
+      }
+      To REMOVE mentee from course pass in this object with "mentees" property:
       {
         "mentees": {
           "id" : "22",
@@ -75,17 +66,18 @@ export default async function getRemoveAndUpdateCourse(req, res) {
           const docSnap = await getDoc(docRef);
           let menteesList = docSnap.data().mentees;
           let newMenteesList = menteesList.slice();
-          let desiredIdx;
+          let idxToRemove;
 
           for (let i = 0; i < newMenteesList.length; i++) {
             let mentee = newMenteesList[i];
 
             if (mentee.id === update.mentees.id) {
-              desiredIdx = i;
+              idxToRemove = i;
               break;
             }
           }
-          newMenteesList.splice(desiredIdx, 1);
+
+          newMenteesList.splice(idxToRemove, 1);
 
           await updateDoc(doc(db, 'courses', course_id), {
             mentees: newMenteesList
@@ -105,7 +97,6 @@ export default async function getRemoveAndUpdateCourse(req, res) {
       } else {
         res.status(405).send(`Request body does not match required parameters`);
       }
-
       break
     case 'DELETE':
       /* removeCourse */
