@@ -25,15 +25,12 @@ import { getUserInfo } from '../../utils/api/apiCalls.js'
 // clean up useEffect and currentUserProfileInfo
 
 export default function SideBar({ children, userId, ...props }) {
+  // console.log(userId);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
     fullName: 'Current User',
   })
-
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -44,13 +41,23 @@ export default function SideBar({ children, userId, ...props }) {
   };
 
   const fetchUserInfo = () => {
-    getUserInfo('51').then(res => {
+    getUserInfo(userId).then(res => {
       // console.log(res)
       setCurrentUserProfileInfo({
         fullName: res.name.first_name + ' ' + res.name.last_name,
       })
     })
   }
+
+  useEffect(() => {
+    // fetchUserInfo()
+    getUserInfo(userId).then(res => {
+      // console.log(res)
+      setCurrentUserProfileInfo({
+        fullName: res.name.first_name + ' ' + res.name.last_name,
+      })
+    })
+  }, [])
 
   // hard coded data, eventually change sampleUser to [username]
   const pageUrls = {
@@ -123,7 +130,7 @@ export default function SideBar({ children, userId, ...props }) {
                 {/* The separation of links is intentional, when consolidated to one line it breaks */}
                 <Link href={pageUrls[index]}>{sideBarIcons[index]}</Link>
               </ListItemIcon>
-              <Link href={pageUrls[index]}><ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /></Link>
+              <Link href={pageUrls[index]} passHref><ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /></Link>
             </ListItemButton>
           ))}
         </List>
@@ -137,4 +144,3 @@ export default function SideBar({ children, userId, ...props }) {
     </Box >
   )
 }
-

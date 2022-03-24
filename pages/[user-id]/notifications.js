@@ -1,12 +1,6 @@
-import axios from 'axios';
 import { getUserInfo } from '../../utils/api/apiCalls';
-import { useAuthContext } from '../../utils/context/AuthProvider';
-function Notifications({data}) {
-  const { logout } = useAuthContext();
-  console.log(data);
-  const logUserInfo = () => {
-     console.log(data);
-  }
+
+export default function Notifications({data}) {
   return (
     // student clicks "Request to join class"
     // axios put request into notifications table for that teacher & class_id
@@ -17,33 +11,21 @@ function Notifications({data}) {
     // teacher view & teacher clicks decline:
     // axios get request to get notifications
     // student view: "You've been declined into class_id"
-    <div className='pageData'><button onClick={logUserInfo}>log User info</button></div>
+    <div className='pageData'><p>Notifications</p></div>
   )
 }
+
 export async function getServerSideProps(context) {
   const userId = context.params['user-id'];
-  // console.log(userId);
-  // return getUserInfo(userId)
-  //   .then(data => {
-  //     console.log(data);
-  //     return data;
-  //   })
-  //   .then((info) => {
-  //     console.log(info);
-  //     return { props: {userInfo: 'test'}}
-  //   })
-  var data = await getUserInfo(userId)
-  return {
-    props: {data: data}
+  const userInfo = await getUserInfo(userId)
+
+  if (!userInfo || !userInfo?.account_type) {
+    return {
+      notFound: true,
+    }
   }
-  // const userInfo = await getUserInfo(userId)
-  // console.log(userInfo);
-  // const userInfo = await res.json()
-  // if (!userInfo) {
-  //   return {
-  //     notFound: true,
-  //   }
-  // }
-  // return { props: { userInfo } }
+
+  return {
+    props: { userInfo }
+  }
 }
-export default Notifications;

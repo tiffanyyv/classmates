@@ -19,59 +19,33 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-  //In case we need an object containing the information
-  // const [loginDataObj, setLoginDataObject] = useState({})
 
   const signup = (body) => {
     createUserWithEmailAndPassword(auth, body.email, body.password)
-      .then(async (response) => {
+      .catch((err) => console.warn('Problem with authentication creation: ', err.message))
+      .then((response) => {
         body['uid'] = response.user.uid
         var postBody = {
           account_type: body.account_type,
           uid: body.uid,
-          firstName: body.firstName,
+          firstName: body.firstname,
           lastName: body.lastname,
           username: body.username,
           location: body.location
         }
-          axios.post(`http://localhost:3000/api/users`, postBody)
-            .then(response => {
-              console.log(response)
-            })
-            .catch(err => {
-              console.warn(err, 'Error on Signup Post request ');
-            })
-
-        // Change reroute to dynamic route
-        router.push('/app/my-courses')
+        axios.post(`http://localhost:3000/api/users`, postBody)
       })
-      .catch((err) => {
-        console.warn('Problem with sign up: ', err.message);
-      })
+      .catch((err) => console.warn('Problem with sign up: ', err.message))
+      .then(response => router.push(`/${response.user.uid}/my-courses`))
   }
 
-  const login = async (email, password) => {
+  const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        console.log(response.user.uid, "USER")
         router.push(`/${response.user.uid}/my-courses`);
-        return response.user.uid
       })
       .catch((err) => {
         console.warn('Problem with log in: ', err.message);
-      })
-      .then(async (userId) => {
-        await axios.get(`http://localhost:3000/api/users/${userId}`)
-          .then(response => {
-            //setting state in case we need extra information
-            //if the auth doesnt work we can pass in this way
-            // setLoginDataObject(response)
-            // Change reroute to dynamic route
-            //console.log('AXIOS RESPONSE', response);
-          })
-          .catch(err => {
-            console.warn('Problem with initial data fetch: ', err);
-          })
       })
   }
 
@@ -82,40 +56,36 @@ export function AuthProvider({ children }) {
 
   // OAuth Google + FB
   const signInWithGoogle = (accountInfoObj) => {
+
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(async response => {
         accountInfoObj['uid'] = response.user.uid
         var postBody = {
-          account_type: body.account_type,
-          uid: body.uid,
-          firstName: body.firstName,
-          lastName: body.lastname,
-          username: body.username,
-          location: body.location
+          account_type: accountInfoObj.account_type,
+          uid: accountInfoObj.uid,
+          firstName: accountInfoObj.firstname,
+          lastName: accountInfoObj.lastname,
+          username: response.user.displayName,
+          location: accountInfoObj.location
         }
         axios.post(`http://localhost:3000/api/users`, postBody)
-            .then(response => {
-              console.log(response)
-            })
-            .catch(err => {
-              console.warn(err, 'Error on Signup Post request ');
-            })
-        // Change reroute to dynamic route
-        router.push('/app/my-courses');
+          .then(response => {
+            console.log(response)
+          })
+          .catch(err => {
+            console.log(err.message)
+          })
+
       })
-      .catch(error => {
-        console.warn(error)
-      })
+      .catch((err) => console.warn('Problem with sign up: ', err.message))
+      .then(response => router.push(`/${response.user.uid}/my-courses`))
   }
   const signInWithFacebook = (accountInfoObj) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then(async response => {
-
-        console.log(res)
-        // Change reroute to dynamic route
-        router.push(`/${user.uid}/my-courses`);
+      .then(response => {
+        router.push(`/${response.user.uid}/my-courses`);
       })
       .catch(error => {
         console.warn(error)

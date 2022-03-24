@@ -55,17 +55,16 @@ export default function Signup() {
 
   const handlePasswordLength = () => {
     console.log(signupInfo.password.length)
-    if (signupInfo.password.length >= 5 ) {
-      setPasswordLengthColor('green')
-    }
-    if (signupInfo.password.length < 5) {
+    if (signupInfo.password.length  <= 4.9) {
       setPasswordLengthColor('red')
+    }else  {
+      setPasswordLengthColor('green')
     }
   }
 
   // Change reroute to dynamic route
   if (user) {
-    router.push('/app/my-courses')
+    router.push(`/${user.uid}/my-courses`)
     return null;
   }
 
