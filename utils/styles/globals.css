@@ -23,10 +23,11 @@ a:hover {
 
 /* CALENDAR STYLES */
 
-
-/* .css-4plepo .MainLayout-ordinaryHeaderBorder {
-  border-bottom: none;
-} */
+/* TOOLTIP POPUP PARENT DIV*/
+.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+  border: 3px solid #84C7D0;
+  /* background-color: aliceblue; */
+}
 
 .css-pzc27e-MuiToolbar-root.Toolbar-toolbar {
   border-bottom: none

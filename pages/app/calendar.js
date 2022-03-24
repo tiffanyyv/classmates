@@ -14,17 +14,6 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-
-/*
-getCoursesByCourseId(course_id)
-getCoursesByMentorId(mentor_id)
-getCoursesByMenteeId(mentee_id)
-createNewCourse(body)
-updateCourseInfo(course_id, body)
-removeCourse(course_id)
-getUserInfo(userId)
-*/
-
 import { useAuthContext } from '../../utils/context/AuthProvider';
 import TooltipContent from '../../components/Calendar/subcomponents/TooltipContent.js';
 import styles from '../../utils/styles/CalendarStyles/Calendar.module.css';
