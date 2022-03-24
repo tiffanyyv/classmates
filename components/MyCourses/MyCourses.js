@@ -64,7 +64,6 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           <Stack direction="row">
-<<<<<<< HEAD
             {course.name}
             {userType === 'Mentor' &&
               <EditIcon onClick={handleEditModal} className={styles.editCourseButton}/>}
@@ -88,30 +87,6 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props}/>}
                       label="Edit Start Time"
-=======
-            {currCourseName}
-            {userType === 'mentor' &&
-              <EditIcon onClick={handleEditCourse} />}
-            <Dialog open={editCourseInfo} onClose={handleEditCourse}>
-              <DialogTitle>Update Course Info</DialogTitle>
-              <DialogContent>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  label="New Course Name"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                  color='info'
-                  focused
-                  onChange={(e) => setNewCourseName(e.target.value)}
-                />
-                <Stack direction="row" spacing={2}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                      renderInput={(props) => <TextField {...props} />}
-                      label="New Start Time"
->>>>>>> profileIcons
                       value={newStartTime}
                       onChange={(newValue) => {
                         setNewStartTime(newValue);
@@ -128,25 +103,17 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
                       }}
                     />
                   </LocalizationProvider>
-<<<<<<< HEAD
                   </Stack>
                 </DialogContent>
                 <MainButton
                   value="Submit Changes"
                   onClick={handleSubmitEditCourse}/>
               </Dialog>
-=======
-                </Stack>
-              </DialogContent>
-              <MainButton value="Submit Changes" onClick={handleSubmitCourseChanges} />
-            </Dialog>
->>>>>>> profileIcons
           </Stack>
         </Typography>
 
         <Stack spacing={1}>
           <Stack direction="row" spacing={1}>
-<<<<<<< HEAD
           <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
               <Avatar
                 alt="Teacher Avatar"
@@ -155,13 +122,6 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
                 className={styles.cardUserAvatar}
               />
             </Link>
-=======
-            <Avatar
-              alt="Remy Sharp"
-              src={defaultProfilePic}
-              sx={{ width: 25, height: 25 }}
-            />
->>>>>>> profileIcons
             <Typography variant="body2" color="text.secondary">
               <strong>{course.mentor.name.first_name} {course.mentor.name.last_name}</strong>
             </Typography>
@@ -175,20 +135,14 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
           </Typography>
 
           <Stack spacing={1}>
-<<<<<<< HEAD
             <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
             {userType === 'Mentor' &&
-=======
-            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.zoomLink)} />
-            {userType === 'mentor' &&
->>>>>>> profileIcons
               <>
                 <MainButton value="Attendance List" onClick={handleStudentList} />
                 <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)} />
               </>}
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
-<<<<<<< HEAD
                 <DialogContent>
                   {course.mentees.map((student, index) => (
                     <Stack direction="row" spacing={1} key={`${index}`}>
@@ -204,13 +158,6 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
                     </Stack>
                   ))}
                 </DialogContent>
-=======
-              <DialogContent>
-                {course.studentList.map((student, index) => (
-                  <DialogContentText key={`${index}`}>{`${student}`}</DialogContentText>
-                ))}
-              </DialogContent>
->>>>>>> profileIcons
             </Dialog>
           </Stack>
         </Stack>
