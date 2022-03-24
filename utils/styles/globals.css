@@ -91,6 +91,11 @@ a:hover {
   border: none;
 }
 
+/*NEW START TIME TEXT*/
+.css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  font-size: .73rem;
+}
+
 .pageData {
   margin-top: 100px;
 }

@@ -29,14 +29,10 @@ import {
   getUserInfo,
 } from '../../utils/api/apiCalls.js';
 
-
-//import render Calendar component
-
-//use username from GET request, current is just mock data
+//implement userID dynamic rendering
 
 
 export default function Calendar() {
-  // console.log('this is userInfo:', userInfo);
   //import user state (mentor/mentee)
   const { user } = useAuthContext();
   const [appointmentData, setAppointmentData] = useState([]);
@@ -47,7 +43,6 @@ export default function Calendar() {
     if (userType === 'Mentor') {
       getCoursesByMentorId(currUserId)
         .then(res => {
-          // setAppointmentData(res);
           let apptDataResult = res.map((course) => {
             return {
               title: course.name,

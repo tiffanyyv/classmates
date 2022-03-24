@@ -18,12 +18,13 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import { updateCourseInfo, removeCourse } from '../../../utils/api/apiCalls.js'
 import styles from '../../../utils/styles/CalendarStyles/TooltipContent.module.css'
 import MainButton from '../../basecomponents/MainButton.js'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 
 export default function AppointmentContent (currentAppointmentMetadata) {
   const {
@@ -38,6 +39,8 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     mentees,
     id,
     photo } = currentAppointmentMetadata.appointmentData;
+
+  //-----------------------states for edit window-----------------------------//
   const [editor, setEditor] = useState(false);
   const [editChanges, setEditChanges] = useState({});
   const [newStartTime, setNewStartTime] = useState(null);
@@ -45,9 +48,12 @@ export default function AppointmentContent (currentAppointmentMetadata) {
   const [realTitle, setRealTitle] = useState(title);
   const [realStartDate, setRealStartDate] = useState(startDate);
   const [realEndDate, setRealEndDate] = useState(endDate);
+  //----------------------------------------------------------------------
+
+  //-----------------------states for delete window-----------------------
   const [anchorEl, setAnchorEl] = useState(null);
   const [classDeleted, setclassDeleted] = useState(false);
-
+  //-----------------------------------------------------------------------
     const formatDate = (date) => {
       return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }
@@ -56,34 +62,39 @@ export default function AppointmentContent (currentAppointmentMetadata) {
       window.open(url, '_blank', 'noreferrer')
     }
 
+    // ---------------------------EDIT WINDOW FUNCTIONS -------------------------------------
     const handleEditorFieldChange = (e) => {
-      setEditChanges({ ...editChanges, [e.target.name]: e.target.value })
+    setEditChanges({ ...editChanges, [e.target.name]: e.target.value })
     }
 
+    const handleSubmit = (e) => {
+      e.preventDefault;
+      updateCourseInfo(id, editChanges);
+      // setRealTitle(editChanges.name);
+      // setRealStartDate(editChanges.start_date);
+      // setRealEndDate(editChanges.end_date);
+      // setEditor(false);
+      window.location.reload();
+    }
+    // ------------------------------------------------------------------------------------
+
+    // --------------------------FUNCTIONS FOR DELETE BUTTON-------------------------------
     const deleteCourse = () => {
       removeCourse(id);
       setAnchorEl(null);
       window.location.reload();
     }
 
-    const handleSubmit = (e) => {
-      e.preventDefault;
-      updateCourseInfo(id, editChanges);
-      setRealTitle(editChanges.name);
-      setRealStartDate(editChanges.start_date);
-      setRealEndDate(editChanges.end_date);
-      setEditor(false);
-      window.location.reload();
-    }
-
     const handleTrashClick = (e) => {
       setAnchorEl(e.currentTarget);
     };
+
     const open = Boolean(anchorEl);
+
     const handleClose = () => {
       setAnchorEl(null);
     };
-
+   //----------------------------------------------------------------------------------------
 
   if (editor) {
     return (
@@ -93,7 +104,7 @@ export default function AppointmentContent (currentAppointmentMetadata) {
           <EditIcon style={{color: '#84C7D0'}} />
           <h3 className={styles.editChangeTitle}>Edit This Class</h3>
           <div className={styles.editDeleteButtonBox}>
-            {/* <div className={styles.editDeleteText}>Delete Class</div> */}
+            {/* ------------------------DELETE POPOVER------------------------------------ */}
             <DeleteForeverIcon className={styles.editDeleteButton} onClick={handleTrashClick}/>
             <Popover
               open={open}
@@ -108,10 +119,9 @@ export default function AppointmentContent (currentAppointmentMetadata) {
                   <Button variant="contained" className={styles.editDeleteConfirm} onClick={deleteCourse}>Confirm</Button>
                 </div>
               </Popover>
-
+            {/* ----------------------------------------------------------------------------------- */}
           </div>
         </div>
-
         <FormControl component="fieldset" required className={styles.editClassForm}>
         {/* ----------------------NEW COURSE NAME-------------------------- */}
           <TextField
@@ -184,7 +194,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
             <div className={styles.time}>
               {`${formatDate(realStartDate)} - ${formatDate(realEndDate)} `}
             </div>
-            {/* <div>{`  ${endDate.toLocaleTimeString()}`}</div> */}
           </div>
           <div className={styles.bottomBox}>
             <div className={styles.subject}>{subject}</div>

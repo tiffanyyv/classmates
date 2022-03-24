@@ -1,33 +1,21 @@
-
 .card {
   margin: 1px 2%;
-  /* margin-left: 2%;
-  margin-top: 1px;
-  margin-bottom: 1px;
-  margin-right: 2%; */
-
 }
 .dateBox {
   display: flex;
 }
 
 .date {
-  margin-top: 0.6%;
-  /* margin-left: 8.5%; */
-  /* margin-bottom: 1%; */
-  font-weight: 400;
   font-size: 0.8em;
-  /* font-style: italic; */
-  /* line-height: 1.43; */
+  font-weight: 400;
+  margin-top: 0.6%;
   letter-spacing: 0.01071em;
-  /* color: #84C7D0; */
+
 }
 
 .timeBox {
-
   display: flex;
   border-bottom: 1px solid black;
-  /* color: #F5F5F4; */
   font-size: .8em;
   padding-bottom: 2%;
 }
@@ -63,7 +51,6 @@
   font-weight: 800;
   font-size: 1.25em;
   color: #84C7D0;
-  /* text-align: center; */
 }
 
 .description {
@@ -75,8 +62,8 @@
   font-size: 1.1em;
   margin-bottom: 1%;
   color: #84C7D0;
-  /* text-align: center; */
 }
+
 .zoomLink {
   margin-bottom: 3%;
 }
@@ -112,6 +99,10 @@
 
 .editStackMargin {
   margin-top: 2%;
+}
+
+.timePicker {
+  font-size: 0.2em;
 }
 
 .editChangeTitle {
@@ -151,7 +142,6 @@
 
 .editDeleteText {
   font-size: .69em;
-  /* margin-top: 5%; */
 }
 
 .editDeleteConfirm {
