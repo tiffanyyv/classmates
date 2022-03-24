@@ -23,6 +23,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import MainButton from '../basecomponents/MainButton.js'
 import { defaultProfilePic } from '../../utils/constants/index.js'
 import styles from '../../utils/styles/MyCoursesStyles/MyCourses.module.css';
+import OtherStudentProfile from '../UserProfileView/SelectedStudentProfileView.js';
+import OtherTeacherProfile from '../UserProfileView/SelectedTeacherProfileView.js';
 
 export default function MyCoursesCard({ course, index, handleDeleteCourse, handleEditCourse, userInfo }) {
   const [showStudentList, setShowStudentList] = useState(false);

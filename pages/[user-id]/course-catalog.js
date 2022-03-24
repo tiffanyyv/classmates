@@ -1,5 +1,6 @@
 // ClassCatalog widget
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   Grid,
   Typography,
@@ -19,26 +20,16 @@ import { getUserInfo, getAllCourses, updateCourseMenteeList } from '../../utils/
 // search based on: teacher name, class name
 // filter based on category or all
 export default function CourseCatalog() {
+  const router = useRouter();
+  var pathUserId = router.asPath.split('/');
+  const userID = pathUserId[1];
+
   const [searchInput, setSearchInput] = useState('');
   const [allCourses, setAllCourses] = useState([]);
   const [displayCourses, setDisplayCourses] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('all');
   const [openCreateClass, setOpenCreateClass] = useState(false);
-  const [userInfo, setUserInfo] = useState({ userType: '', userID: '51', first_name: '', last_name: '' })
-
-  useEffect(() => {
-    getUserInfo(userInfo.userID)
-      .then(res => setUserInfo({ userType: res.account_type, userID: res.id, first_name: res.name.first_name, last_name: res.name.last_name }))
-      .catch(err => console.log('Error getting user information'));
-    getAllCourses()
-      .then(() => getAllCourses())
-      .then(res => setAllCourses(res))
-      .catch(err => console.log('Error getting course catalog'));
-  }, []);
-
-  useEffect(() => {
-    setDisplayCourses(allCourses)
-  }, [allCourses])
+  const [userInfo, setUserInfo] = useState({ userType: '', userID: userID, first_name: '', last_name: '' })
 
   const handleCreateClass = () => {
     setOpenCreateClass(!openCreateClass);
@@ -59,8 +50,8 @@ export default function CourseCatalog() {
       mentee_lastName: userInfo.last_name
     }
     updateCourseMenteeList(currentCourse.id, studentBody)
-      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
-      .catch(err => console.log('Could not sign up for class'))
+    .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
+    .catch(err => console.log('Could not sign up for class'))
   }
 
   // if search input not empty, filter based on inputted course name/teacher name
@@ -87,12 +78,26 @@ export default function CourseCatalog() {
     }
   }
 
+  useEffect(() => {
+    getUserInfo(userInfo.userID)
+      .then(res => setUserInfo({ userType: res.account_type, userID: res.id, first_name: res.name.first_name, last_name: res.name.last_name }))
+      .catch(err => console.log('Error getting user information'));
+    getAllCourses()
+      .then(() => getAllCourses())
+      .then(res => setAllCourses(res))
+      .catch(err => console.log('Error getting course catalog'));
+  }, []);
+
+  useEffect(() => {
+    setDisplayCourses(allCourses)
+  }, [allCourses])
+
   return (
     <div className='pageData'>
       <Typography gutterBottom variant="h5" component="div"><strong>Course Catalog</strong></Typography>
       <Stack spacing={2} direction="row">
         <TextField id="standard-basic" label="Search by course name, teacher" variant="standard" sx={{ width: '30%' }} onChange={e => handleSearchInput(e)} />
-        <FormControl sx={{ width: '10%' }}>
+        <FormControl sx={{ width: '20%' }}>
           <InputLabel id="demo-simple-select-label">Category</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -111,7 +116,6 @@ export default function CourseCatalog() {
         </FormControl>
         <Stack direction="row" spacing={1}>
           <MainButton value="Search" onClick={handleSearchSubmit} />
-          <MainButton value="Create A Class +" onClick={handleCreateClass} />
           <CreateClassModal />
         </Stack>
       </Stack>

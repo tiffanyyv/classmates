@@ -44,8 +44,7 @@ export default function CreateClassModal({ getCourseData }) {
     }
   }
 
-  const handleCreate = (e) => {
-    e.preventDefault();
+  const handleCreate = () => {
     createNewCourse(classObj);
     setOpen(false);
     getCourseData();
@@ -159,7 +158,7 @@ export default function CreateClassModal({ getCourseData }) {
               placeholder="Please enter your Zoom Meeting Room Link"
             />
             {/* ----------------------TYPE SELECTOR-------------------------- */}
-            <FormControl className={styles.classForm}>
+            {/* <FormControl className={styles.classForm}>
               <InputLabel>Privacy Type Settings</InputLabel>
               <Select
                 required
@@ -176,7 +175,7 @@ export default function CreateClassModal({ getCourseData }) {
                 <MenuItem value="Public">Public</MenuItem>
                 <MenuItem value="Private">Private</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
              {/* ----------------------CLASS CAPACITY-------------------------- */}
             <TextField
               required

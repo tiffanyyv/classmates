@@ -19,12 +19,6 @@ export default function MyCoursesPage() {
   const [myCoursesData, setCoursesData] = useState([]);
   const [userInfo, setUserInfo] = useState({ userType: '', userID: userID, first_name: '', last_name: '', avatar_photo: '' })
 
-  const fetchUserInfo = () => {
-    return getUserInfo(userInfo.userID)
-      .then(res => setUserType(res.account_type))
-      .catch(err => console.log('Error getting user information'))
-  }
-
   const fetchAllCourses = () => {
     if (userInfo.userType === 'Mentor') {
       getCoursesByMentorId(userInfo.userID)
@@ -74,7 +68,7 @@ export default function MyCoursesPage() {
     <div className='pageData'>
       <Typography gutterBottom variant="h5" component="div"><strong>My Courses</strong></Typography>
       {userInfo.userType === 'Mentor' &&
-        <CreateClassModal />}
+        <CreateClassModal getCourseData={fetchAllCourses}/>}
       <br></br>
       <br></br>
       <br></br>

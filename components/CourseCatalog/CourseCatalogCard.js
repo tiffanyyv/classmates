@@ -22,20 +22,21 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import MainButton from '../basecomponents/MainButton.js';
 import { defaultProfilePic } from '../../utils/constants/index.js';
-import StudentProfile from '../UserProfileView/StudentProfileView.js';
-import TeacherProfile from '../UserProfileView/TeacherProfileView.js';
+import SelectedStudentProfile from '../UserProfileView/SelectedStudentProfileView.js';
+import SelectedTeacherProfile from '../UserProfileView/SelectedTeacherProfileView.js';
 import styles from '../../utils/styles/CourseCatalogStyles/CourseCatalog.module.css';
 
 export default function CourseCatalogCard({ course, handleStudentAddCourse, userInfo }) {
-  // const [userType, setUserType] = useState('student');
   const [showCourseInfo, setShowCourseInfo] = useState(false);
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
+  const [selectedStudentID, setSelectedStudentID] = useState('');
 
   const [showNewModal, setShowNewModal] = useState(false);
 
-  const handleNewModal = () => {
+  const handleNewModal = (studentID) => {
     setShowNewModal(!showNewModal)
+    setSelectedStudentID(studentID)
   }
 
   const handleShowCourseInfo = () => {
@@ -115,23 +116,23 @@ export default function CourseCatalogCard({ course, handleStudentAddCourse, user
                         src={student.photo}
                         sx={{ width: 20, height: 20 }}
                         className={styles.cardUserAvatar}
-                        onClick={handleNewModal}
+                        onClick={() => handleNewModal(student.id)}
                       />
-                    <Dialog onClose={handleNewModal} open={showNewModal}>
-                      <DialogTitle>Test Modal</DialogTitle>
-                      <DialogContent>
-                        <StudentProfile studentID={student.name.id}/>
-                        <DialogContentText>Is this modal-ception?</DialogContentText>
-                      </DialogContent>
-                    </Dialog>
                     {/* </Link> */}
                     <DialogContentText >{student.name.first_name} {student.name.last_name}</DialogContentText>
                   </Stack>
                 ))}
+                <Dialog onClose={handleNewModal} open={showNewModal} fullWidth={true}>
+                  <DialogContent>
+                    <SelectedStudentProfile selectedStudentID={selectedStudentID} currentUserType={userInfo.userType}/>
+                  </DialogContent>
+                </Dialog>
               </DialogContent>
             </Dialog>
-            {userInfo.userType === 'Mentee' &&
+            {userInfo.userType === 'Mentee' && course.mentees.length < course.capacity &&
               <MainButton value="Join class" onClick={() => handleStudentAddCourse(course)} />}
+            {userInfo.userType === 'Mentee' && course.mentees.length >= course.capacity &&
+              <MainButton value="COURSE FULL"/>}
           </Stack>
         </Stack>
       </CardContent>
