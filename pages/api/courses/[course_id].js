@@ -38,8 +38,8 @@ export default async function getRemoveAndUpdateCourse(req, res) {
 
       break
     case 'PUT':
-      // update course name: use key "name"
-      // update course start and end dates: use "start_date" and "end_date"
+      // to update course name: pass in key:value pair "name": "string" in request body
+      // to update course start and end dates pass in key:value pair: "start_date": new Date() and "end_date": new Date()
 
       /* updateCourseInfo */
       const update = req.body;
