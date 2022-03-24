@@ -8,7 +8,7 @@ import { collection,
         updateDoc
 } from "firebase/firestore";
 
-export default async function getUserInfo(req, res) {
+export default async function getAndUpdateUserInfo(req, res) {
 
   const {
     query: { user_id },
