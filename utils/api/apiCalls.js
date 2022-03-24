@@ -134,8 +134,14 @@ export const getUserEndorsements = (user_id) => {
 }
 
 /* userId === uid (same as mentor/mentee id) */
-export const updateUserEndorsements = (user_id) => {
-  return axios.put(`/api/endorsements/users/${user_id}`)
+export const updateUserEndorsements = (user_id, body) => {
+  return axios.put(`/api/endorsements/users/${user_id}`, body)
     .then(({ data }) => data)
     .catch((err) => console.warn(err.message));
 }
+
+/* Example body:
+{
+  "type": "increase" (or "decrease")
+}
+*/

@@ -22,7 +22,7 @@ export default async function getCoursesByUserId(req, res) {
       querySnapshot.forEach(doc => {
         const menteeList =  doc.data().mentees;
         menteeList.forEach(mentee => {
-          if (mentee.id === Number(user_id)) {
+          if (mentee.id === user_id) {
             result.push(doc.data());
           }
         })
@@ -33,7 +33,7 @@ export default async function getCoursesByUserId(req, res) {
     }
   } else {
     try {
-      const q = query(collection(db, 'courses'), where('mentor.id', '==', Number(user_id)));
+      const q = query(collection(db, 'courses'), where('mentor.id', '==', user_id)));
       const result = [];
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {

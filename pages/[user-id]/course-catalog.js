@@ -40,7 +40,7 @@ export default function CourseCatalog() {
   const handleSearchSubmit = () => {
     if (searchInput) {
       let filteredCourses = allCourses.filter(course => {
-        return course.courseName.toLowerCase().includes(searchInput.toLowerCase()) || course.teacherName.toLowerCase().includes(searchInput.toLowerCase())
+        return course.name.toLowerCase().includes(searchInput.toLowerCase()) || course.mentor.name.first_name.toLowerCase().includes(searchInput.toLowerCase()) || course.mentor.name.last_name.toLowerCase().includes(searchInput.toLowerCase())
       })
       setDisplayCourses(filteredCourses);
     } else {
@@ -96,3 +96,4 @@ export default function CourseCatalog() {
     </div>
   )
 }
+

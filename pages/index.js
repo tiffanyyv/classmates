@@ -26,9 +26,9 @@ export default function LandingPage() {
         <h1>THE LATEST IN ONLINE CLASS MANAGEMENT</h1>
       </div>
       <div className={styles.reporter}>
-        <h7>"THIS is official documentation" - Q. Maki CTO GeeksforGeeks</h7>
-        <h7>"Good sh** guys" - E. Zhang CTO Apple</h7>
-        <h7>"The Harvard of online Mentorship" - K. Lopez CTO Google</h7>
+        <h7>&quot;THIS is official documentation&quot; - Q. Maki CTO GeeksforGeeks</h7>
+        <h7>&quot;Good sh** guys&quot; - E. Zhang CTO Apple</h7>
+        <h7>&quot;The Harvard of online Mentorship&quot; - K. Lopez CTO Google</h7>
       </div>
     </div>
   )
