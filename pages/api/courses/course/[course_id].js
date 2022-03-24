@@ -23,7 +23,8 @@ export default async function updateCourseMenteeList(req, res) {
         name: {
           first_name: mentee_firstName,
           last_name: mentee_lastName
-        }
+        },
+        photo: "https://robohash.org/"+mentee_firstName+mentee_lastName
       })
     });
     res.status(200).json(`Successfully added student to course ${course_id}`);

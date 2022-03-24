@@ -7,10 +7,12 @@ import {
   getDoc,
   getDocs,
   addDoc,
+  setDoc,
   query,
   where
 } from "firebase/firestore";
 import { coursePhotos } from '../../../utils/constants/index';
+
 
 export default async function getAndCreateCourses(req, res) {
   const {
@@ -49,21 +51,23 @@ export default async function getAndCreateCourses(req, res) {
         subject
       } = req.body;
 
-      // look up default photo based on subject
       try {
-        const docRef = await addDoc(collection(db, 'courses'), {
+        const docRef = doc(collection(db, 'courses'));
+        console.log('docRef: ', docRef.id);
+        await setDoc(doc(db, 'courses', docRef.id), {
+          id: docRef.id,
           name,
           start_date,
           end_date,
           mentees: [],
           subject,
           mentor: {
-            "id": mentorId,
-            "name": {
+            id: mentorId,
+            name: {
               "first_name": mentorFirstName,
-              "last_name": mentorLastName,
-              "photo": "https://robohash.org/"+mentorFirstName+mentorLastName
-            }
+              "last_name": mentorLastName
+            },
+            photo: "https://robohash.org/"+mentorFirstName+mentorLastName
           },
           capacity,
           endorsements: 0,
@@ -71,10 +75,11 @@ export default async function getAndCreateCourses(req, res) {
           meeting_url,
           photo: coursePhotos[subject]
         });
-        res.status(200).json(`Successfully posted course`);
+        res.status(200).send(`Successfully posted course`);
       } catch (err) {
         res.status(400).send(`Error posting new course: ${err}`);
       }
+
 
       break
     default:
