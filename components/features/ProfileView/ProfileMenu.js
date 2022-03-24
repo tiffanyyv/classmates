@@ -11,21 +11,14 @@ import { useAuthContext } from '../../../utils/context/AuthProvider';
 
 import { getUserInfo } from '../../../utils/api/apiCalls.js'
 
-
 const settings = ['Profile', 'Logout'];
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ userId }) => {
+  const { logout } = useAuthContext();
   const [AnchorUser, setAnchorUser] = useState(null);
-  const [userType, setUserType] = useState('');
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
     photo: ''
   })
-
-  const { logout } = useAuthContext();
-
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
 
   const handleOpenUserMenu = (event) => {
     setAnchorUser(event.currentTarget);
@@ -35,14 +28,12 @@ const ProfileMenu = () => {
     setAnchorUser(null);
   };
 
-  const fetchUserInfo = () => {
-    getUserInfo('51').then(res => {
-      setCurrentUserProfileInfo({
-        photo: res.photo
-      })
-    })
-  }
-
+  useEffect(() => {
+    getUserInfo(userId)
+      .then(res => {
+      setCurrentUserProfileInfo({photo: res.photo});
+      });
+  }, [])
 
   return (
     <Box sx={{ flexGrow: 0 }}>
@@ -74,7 +65,7 @@ const ProfileMenu = () => {
       >
         <MenuItem>
           <Typography textAlign="center">
-            <Link href="/app/my-profile"><a>Profile</a></Link>
+            <Link href={`/${userId}/my-profile`}><a>Profile</a></Link>
           </Typography>
         </MenuItem>
         <MenuItem onClick={logout}>

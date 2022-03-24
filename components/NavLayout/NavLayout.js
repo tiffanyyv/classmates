@@ -19,7 +19,7 @@ export default function NavLayout({ children }) {
     )
   }
 
-  if (user && router.pathname === '/') {
+  if (user && router.pathname === '/' || user && router.pathname === '/login' || user && router.pathname === '/signup') {
     return (
       <>
         {children}
@@ -29,7 +29,7 @@ export default function NavLayout({ children }) {
 
   return (
     <div className={styles.loggedInView}>
-      <SideBar>
+      <SideBar userId={user.uid}>
 
       </SideBar>
       <div>

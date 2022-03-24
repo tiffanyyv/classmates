@@ -1,7 +1,7 @@
-import { auth } from '../utils/api/firebase.config'
-
-import { useAuthContext } from '../utils/context/AuthProvider';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import { FormControl } from '@mui/material';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
@@ -10,11 +10,13 @@ import { makeStyles } from '@mui/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import useStyles from '../utils/styles/signup.module'
-import { useRouter } from 'next/router';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+
+import { auth } from '../utils/api/firebase.config'
+import { useAuthContext } from '../utils/context/AuthProvider';
 
 export default function Signup() {
   const classes = useStyles();
@@ -44,12 +46,14 @@ export default function Signup() {
       [field]: text
     })
   }
+
   const handleSubmitSignUpInput = (e) => {
     e.preventDefault();
     signup(signupInfo)
   }
+
   if (user) {
-    router.push('/app/my-courses')
+    router.push(`/${user.uid}/my-courses`)
     return null;
   }
 
@@ -60,7 +64,6 @@ export default function Signup() {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        alignItems="center"
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
@@ -96,7 +99,7 @@ export default function Signup() {
             <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <Button onClick={(e) => signInWithFacebook(signupInfo) } disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
           </div>
-          <p><a href="/">Go Home</a></p>
+          <Link href="/"><a>Go Home</a></Link>
         </Card>
       </Grid>
     </div>

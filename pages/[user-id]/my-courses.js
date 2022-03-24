@@ -1,26 +1,20 @@
 // MyCourses widget
 // Conditionally render Student or Mentor View
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 
 import MyCourses from '../../components/MyCourses/MyCourses.js';
 import MyCoursesExampleData from '../../components/MyCourses/data/MyCourses.example.js';
 import { getUserInfo, getCoursesByMenteeId, getCoursesByMentorId } from '../../utils/api/apiCalls.js';
 
-export default function myCourses() {
+export default function MyCoursesPage() {
+  const router = useRouter();
+  var pathUserId = router.asPath.split('/');
+  const userID = pathUserId[1];
+
   const [myCoursesData, setCoursesData] = useState([]);
-  const [userID, setUserID] = useState('50');
   const [userType, setUserType] = useState('');
-
-  useEffect(() => {
-    getUserInfo(userID)
-      .then(res => setUserType(res.account_type))
-      .catch(err => console.log('Error getting user information'))
-  }, []);
-
-  useEffect(() => {
-    fetchAllCourses();
-  }, [userType])
 
   const fetchUserInfo = () => {
     return getUserInfo(userID)
@@ -54,6 +48,19 @@ export default function myCourses() {
     currentCourse.end_date = newEndTime;
     setCoursesData(myCoursesCopy);
   }
+
+  useEffect(() => {
+    getUserInfo(userID)
+      .then(response => {
+        if (!response?.account_type) {
+          throw new Error('No account type associated with user.')
+        }
+        setUserType(response.account_type)
+      })
+      .catch(err => console.log('Error getting user information: ', err))
+      .then(fetchAllCourses)
+      .catch((err) => console.warn(err))
+  }, []);
 
   return (
     <div className='pageData'>

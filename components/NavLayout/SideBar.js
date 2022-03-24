@@ -24,16 +24,13 @@ import { getUserInfo } from '../../utils/api/apiCalls.js'
 
 // clean up useEffect and currentUserProfileInfo
 
-export default function SideBar({ children, ...props }) {
+export default function SideBar({ children, userId, ...props }) {
+  // console.log(userId);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
     fullName: 'Current User',
   })
-
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -44,20 +41,30 @@ export default function SideBar({ children, ...props }) {
   };
 
   const fetchUserInfo = () => {
-    getUserInfo('51').then(res => {
-      console.log(res)
+    getUserInfo(userId).then(res => {
+      // console.log(res)
       setCurrentUserProfileInfo({
         fullName: res.name.first_name + ' ' + res.name.last_name,
       })
     })
   }
 
+  useEffect(() => {
+    // fetchUserInfo()
+    getUserInfo(userId).then(res => {
+      // console.log(res)
+      setCurrentUserProfileInfo({
+        fullName: res.name.first_name + ' ' + res.name.last_name,
+      })
+    })
+  }, [])
+
   // hard coded data, eventually change sampleUser to [username]
   const pageUrls = {
-    0: "/app/my-courses",
-    1: "/app/calendar",
-    2: "/app/notifications",
-    3: "/app/course-catalog"
+    0: `/${userId}/my-courses`,
+    1: `/${userId}/calendar`,
+    2: `/${userId}/notifications`,
+    3: `/${userId}/course-catalog`
   }
 
   const sideBarIcons = {
@@ -92,7 +99,7 @@ export default function SideBar({ children, ...props }) {
           <Container className={styles.profileIcon} sx={{ flexGrow: 0 }}>
             <Leaderboard />
             <Typography className={styles.profileName}>{currentUserProfileInfo.fullName}</Typography>
-            <ProfileMenu />
+            <ProfileMenu userId={userId}/>
           </Container>
         </Toolbar>
       </SideBarAppBar>
@@ -123,7 +130,7 @@ export default function SideBar({ children, ...props }) {
                 {/* The separation of links is intentional, when consolidated to one line it breaks */}
                 <Link href={pageUrls[index]}>{sideBarIcons[index]}</Link>
               </ListItemIcon>
-              <Link href={pageUrls[index]}><ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /></Link>
+              <Link href={pageUrls[index]} passHref><ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} /></Link>
             </ListItemButton>
           ))}
         </List>
@@ -137,4 +144,3 @@ export default function SideBar({ children, ...props }) {
     </Box >
   )
 }
-

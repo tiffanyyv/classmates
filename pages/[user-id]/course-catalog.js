@@ -96,3 +96,4 @@ export default function CourseCatalog() {
     </div>
   )
 }
+

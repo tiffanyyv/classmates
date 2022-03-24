@@ -46,12 +46,12 @@ import {
 //use username from GET request, current is just mock data
 
 
-export default function Calendar() {
+export default function Calendar({ userInfo }) {
   //import user state (mentor/mentee)
   const { user } = useAuthContext();
   const [appointmentData, setAppointmentData] = useState([]);
-  const [userType, setUserType] = useState('');
-  const [currUserId, setCurrUserId] = useState('51');
+  const [userType, setUserType] = useState(userInfo.account_type);
+  const [currUserId, setCurrUserId] = useState(userInfo.id);
 
   const getCourseData = () => {
     console.log(userType)
@@ -102,9 +102,6 @@ export default function Calendar() {
     getCourseData();
 }, [userType]);
 
-
-
-
   return (
     <div className="pageData">
       <div className={styles.calendarContainer}>
@@ -148,12 +145,18 @@ export default function Calendar() {
   )
 }
 
-// export async function getServerSideProps({ params }) {
+// export async function getServerSideProps(context) {
+//   const userId = context.params['user-id'];
+//   const userInfo = await getUserInfo(userId);
+//   let courseData;
 
-//   const req = await fetch('http://localhost:3000/api/courses/mentors/54');
-//   const data = await req.json();
+//   if (userInfo.account_type === 'Mentor') {
+//     courseData = await getCoursesByMentorId(userInfo.id)
+//   } else if (userInfo.account_type === 'Mentee') {
+//     courseData = await getCoursesByMenteeId(userInfo.id)
+//   }
 
 //   return {
-//     props: {courses: data},
+//     props: { userInfo, courseData, mappedApptData }
 //   }
 // }
