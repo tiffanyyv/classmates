@@ -51,4 +51,5 @@ export default function AppointmentContent (currentAppointmentMetadata) {
   );
 
 }
+//change bottom box styles so that description is a bit smaller
 
