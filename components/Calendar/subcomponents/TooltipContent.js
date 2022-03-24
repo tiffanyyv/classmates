@@ -74,7 +74,9 @@ export default function AppointmentContent (currentAppointmentMetadata) {
       // setRealStartDate(editChanges.start_date);
       // setRealEndDate(editChanges.end_date);
       // setEditor(false);
-      window.location.reload();
+      if (editChanges.name || (editChanges.start_date && editChanges.end_date)) {
+        window.location.reload();
+      }
     }
     // ------------------------------------------------------------------------------------
 
