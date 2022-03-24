@@ -33,6 +33,11 @@ a:hover {
   border-bottom: none
 }
 
+/* EDIT CLASS STUFF */
+.css-8ludsl {
+  max-height: 0;
+}
+
 /* APPOINTMENT SCHEDULED BLOCK */
 .css-3nejl.Appointment-appointment {
   background-color: #84C7D0

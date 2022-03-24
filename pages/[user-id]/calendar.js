@@ -35,12 +35,13 @@ import {
 //use username from GET request, current is just mock data
 
 
-export default function Calendar({ userInfo }) {
+export default function Calendar() {
+  // console.log('this is userInfo:', userInfo);
   //import user state (mentor/mentee)
   const { user } = useAuthContext();
   const [appointmentData, setAppointmentData] = useState([]);
-  const [userType, setUserType] = useState(userInfo.account_type);
-  const [currUserId, setCurrUserId] = useState(userInfo.id);
+  const [userType, setUserType] = useState('Mentor');
+  const [currUserId, setCurrUserId] = useState('51');
 
   const getCoursesData = () => {
     if (userType === 'Mentor') {
@@ -62,7 +63,7 @@ export default function Calendar({ userInfo }) {
               mentees: course.mentees,
             }
           })
-          // console.log(apptDataResult);
+          console.log(apptDataResult);
           setAppointmentData(apptDataResult);
         })
         .catch(err => {

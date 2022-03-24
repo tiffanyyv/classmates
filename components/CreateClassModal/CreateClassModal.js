@@ -44,9 +44,9 @@ export default function CreateClassModal({ getCoursesData }) {
     }
   }
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
-    createNewCourse(classObj);
+    await createNewCourse(classObj);
     setOpen(false);
     getCoursesData();
   }
@@ -58,7 +58,7 @@ export default function CreateClassModal({ getCoursesData }) {
           ...classObj,
           mentorFirstName: data.name.first_name,
           mentorLastName: data.name.last_name,
-          mentorId: '53'
+          mentorId: '51'
         })
       })
       .catch(err => {

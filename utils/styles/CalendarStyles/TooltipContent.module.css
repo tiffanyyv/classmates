@@ -80,3 +80,89 @@
 .zoomLink {
   margin-bottom: 3%;
 }
+
+/*       EDITOR STYLES         */
+.editor {
+  width: 5%;
+  height: auto;
+  margin-left: 2%;
+}
+
+.editor:hover {
+  cursor: pointer;
+}
+
+
+.editChangesTopBox {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 2% 2% 3% 2%;
+  border-bottom: 1px solid black;
+}
+
+.editbottomBox {
+  margin-top: 1px;
+  display:flex;
+  justify-content: space-between;
+}
+
+.editClassForm {
+  margin: 0px 2%;
+}
+
+.editStackMargin {
+  margin-top: 2%;
+}
+
+.editChangeTitle {
+  line-height: 1.43;
+  margin-bottom: 1%;
+  margin-top: 0px;
+  color: #84C7D0;
+  margin-left: 2%;
+  font-size: 1.2em;
+}
+
+.editChangesButton {
+  background-color: #B0B4D4;
+  margin: 2% 0 2% 0;
+  width: 49%;
+}
+
+.editChangesButton:hover {
+  background-color: #acb0cd;
+}
+
+.editDeleteButtonBox {
+  display:flex;
+  margin-left: 50%;
+
+}
+
+.editDeleteButton {
+  margin-top: 0%;
+  width: 90%;
+  color: #4BD2D2;
+}
+
+.editDeleteButton:hover {
+  cursor: pointer;
+}
+
+.editDeleteText {
+  font-size: .69em;
+  /* margin-top: 5%; */
+}
+
+.editDeleteConfirm {
+  background-color: rgb(226, 118, 118);
+  height: 2em;
+  width: 100%;
+}
+.editDeleteConfirm:hover {
+  background-color: red;
+}
+
+.editDeletePopover {
+  margin: 10% 10% 10% 10%;
+}
