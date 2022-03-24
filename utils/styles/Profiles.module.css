@@ -1,10 +1,48 @@
 .profileContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   word-wrap: normal;
+  text-align: center;
+  align-items: center;
 }
 
-@media (max-width: 960px) {
+.profileContainer h2 {
+  font-size: 5vh;
+  margin: 0px 0px;
+  /* color: #84C7D0 */
+  color: linear-gradient(0deg, rgba(132,199,208,1) 0%, rgba(176,180,212,1) 50%, rgba(176,180,212,1) 100%);
+  background: -webkit-linear-gradient(#B0B4D4, #84C7D0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.profileContainer h3 {
+  font-size: 3vh;
+  margin: 0px 0px;
+  color: #B0B4D4
+}
+
+.profileContainer h4 {
+  font-size: 2vh;
+  margin: 0px 0px;
+}
+
+.profileContainer p {
+  font-size: 2vh;
+  margin: 0px 0px;
+}
+
+.profileEndorsementSection {
+  font-size: 2vh;
+  margin: 0px 0px;
+}
+
+.endorsementUpdate:hover {
+  cursor: pointer;
+  color: #4BD2D2;
+}
+
+/* @media (max-width: 960px) {
   .profileContainer {
     display: flex;
     flex-direction: column;
@@ -20,4 +58,4 @@
     min-width: 75%;
     min-height: 75%;
   }
-}
+} */
