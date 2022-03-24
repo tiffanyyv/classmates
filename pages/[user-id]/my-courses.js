@@ -72,7 +72,7 @@ export default function MyCoursesPage() {
       <br></br>
       <br></br>
       <br></br>
-
+      {console.log(myCoursesData)}
       {!myCoursesData.length && userInfo.userType === 'Mentee' &&
         <>
           <Typography gutterBottom variant="h6" component="div">You have not signed up for any courses</Typography>
@@ -101,6 +101,7 @@ export default function MyCoursesPage() {
           />
         ))}
       </Grid>
+      {console.log(myCoursesData)}
     </div>
   )
 }

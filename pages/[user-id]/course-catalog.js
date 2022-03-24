@@ -44,14 +44,19 @@ export default function CourseCatalog() {
   };
 
   const handleStudentAddCourse = (currentCourse) => {
+    console.log(currentCourse)
     let studentBody = {
       mentee_id: userInfo.userID,
       mentee_firstName: userInfo.first_name,
       mentee_lastName: userInfo.last_name
     }
-    updateCourseMenteeList(currentCourse.id, studentBody)
-    .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
-    .catch(err => console.log('Could not sign up for class'))
+    if (currentCourse.mentees.length < currentCourse.capacity) {
+      updateCourseMenteeList(currentCourse.id, studentBody)
+      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
+      .catch(err => console.log('Could not sign up for class'))
+    } else {
+      alert(`Sorry, ${currentCourse.name} is full. Please add a different course, or contact ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name} to increase course capacity.`)
+    }
   }
 
   // if search input not empty, filter based on inputted course name/teacher name
@@ -80,7 +85,7 @@ export default function CourseCatalog() {
 
   useEffect(() => {
     getUserInfo(userInfo.userID)
-      .then(res => setUserInfo({ userType: res.account_type, userID: res.id, first_name: res.name.first_name, last_name: res.name.last_name }))
+      .then(res => setUserInfo({ userType: res.account_type, userID: userInfo.userID, first_name: res.name.first_name, last_name: res.name.last_name }))
       .catch(err => console.log('Error getting user information'));
     getAllCourses()
       .then(() => getAllCourses())

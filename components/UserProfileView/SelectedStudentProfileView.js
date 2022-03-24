@@ -15,14 +15,15 @@ export default function StudentProfile({ selectedStudentID, currentUserType }) {
     endorsements: 0,
     photo: ''
   });
+  const [didVoteStudent, setDidVoteStudent] = useState(false);
 
   const updateVoteStudent = (type) => {
-    updateUserEndorsements(selectedStudentID, {"type": type}).then(res => {
-      getUserInfo(selectedStudentID);
-      console.log('Updated vote for student')
-    }).catch(err => {
-      console.warn('Error voting for student')
-    })
+    updateUserEndorsements(selectedStudentID, { "type": type })
+      .then(res => {
+        setDidVoteStudent(true);
+      }).catch(err => {
+        console.warn('Error voting for student')
+      })
   }
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function StudentProfile({ selectedStudentID, currentUserType }) {
         photo: res.photo
       }))
       .catch(err => console.log(err))
-  }, [])
+  }, [didVoteStudent])
 
 
   return (
@@ -55,10 +56,12 @@ export default function StudentProfile({ selectedStudentID, currentUserType }) {
         {currentUserType === 'Mentor' &&
           <div className={styles.profileEndorsementSection}>
             <h4>Recommended: {selectedStudentInfo.endorsements}</h4>
-            <div>Would you recommend this mentee?</div>
+            {!didVoteStudent && <>
+              <div>Would you recommend this mentee?</div>
             <span className={styles.endorsementUpdate} onClick={() => updateVoteStudent('increase')}>Yes</span>
             <span> | </span>
             <span className={styles.endorsementUpdate} onClick={() => updateVoteStudent('decrease')}>No</span>
+            </>}
           </div>
         }
       </div>

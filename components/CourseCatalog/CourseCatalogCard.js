@@ -129,10 +129,8 @@ export default function CourseCatalogCard({ course, handleStudentAddCourse, user
                 </Dialog>
               </DialogContent>
             </Dialog>
-            {userInfo.userType === 'Mentee' && course.mentees.length < course.capacity &&
+            {userInfo.userType === 'Mentee' &&
               <MainButton value="Join class" onClick={() => handleStudentAddCourse(course)} />}
-            {userInfo.userType === 'Mentee' && course.mentees.length >= course.capacity &&
-              <MainButton value="COURSE FULL"/>}
           </Stack>
         </Stack>
       </CardContent>
