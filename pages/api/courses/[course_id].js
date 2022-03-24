@@ -24,7 +24,6 @@ export default async function getRemoveAndUpdateCourse(req, res) {
     case 'GET':
       /* getCoursesById */
       try {
-        // id field is Number value
         const q = query(collection(db, 'courses'), where('id', '==', course_id));
         const result = [];
         const querySnapshot = await getDocs(q);
@@ -43,17 +42,70 @@ export default async function getRemoveAndUpdateCourse(req, res) {
 
       /* updateCourseInfo */
       const update = req.body;
-      // ex: {
-      //  name,
-      //  start_date,
-      //  end_date
-      //}
-      try {
-        await updateDoc(doc(db, 'courses', course_id), update);
-        res.status(200).send(`Successfully updated course ${course_id}`);
-      } catch (err) {
-        res.status(400).send(`Error updating course ${course_id}`);
+      // MUST MATCH EXACTLY!
+      /* ex: {
+        name,
+          OR
+        start_date,
+          OR
+        end_date,
+         OR
+         mentees obj
+        {
+          id: '',
+          name: {
+            first_name: '',
+            last_name: ''
+          },
+          photo: ''
+        }
+      } */
+
+      /*
+      {
+        "mentees": {
+          "id" : "22",
+        }
       }
+      */
+
+      if (update.mentees) {
+        try {
+          const docRef = doc(db, 'courses', course_id);
+          const docSnap = await getDoc(docRef);
+          let menteesList = docSnap.data().mentees;
+          let newMenteesList = menteesList.slice();
+          let desiredIdx;
+
+          for (let i = 0; i < newMenteesList.length; i++) {
+            let mentee = newMenteesList[i];
+
+            if (mentee.id === update.mentees.id) {
+              desiredIdx = i;
+              break;
+            }
+          }
+          newMenteesList.splice(desiredIdx, 1);
+
+          await updateDoc(doc(db, 'courses', course_id), {
+            mentees: newMenteesList
+          });
+
+          res.status(200).send(`Successfully updated course ${course_id}`);
+        } catch (err) {
+          res.status(400).send(`Error updating course ${course_id}`);
+        }
+      } else if ( update.name || update["start_date"] || update["end_date"]) {
+        try {
+          await updateDoc(doc(db, 'courses', course_id), update);
+          res.status(200).send(`Successfully updated course ${course_id}`);
+        } catch (err) {
+          res.status(400).send(`Error updating course ${course_id}`);
+        }
+      } else {
+        res.status(405).send(`Request body does not match required parameters`);
+      }
+
       break
     case 'DELETE':
       /* removeCourse */
@@ -63,7 +115,6 @@ export default async function getRemoveAndUpdateCourse(req, res) {
       } catch (err) {
         res.status(400).send(`Error deleting course ${course_id}: ${err}`);
       }
-
       break
     default:
       res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
