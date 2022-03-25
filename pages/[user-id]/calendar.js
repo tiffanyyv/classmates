@@ -33,7 +33,6 @@ import {
 
 
 export default function Calendar({ userInfo, formattedAllCoursesData }) {
-  //import user state (mentor/mentee)
   const [appointmentData, setAppointmentData] = useState(formattedAllCoursesData);
   const [userType, setUserType] = useState(userInfo.account_type);
   const [currUserId, setCurrUserId] = useState(userInfo.id);
@@ -161,8 +160,8 @@ export async function getServerSideProps(context) {
   let formattedAllCoursesData = allCoursesData.map((course) => {
     return {
       title: course.name,
-      startDate: new Date(course.start_date),
-      endDate: new Date(course.end_date),
+      startDate: course.start_date,
+      endDate: course.end_date,
       zoomLink: course.meeting_url,
       capacity: course.capacity,
       description: course.description,

@@ -24,7 +24,6 @@ const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
 
 export default function CreateClassModal({ getCoursesData, userInfo }) {
-  console.log('this is userInfo in CreateClassModal: ', userInfo);
   const [subject, setSubject] = useState('');
   const [type, setType] = useState('');
   const [newStartTime, setNewStartTime] = useState(null);
