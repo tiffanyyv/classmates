@@ -57,7 +57,6 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
               mentees: course.mentees,
             }
           })
-          // console.log(apptDataResult);
           setAppointmentData(apptDataResult);
         })
         .catch(err => {
@@ -90,7 +89,7 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
   }
 
   if(typeof width === 'number') {
-    if (width <= 750) {
+    if (width <= 800) {
       return <CalendarDayView userInfo={userInfo} formattedAllCoursesData={formattedAllCoursesData} />
     }
   }
