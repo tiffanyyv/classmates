@@ -90,7 +90,7 @@ export default function MyCoursesPage() {
       <Typography gutterBottom variant="h5" component="div"><strong>My Courses</strong></Typography>
 
       {userInfo.userType === 'Mentor' &&
-        <CreateClassModal getCourseData={handleCreateCourse}/>}
+        <CreateClassModal getCoursesData={handleCreateCourse} userInfo={userInfo}/>}
 
       <br></br>
       {!myCoursesData.length && userInfo.userType === 'Mentee' &&

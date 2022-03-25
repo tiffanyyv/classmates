@@ -121,7 +121,7 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
         </FormControl>
           <MainButton value="Search" onClick={handleSearchSubmit} />
           {userInfo.account_type === "Mentor" &&
-          <CreateClassModal getCourseData={handleCreateCourse}, userInfo={userInfo}/>}
+          <CreateClassModal getCoursesData={handleCreateCourse} userInfo={userInfo}/>}
       </Stack>
       <br></br>
       <br></br>
