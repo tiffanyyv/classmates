@@ -1,3 +1,8 @@
 .cardUserAvatar:hover {
   cursor: pointer
 }
+
+.recommendCourse:hover {
+  cursor: pointer;
+  color: #4bd2d2
+}

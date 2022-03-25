@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   FormControl,
   InputLabel,
@@ -57,7 +58,7 @@ export default function CreateClassModal({ getCoursesData, userInfo }) {
   }, [])
 
   return (
-    <div>
+    <>
       <MainButton value="Create a Class" onClick={() => setOpen(true)} />
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle className={styles.formHeader}>Create a Class</DialogTitle>
@@ -164,6 +165,6 @@ export default function CreateClassModal({ getCoursesData, userInfo }) {
           </FormControl>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }
