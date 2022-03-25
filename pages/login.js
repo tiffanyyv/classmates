@@ -22,7 +22,6 @@ export default function Login() {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
-    account_type: ''
   })
 
   const handleLoginFormInput = (text, field) => {
@@ -71,5 +70,3 @@ export default function Login() {
     </div>
   )
 }
-
-

@@ -1,33 +1,33 @@
 import Head from 'next/head'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
-import { useRouter } from 'next/router';
 import { makeStyles } from '@mui/styles';
 import { FormControl } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import React, { useState, useEffect } from 'react';
-import { auth } from '../utils/api/firebase.config'
 import GoogleIcon from '@mui/icons-material/Google';
 import useStyles from '../utils/styles/signup.module'
 import ToggleButton from '@mui/material/ToggleButton';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import { useAuthContext } from '../utils/context/AuthProvider';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Card, Grid, Select, Typography, Modal, TextField, Stack } from '@mui/material';
+
+import { auth } from '../utils/api/firebase.config'
+import { useAuthContext } from '../utils/context/AuthProvider';
+
 export default function Signup() {
   const router = useRouter();
   const classes = useStyles();
-  const handleGoogleOpen = () => setGoogleModalOpen(true);
+  const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
+
   const [filledFormFlag, setFilledFormFlag] = useState('true');
   const [googleModalOpen, setGoogleModalOpen] = useState(false);
-  const handleGoogleModalClose = () => setGoogleModalOpen(false);
-  const handleFacebookModalOpen = () => setFacebookModalOpen(true);
   const [facebookModalOpen, setFacebookModalOpen] = useState(false);
-  const handleFacebookModalClose = () => setFacebookModalOpen(false);
   const [passwordLengthColor, setPasswordLengthColor] = useState('red');
-  const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [signupInfo, setSignupInfo] = useState({
     username: '',
     firstname: '',
@@ -37,12 +37,11 @@ export default function Signup() {
     account_type: '',
     location: '',
   });
-  //Need to clean up useEffect
-  useEffect(() => {
-    if (signupInfo.accountType?.length > 0 && signupInfo.username.length > 0 && signupInfo.firstname.length > 0 && signupInfo.lastname.length > 0 && signupInfo.email.length > 0 && signupInfo.password.length > 0 && signupInfo.location.length > 0) {
-      setFilledFormFlag(false)
-    }
-  }, [signupInfo.accountType, signupInfo.username, signupInfo.firstname, signupInfo.lastname, signupInfo.email, signupInfo.password, signupInfo.location])
+
+  const handleGoogleOpen = () => setGoogleModalOpen(true);
+  const handleFacebookModalOpen = () => setFacebookModalOpen(true);
+  const handleGoogleModalClose = () => setGoogleModalOpen(false);
+  const handleFacebookModalClose = () => setFacebookModalOpen(false);
 
   const handleSignUpFormInput = (text, field) => {
     setSignupInfo({
@@ -53,17 +52,36 @@ export default function Signup() {
 
   const handleSubmitSignUpInput = (e) => {
     e.preventDefault();
-    signup(signupInfo)
+    signup(signupInfo);
   }
 
   const handlePasswordLength = () => {
-    if (signupInfo.password.length <= 4.9) {
-      setPasswordLengthColor('red')
-    } else {
-      setPasswordLengthColor('green')
-    }
+    let passwordColor = (signupInfo.password.length <= 5) ? 'red' : 'green';
+    setPasswordLengthColor(passwordColor);
   }
 
+  // Form validation
+  useEffect(() => {
+    if (signupInfo.account_type.length > 0 &&
+      signupInfo.firstname.length > 0 &&
+      signupInfo.lastname.length > 0 &&
+      signupInfo.username.length > 0 &&
+      signupInfo.email.length > 0 &&
+      signupInfo.location.length > 0 &&
+      signupInfo.password.length > 0) {
+      setFilledFormFlag(false)
+    }
+  }, [
+    signupInfo.account_type,
+    signupInfo.username,
+    signupInfo.firstname,
+    signupInfo.lastname,
+    signupInfo.email,
+    signupInfo.location,
+    signupInfo.password
+  ])
+
+  // Change reroute to dynamic route
   if (user) {
     router.push(`/${user.uid}/my-courses`)
     return null;
@@ -95,7 +113,7 @@ export default function Signup() {
               value={signupInfo.account_type}
               className={classes.userInput}
               sx={{ height: 30 }}
-              onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
+              onChange={(e) => handleSignUpFormInput(e.target.value, 'account_type')}
             >
               <MenuItem value={'Mentor'}>Mentor</MenuItem>
               <MenuItem value={'Mentee'}>Mentee</MenuItem>
@@ -132,7 +150,7 @@ export default function Signup() {
                   id="accountDropDown"
                   value={signupInfo.account_type}
                   sx={{ height: 30, margin: 2, width: 336 }}
-                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type') }}
+                  onChange={(e) => handleSignUpFormInput(e.target.value, 'account_type')}
                 >
                   <MenuItem value={'Mentor'}>Mentor</MenuItem>
                   <MenuItem value={'Mentee'}>Mentee</MenuItem>
@@ -175,7 +193,7 @@ export default function Signup() {
                   id="accountDropDown"
                   value={signupInfo.account_type}
                   sx={{ height: 30, margin: 2, width: 336 }}
-                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
+                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setsignupInfo.account_type(e.target.value) }}
                 >
                   <MenuItem value={'Mentor'}>Mentor</MenuItem>
                   <MenuItem value={'Mentee'}>Mentee</MenuItem>
