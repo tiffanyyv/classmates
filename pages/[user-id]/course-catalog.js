@@ -22,8 +22,6 @@ import {
   getAllSubjects,
   updateCourseEndorsements } from '../../utils/api/apiCalls.js';
 
-// search based on: teacher name, class name
-// filter based on category or all
 export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
   const [searchInput, setSearchInput] = useState('');
   const [displayCourses, setDisplayCourses] = useState(allCourses);
@@ -84,7 +82,7 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
     setOpenCreateCourse(!openCreateCourse);
   };
 
-  const handleCreateCourse = () => {
+  const updateCourseCatalog = () => {
     getAllCourses()
       .then(res => setAllCourses(res))
       .catch(err => console.log('Error getting course catalog'));
@@ -119,7 +117,7 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
         </FormControl>
           <MainButton value="Search" onClick={handleSearchSubmit} />
           {userInfo.account_type === "Mentor" &&
-          <CreateClassModal getCoursesData={handleCreateCourse} userInfo={userInfo}/>}
+          <CreateClassModal getCoursesData={updateCourseCatalog} userInfo={userInfo}/>}
       </Stack>
       <br></br>
       <br></br>
