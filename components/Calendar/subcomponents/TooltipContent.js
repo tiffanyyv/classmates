@@ -21,7 +21,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import { updateCourseInfo, removeCourse } from '../../../utils/api/apiCalls.js'
+import { updateCourseInfo, removeCourse, removeMenteeFromCourse } from '../../../utils/api/apiCalls.js'
 import styles from '../../../utils/styles/CalendarStyles/TooltipContent.module.css'
 import MainButton from '../../basecomponents/MainButton.js'
 
@@ -36,7 +36,10 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     mentor,
     mentees,
     id,
-    photo } = currentAppointmentMetadata.appointmentData;
+    photo,
+    userType,
+    uid } = currentAppointmentMetadata.appointmentData;
+
 
     let {
       startDate,
@@ -81,7 +84,7 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     }
     // ------------------------------------------------------------------------------------
 
-    // --------------------------FUNCTIONS FOR DELETE BUTTON-------------------------------
+    // --------------------------FUNCTIONS FOR DELETE AND DROP COURSE BUTTONS-------------------------------
     const deleteCourse = () => {
       removeCourse(id);
       setAnchorEl(null);
@@ -97,6 +100,12 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const handleMenteeDrop = (id, body) => {
+      removeMenteeFromCourse(id, body)
+      setAnchorEl(null)
+      window.location.reload();
+    }
    //----------------------------------------------------------------------------------------
 
   if (editor) {
@@ -181,9 +190,36 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     // -----------------------THIS IS THE CLASS INFO WINDOW-------------------------
       <div className={styles.card}>
         <div className={styles.topBox}>
-          <CircleIcon sx={{color: '#84C7D0'}}/>
-          <h3 className={styles.title}>{realTitle}</h3>
-          <EditIcon onClick={() => setEditor(true)} className={styles.editor}/>
+          <div className={styles.innerTopBox}>
+            <CircleIcon sx={{color: '#84C7D0'}}/>
+            <h3 className={styles.title}>{realTitle}</h3>
+          </div>
+          {/* ---------------------MENTOR GETS EDIT BUTTON-------------------------------- */}
+          {userType === 'Mentor' &&
+          <EditIcon onClick={() => setEditor(true)} className={styles.editor}/>}
+          {/* ---------------------------------------------------------------------------- */}
+          {/* ---------------------------- MENTEE GETS DROP CLASS-------------------------- */}
+          {userType === 'Mentee' &&
+          <>
+            <DeleteForeverIcon className={styles.editDropButton} onClick={handleTrashClick}/>
+            <Popover
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}>
+                <div className={styles.editDeletePopover}>
+                  <div className={styles.editDeleteText}>Drop Course?</div>
+                  <Button
+                  variant="contained"
+                  className={styles.editDeleteConfirm}
+                  onClick={() => handleMenteeDrop(id, {mentees: { id: uid}})}>Confirm</Button>
+                </div>
+              </Popover>
+          </>}
+            {/* ----------------------------------------------------------------------------- */}
         </div>
         <div className={styles.dateBox}>
           <EventIcon sx={{marginRight: '2%', color: '#84C7D0'}}/>
