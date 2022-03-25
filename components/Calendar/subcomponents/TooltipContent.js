@@ -128,7 +128,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
         <FormControl component="fieldset" required className={styles.editClassForm}>
         {/* ----------------------NEW COURSE NAME-------------------------- */}
           <TextField
-            required
             name="name"
             label="New Course Name"
             type="text"
@@ -141,7 +140,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
           <Stack direction="row" spacing={1} className={styles.editStackMargin}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                  required
                   renderInput={(params) => <TextField {...params} fullWidth />}
                   label="New Start Time"
                   value={newStartTime}
@@ -156,7 +154,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
                {/* ----------------------NEW END TIME PICKER-------------------------- */}
               <LocalizationProvider dateAdapter={AdapterDateFns} >
                 <DateTimePicker
-                  required
                   renderInput={(props) => <TextField {...props} fullWidth />}
                   label="New End Time"
                   name="end_date"

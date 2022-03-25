@@ -33,6 +33,7 @@ import {
 
 
 export default function Calendar({ userInfo, formattedAllCoursesData }) {
+  console.log(formattedAllCoursesData)
   const [appointmentData, setAppointmentData] = useState(formattedAllCoursesData);
   const [userType, setUserType] = useState(userInfo.account_type);
   const [currUserId, setCurrUserId] = useState(userInfo.id);
