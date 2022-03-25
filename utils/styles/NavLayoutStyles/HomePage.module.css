@@ -1,12 +1,22 @@
 .homePage {
   background-color: #B0B4D4;
-  min-height: 100vh;
-  min-width: 100vw;
+  min-height: 20px;
+  width: 100vw;
+}
+
+.inlayPhoto {
+  background: url(https://cdn.wallpapersafari.com/26/10/lV9LYT.jpg);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 46vh;
+  width: 100vw;
 }
 
 .siteTitle {
   color: #ffffff;
   font-weight: bold;
+  font-size: 40px;
 }
 
 .homeAppBar {
@@ -16,31 +26,81 @@
 
 .loginButton {
   font-weight: bold;
-  font-size: medium;
+  font-size: 20px;
 }
 
 .signupButton {
   font-weight: bold;
-  font-size: medium;
+  font-size: 20px;
 }
 
 .motto {
-  margin-top: 30vh;
-  margin-left: 10vw;
+  margin-top: 15vh;
+  margin-left: 5vw;
+  margin-bottom: 18vh;
   font-size: 50px;
   color: #ffffff;
-  min-width: 95px;
+  min-width: 70vw;
+  max-width: 80vw;
   overflow-wrap: break-word;
 }
 
 .reporter {
+  background: rgba(132,199,208,1);
   width: 100vw;
+  height: 100%;
   text-align: center;
-  margin-top: 20vh;
   font-size: 25px;
-  font-weight: 100;
+  font-weight: 900px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   line-height: 40px;
+  padding-bottom: 5vh;
 }
+
+.inlayText {
+  margin-top: 5vh;
+  padding-top: 11vh;
+  color: #ffffff;
+  height: 40vh;
+  width: 50vw;
+  text-align: center;
+  line-height: 20px;
+  }
+
+  .homeFacts {
+    background: linear-gradient(0deg, rgba(132,199,208,1) 0%, rgba(176,180,212,1) 50%, rgba(176,180,212,1) 100%);
+    height: 40vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .homeFactsStudents {
+    color: #ffffff;
+    margin-top: 5vh;
+    font-size: 20px;
+    padding-right: 10vw;
+    text-align: center;
+  }
+
+  .homeFactsCountries{
+    color: #ffffff;
+    height: 150px;
+    margin-top: 5vh;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    font-size: 20px;
+    border-left: #ffffff solid;
+    border-right: #ffffff solid;
+    text-align: center;
+  }
+
+  .homeFactsCourses {
+    color: #ffffff;
+    margin-top: 5vh;
+    padding-left: 10vw;
+    font-size: 20px;
+    text-align: center;
+  }

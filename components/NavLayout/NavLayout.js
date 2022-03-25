@@ -3,11 +3,9 @@ import SideBar from './SideBar';
 import styles from '../../utils/styles/NavLayoutStyles/NavLayout.module.css';
 import {useAuthContext} from '../../utils/context/AuthProvider'
 
-
 export default function NavLayout({ children }) {
   const router = useRouter();
-  const { user, loading, error } = useAuthContext();
-
+  const { user } = useAuthContext();
 
   if (!user) {
     return (
@@ -16,7 +14,6 @@ export default function NavLayout({ children }) {
       </>
     )
   }
-
   if (user && router.pathname === '/' || user && router.pathname === '/login' || user && router.pathname === '/signup') {
     return (
       <>
@@ -24,7 +21,6 @@ export default function NavLayout({ children }) {
       </>
     )
   }
-
   return (
     <div className={styles.loggedInView}>
       <SideBar userId={user.uid}>

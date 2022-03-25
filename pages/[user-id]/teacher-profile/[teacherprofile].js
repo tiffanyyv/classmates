@@ -1,23 +1,12 @@
 import { useState } from 'react';
-
 import { Avatar } from '@mui/material';
-
 import styles from '../../../utils/styles/Profiles.module.css';
 import {defaultProfilePic, defaultProfilePicDims} from '../../../utils/constants';
 
-// account type: account_type
-// first name: name.first_name
-// last name: name.last_name
-// location: location
-// description: description
-// endorsements: endorsements
 export default function TeacherProfile(props) {
   const [userType, setUserType] = useState('mentor');
   const [currentTeacherRecommend, setCurrentTeacherRecommend] = useState(10);
 
-  // increment with axios put request
-  // re render page with new count
-  // add user type: teacher or student
   const handleUpvoteTeacher = () => {
     setCurrentTeacherRecommend(currentTeacherRecommend + 1);
   }

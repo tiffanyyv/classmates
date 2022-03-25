@@ -1,7 +1,3 @@
-// GET: /pages/api/courses/[course_id].js
-// DELETE: /pages/api/courses/[course_id].js
-// PUT: /pages/api/courses/[course_id].js
-
 import { db } from '../../../utils/api/firebase.config';
 import {
   collection,
@@ -37,28 +33,8 @@ export default async function getRemoveAndUpdateCourse(req, res) {
 
       break
     case 'PUT':
-      // to update course name: pass in key:value pair "name": "string" in request body
-      // to update course start and end dates pass in key:value pair: "start_date": new Date() and "end_date": new Date()
-
-      /* updateCourseInfo */
       const update = req.body;
-      // REQ BODY MUST MATCH EXACTLY!
-      /* ex:
-      To update course name, start_date or end_date pass in req body obj with properties:
-      {
-        "name": "new name",
-          OR
-        "start_date": "new start_date",
-          OR
-        "end_date": "new end_date"
-      }
-      To REMOVE mentee from course pass in this object with "mentees" property:
-      {
-        "mentees": {
-          "id" : "22",
-        }
-      }
-      */
+
 
       if (update.mentees) {
         try {

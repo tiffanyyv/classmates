@@ -1,4 +1,3 @@
-// GET: /pages/api/endorsements/index.js
 import { db } from '../../../utils/api/firebase.config';
 import {
   collection,

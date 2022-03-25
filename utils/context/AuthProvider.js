@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios'
-import { addUser } from '../api/apiCalls'
 import { useRouter } from 'next/router';
 import {
   GoogleAuthProvider,
@@ -12,11 +11,11 @@ import {
 } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import { addUser } from '../api/apiCalls'
 import { auth } from '../api/firebase.config.js';
 
 const AuthContext = createContext();
 
-// need to implement state machine for idle,loading, success, and error states
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
@@ -35,9 +34,7 @@ export function AuthProvider({ children }) {
           location: body.location
         }
         addUser(postBody)
-          .catch(err => {
-            console.warn('Account Already Exists')
-          })
+          .catch(err => console.warn('Account Already Exists'))
       })
       .then(response => router.push(`/${response.user.uid}/my-courses`))
       .catch((err) => console.warn('Problem with sign up: ', err.message))
@@ -45,12 +42,8 @@ export function AuthProvider({ children }) {
 
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        router.push(`/${response.user.uid}/my-courses`);
-      })
-      .catch((err) => {
-        console.warn('Problem with log in: ', err.message);
-      })
+      .then((response) => router.push(`/${response.user.uid}/my-courses`))
+      .catch((err) => console.warn('Problem with log in: ', err.message))
   }
 
   const logout = async () => {
@@ -76,6 +69,7 @@ export function AuthProvider({ children }) {
       })
       .catch((err) => console.warn('Problem with sign up: ', err.message))
   }
+
   const signInWithFacebook = (accountInfoObj) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
@@ -93,7 +87,6 @@ export function AuthProvider({ children }) {
         await axios.post(`http://localhost:3000/api/users`, postBody)
       })
       .catch((err) => console.warn('Problem with sign up: ', err.message))
-
   }
 
   return (

@@ -1,5 +1,3 @@
-// POST: /pages/users/index.js
-
 import { db } from '../../../utils/api/firebase.config';
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
