@@ -89,7 +89,7 @@ export default function Signup() {
   return (
     <div className={classes.root}>
       <Head>
-        <title>Signup Page</title>
+        <title>Sign Up</title>
       </Head>
       <Grid container
         spacing={0}

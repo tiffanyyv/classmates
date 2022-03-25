@@ -44,7 +44,7 @@ export default function Login() {
   return (
     <div className={classes.root}>
       <Head>
-        <title>Login Page</title>
+        <title>Login</title>
       </Head>
       <Grid container
         spacing={0}
