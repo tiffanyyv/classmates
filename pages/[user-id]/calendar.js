@@ -1,11 +1,11 @@
 // Calendar Widget //
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import {
-  Scheduler,
+import {  Scheduler,
   WeekView,
   Toolbar,
   DateNavigator,
@@ -14,30 +14,29 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { useAuthContext } from '../../utils/context/AuthProvider';
 import TooltipContent from '../../components/Calendar/subcomponents/TooltipContent.js';
 import styles from '../../utils/styles/CalendarStyles/Calendar.module.css';
 import { TimeTableCell, DayScaleCell } from '../../components/Calendar/Calendar.js';
-import { mentorData, menteeData } from '../../components/Calendar/data/dummyData.js';
-import CreateClassModal from '../../components/CreateClassModal/CreateClassModal.js'
+import CreateClassModal from '../../components/CreateClassModal/CreateClassModal.js';
+import CalendarDayView from '../../components/Calendar/CalendarDayView.js';
+
 import {
   getCoursesByMentorId,
   getCoursesByMenteeId,
-  createNewCourse,
-  updateCourseInfo,
-  removeCourse,
   getUserInfo,
 } from '../../utils/api/apiCalls.js';
+import useWindowWidth from '../../utils/customHooks/useWindowWidth.js'
 
-//implement userID dynamic rendering
 
+export default function Calendar({ userInfo, formattedAllCoursesData }) {
 
-export default function Calendar() {
-  //import user state (mentor/mentee)
-  const { user } = useAuthContext();
-  const [appointmentData, setAppointmentData] = useState([]);
-  const [userType, setUserType] = useState('Mentor');
-  const [currUserId, setCurrUserId] = useState('51');
+  const [appointmentData, setAppointmentData] = useState(formattedAllCoursesData);
+  const [userType, setUserType] = useState(userInfo.account_type);
+  const [currUserId, setCurrUserId] = useState(userInfo.id);
+
+  if (typeof window === 'object') {
+    const { width } = useWindowWidth();
+  }
 
   const getCoursesData = () => {
     if (userType === 'Mentor') {
@@ -58,7 +57,6 @@ export default function Calendar() {
               mentees: course.mentees,
             }
           })
-          console.log(apptDataResult);
           setAppointmentData(apptDataResult);
         })
         .catch(err => {
@@ -90,21 +88,11 @@ export default function Calendar() {
     }
   }
 
-  useEffect(() => {
-    getUserInfo(currUserId)
-      .then(res => {
-        setUserType(res.account_type);
-      })
-
-      return () => setUserType('')
-  }, [])
-
-  useEffect(() => {
-    getCoursesData();
-
-    return () => setAppointmentData([]);
-}, [userType]);
-
+  if(typeof width === 'number') {
+    if (width <= 800) {
+      return <CalendarDayView userInfo={userInfo} formattedAllCoursesData={formattedAllCoursesData} />
+    }
+  }
   return (
     <div className="pageData">
       <div className={styles.calendarContainer}>
@@ -132,7 +120,7 @@ export default function Calendar() {
               {userType === 'Mentor' &&
               <div className={styles.createClassContainer}>
                 <div className={styles.createClass}>
-                  <CreateClassModal getCoursesData={getCoursesData}/>
+                  <CreateClassModal getCoursesData={getCoursesData} userInfo={userInfo}/>
                 </div>
               </div>
               }
@@ -148,18 +136,34 @@ export default function Calendar() {
   )
 }
 
-// export async function getServerSideProps(context) {
-//   const userId = context.params['user-id'];
-//   const userInfo = await getUserInfo(userId);
-//   let courseData;
+export async function getServerSideProps(context) {
+  const userId = context.params['user-id'];
+  const userInfo = await getUserInfo(userId);
+  let allCoursesData;
 
-//   if (userInfo.account_type === 'Mentor') {
-//     courseData = await getCoursesByMentorId(userInfo.id)
-//   } else if (userInfo.account_type === 'Mentee') {
-//     courseData = await getCoursesByMenteeId(userInfo.id)
-//   }
+  if (userInfo.account_type === 'Mentor') {
+    allCoursesData = await getCoursesByMentorId(userInfo.id)
+  } else if (userInfo.account_type === 'Mentee') {
+    allCoursesData = await getCoursesByMenteeId(userInfo.id)
+  }
 
-//   return {
-//     props: { userInfo, courseData, mappedApptData }
-//   }
-// }
+  let formattedAllCoursesData = allCoursesData.map((course) => {
+    return {
+      title: course.name,
+      startDate: course.start_date,
+      endDate: course.end_date,
+      zoomLink: course.meeting_url,
+      capacity: course.capacity,
+      description: course.description,
+      id: course.id,
+      subject: course.subject,
+      photo: course.photo,
+      mentor: course.mentor,
+      mentees: course.mentees,
+    }
+  });
+
+  return {
+    props: { userInfo, formattedAllCoursesData }
+  }
+}

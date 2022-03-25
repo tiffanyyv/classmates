@@ -33,13 +33,18 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     zoomLink,
     title,
     subject,
-    startDate,
-    endDate,
     mentor,
     mentees,
     id,
     photo } = currentAppointmentMetadata.appointmentData;
 
+    let {
+      startDate,
+      endDate,
+    } = currentAppointmentMetadata.appointmentData;
+
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
   //-----------------------states for edit window-----------------------------//
   const [editor, setEditor] = useState(false);
   const [editChanges, setEditChanges] = useState({});
@@ -59,7 +64,7 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     }
 
     const handleOpenZoomLink = (url) => {
-      window.open(url, '_blank', 'noreferrer')
+      window.open(url, '_blank')
     }
 
     // ---------------------------EDIT WINDOW FUNCTIONS -------------------------------------
@@ -70,10 +75,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     const handleSubmit = (e) => {
       e.preventDefault;
       updateCourseInfo(id, editChanges);
-      // setRealTitle(editChanges.name);
-      // setRealStartDate(editChanges.start_date);
-      // setRealEndDate(editChanges.end_date);
-      // setEditor(false);
       if (editChanges.name || (editChanges.start_date && editChanges.end_date)) {
         window.location.reload();
       }
@@ -127,7 +128,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
         <FormControl component="fieldset" required className={styles.editClassForm}>
         {/* ----------------------NEW COURSE NAME-------------------------- */}
           <TextField
-            required
             name="name"
             label="New Course Name"
             type="text"
@@ -140,7 +140,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
           <Stack direction="row" spacing={1} className={styles.editStackMargin}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                  required
                   renderInput={(params) => <TextField {...params} fullWidth />}
                   label="New Start Time"
                   value={newStartTime}
@@ -155,7 +154,6 @@ export default function AppointmentContent (currentAppointmentMetadata) {
                {/* ----------------------NEW END TIME PICKER-------------------------- */}
               <LocalizationProvider dateAdapter={AdapterDateFns} >
                 <DateTimePicker
-                  required
                   renderInput={(props) => <TextField {...props} fullWidth />}
                   label="New End Time"
                   name="end_date"
@@ -178,38 +176,38 @@ export default function AppointmentContent (currentAppointmentMetadata) {
         </FormControl>
       </form>
     )
-  } else {
-      return (
-      // -----------------------THIS IS THE CLASS INFO WINDOW-------------------------
-        <div className={styles.card}>
-          <div className={styles.topBox}>
-            <CircleIcon sx={{color: '#84C7D0'}}/>
-            <h3 className={styles.title}>{realTitle}</h3>
-            <EditIcon onClick={() => setEditor(true)} className={styles.editor}/>
-          </div>
-          <div className={styles.dateBox}>
-            <EventIcon sx={{marginRight: '2%', color: '#84C7D0'}}/>
-            <div className={styles.date}>{realStartDate.toDateString()}</div>
-          </div>
-          <div className={styles.timeBox}>
-            <AccessTimeIcon sx={{marginRight: '2%', color: '#84C7D0'}}/>
-            <div className={styles.time}>
-              {`${formatDate(realStartDate)} - ${formatDate(realEndDate)} `}
-            </div>
-          </div>
-          <div className={styles.bottomBox}>
-            <div className={styles.subject}>{subject}</div>
-            <div className={styles.description}>{description}</div>
-            <div className={styles.mentor}>{`Mentor: ${mentor.name.first_name} ${mentor.name.last_name}`}</div>
-            <div className={styles.zoomLink}>
-              <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(zoomLink)}/>
-          </div>
-
+  }
+    return (
+    // -----------------------THIS IS THE CLASS INFO WINDOW-------------------------
+      <div className={styles.card}>
+        <div className={styles.topBox}>
+          <CircleIcon sx={{color: '#84C7D0'}}/>
+          <h3 className={styles.title}>{realTitle}</h3>
+          <EditIcon onClick={() => setEditor(true)} className={styles.editor}/>
+        </div>
+        <div className={styles.dateBox}>
+          <EventIcon sx={{marginRight: '2%', color: '#84C7D0'}}/>
+          <div className={styles.date}>{realStartDate.toDateString()}</div>
+        </div>
+        <div className={styles.timeBox}>
+          <AccessTimeIcon sx={{marginRight: '2%', color: '#84C7D0'}}/>
+          <div className={styles.time}>
+            {`${formatDate(realStartDate)} - ${formatDate(realEndDate)} `}
           </div>
         </div>
+        <div className={styles.bottomBox}>
+          <div className={styles.subject}>{subject}</div>
+          <div className={styles.description}>{description}</div>
+          <div className={styles.mentor}>{`Mentor: ${mentor.name.first_name} ${mentor.name.last_name}`}</div>
+          <div className={styles.zoomLink}>
+            <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(zoomLink)}/>
+        </div>
 
-      );
-    }
+        </div>
+      </div>
+      //----------------------------------------------------------------------------------------
+  );
+
 }
 //change bottom box styles so that description is a bit smaller
 
