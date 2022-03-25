@@ -22,43 +22,19 @@ import { openedMixin, closedMixin, SideBarDrawerHeader, SideBarAppBar, SideBarDr
 
 import { getUserInfo } from '../../utils/api/apiCalls.js'
 
-// clean up useEffect and currentUserProfileInfo
 
 export default function SideBar({ children, userId, ...props }) {
-  // console.log(userId);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
-    fullName: 'Current User',
-  })
+  const [currentUserFullName, setCurrentUserFullName] = useState('Current User')
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const fetchUserInfo = () => {
-    getUserInfo(userId).then(res => {
-      // console.log(res)
-      setCurrentUserProfileInfo({
-        fullName: res.name.first_name + ' ' + res.name.last_name,
-      })
-    })
-  }
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
 
   useEffect(() => {
-    // fetchUserInfo()
-    getUserInfo(userId).then(res => {
-      // console.log(res)
-      setCurrentUserProfileInfo({
-        fullName: res.name.first_name + ' ' + res.name.last_name,
-      })
-    })
+    getUserInfo(userId)
+      .then(res => setCurrentUserFullName(`${res.name.first_name} ${res.name.last_name}`))
   }, [])
-
 
   const pageUrls = {
     0: `/${userId}/my-courses`,
@@ -67,11 +43,12 @@ export default function SideBar({ children, userId, ...props }) {
     3: `/${userId}/course-catalog`
   }
 
+  const iconColor = { color: '#FFFFFF' };
   const sideBarIcons = {
-    0: <ClassOutlinedIcon style={{ color: '#FFFFFF' }} />,
-    1: <CalendarMonthOutlinedIcon style={{ color: '#FFFFFF' }} />,
-    2: <NotificationsOutlinedIcon style={{ color: '#FFFFFF' }} />,
-    3: <SearchOutlinedIcon style={{ color: '#FFFFFF' }} />
+    0: <ClassOutlinedIcon style={iconColor} />,
+    1: <CalendarMonthOutlinedIcon style={iconColor} />,
+    2: <NotificationsOutlinedIcon style={iconColor} />,
+    3: <SearchOutlinedIcon style={iconColor} />
   }
 
   return (
@@ -96,7 +73,7 @@ export default function SideBar({ children, userId, ...props }) {
           </Typography>
           <Container className={styles.profileIcon} sx={{ flexGrow: 0 }}>
             <Leaderboard />
-            <Typography className={styles.profileName}>{currentUserProfileInfo.fullName}</Typography>
+            <Typography className={styles.profileName}>{currentUserFullName}</Typography>
             <ProfileMenu userId={userId}/>
           </Container>
         </Toolbar>

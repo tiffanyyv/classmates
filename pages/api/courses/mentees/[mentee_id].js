@@ -1,5 +1,3 @@
-// GET /api/courses/mentees/[mentee_id.js]
-
 import { db } from '../../../../utils/api/firebase.config';
 import {
   collection,

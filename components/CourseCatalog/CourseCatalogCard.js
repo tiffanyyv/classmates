@@ -30,7 +30,6 @@ import { updateCourseEndorsements } from '../../utils/api/apiCalls.js';
 export default function CourseCatalogCard({ course, handleStudentAddCourse, userInfo }) {
   const [showCourseInfo, setShowCourseInfo] = useState(false);
   const [showStudentList, setShowStudentList] = useState(false);
-  const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [selectedStudentID, setSelectedStudentID] = useState('');
   const [showProfileView, setShowProfileView] = useState(false);
   const [didUserVote, setDidUserVote] = useState(false);
