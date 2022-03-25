@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 // ClassCatalog widget
 import { useEffect, useState } from 'react';
 import {
@@ -90,6 +92,9 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
 
   return (
     <div className='pageData'>
+      <Head>
+        <title>Course Catalog</title>
+      </Head>
       <Typography gutterBottom variant="h5" component="div"><strong>Course Catalog</strong></Typography>
       <Stack spacing={3} direction="row">
         <TextField

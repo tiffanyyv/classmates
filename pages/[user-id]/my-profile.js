@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 import { useState, useEffect } from 'react';
 import { getUserInfo, updateUserInfo } from '../../utils/api/apiCalls.js';
 
@@ -56,6 +58,9 @@ export default function MyProfile({ userInfo }) {
 
   return (
     <div className="pageData">
+      <Head>
+        <title>My Profile</title>
+      </Head>
       <div className={styles.myProfileContainer}>
         <div className={styles.myProfilePic}>
           <Avatar

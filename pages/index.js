@@ -7,7 +7,9 @@ import styles from '../utils/styles/NavLayoutStyles/HomePage.module.css';
 export default function LandingPage() {
   return (
     <div className={styles.homePage}>
-
+      <Head>
+        <title>ClassMates</title>
+      </Head>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar className={styles.homeAppBar} position="static">
           <Toolbar>

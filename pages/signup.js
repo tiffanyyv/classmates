@@ -90,7 +90,11 @@ export default function Signup() {
   return (
     <div className={classes.root}>
       <Head>
+<<<<<<< HEAD
         <title>Signup Page</title>
+=======
+        <title>Sign Up</title>
+>>>>>>> notificationsPage
       </Head>
       <Grid container
         spacing={0}
