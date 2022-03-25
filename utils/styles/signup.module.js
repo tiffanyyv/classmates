@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 50,
-    maxWidth: 350,
+    maxWidth: 400,
     marginBottom: 150,
     minWidth: 350,
   },
@@ -24,7 +24,21 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: '100%',
+    '&:hover': {
+      backgroundColor: '#acb0cd',
+      color: 'white',
+    }
+  },
+  moduleGoogleButton: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#B0B4D4',
+    color: 'white',
+    variant: 'contained',
+    display: 'flex',
+    width: 336,
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -38,7 +52,21 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: '100%',
+    '&:hover': {
+      backgroundColor: '#acb0cd',
+      color: 'white',
+    }
+  },
+  moduleFacebookButton: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#B0B4D4',
+    color: 'white',
+    variant: 'contained',
+    display: 'flex',
+    width: 336,
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -52,7 +80,7 @@ const useStyles = makeStyles({
     color: 'white',
     variant: 'contained',
     display: 'flex',
-    width: 250,
+    width: '100%',
     '&:hover': {
       backgroundColor: '#acb0cd',
       color: 'white',
@@ -63,7 +91,19 @@ const useStyles = makeStyles({
     alignItems: 'center',
     mb: 500,
     borderRadius: 5,
-    width: 250,
+    width:'100%',
+  },
+  formControlStyle: {
+    position: 'absolute',
+    alignItems: 'center',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    borderRadius: 5,
+    boxShadow: 24,
+    p: 4,
   }
 });
 
