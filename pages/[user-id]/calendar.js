@@ -37,8 +37,6 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
     const { width } = useWindowWidth();
   }
 
-  console.log(formattedAllCoursesData)
-
   const getCoursesData = async () => {
     let allCoursesData;
     if (userInfo.account_type === 'Mentor') {
