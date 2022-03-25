@@ -205,8 +205,8 @@ export default function AppointmentContent (currentAppointmentMetadata) {
 
         </div>
       </div>
-
-    );
+      //----------------------------------------------------------------------------------------
+  );
 
 }
 //change bottom box styles so that description is a bit smaller
