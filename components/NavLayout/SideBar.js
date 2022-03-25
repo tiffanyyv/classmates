@@ -59,7 +59,7 @@ export default function SideBar({ children, userId, ...props }) {
     })
   }, [])
 
-  // hard coded data, eventually change sampleUser to [username]
+
   const pageUrls = {
     0: `/${userId}/my-courses`,
     1: `/${userId}/calendar`,
@@ -74,8 +74,6 @@ export default function SideBar({ children, userId, ...props }) {
     3: <SearchOutlinedIcon style={{ color: '#FFFFFF' }} />
   }
 
-  // TODO: change "Current User" to [username]'s name
-  // TODO: change avatar src to dynamically render user's profile picture ? defaultProfilePic
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />

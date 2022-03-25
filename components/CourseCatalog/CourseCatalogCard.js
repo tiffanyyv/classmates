@@ -20,16 +20,26 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import EditIcon from '@mui/icons-material/Edit';
 
-import MainButton from '../basecomponents/MainButton.js'
-import { defaultProfilePic } from '../../utils/constants/index.js'
+import MainButton from '../basecomponents/MainButton.js';
+import { defaultProfilePic } from '../../utils/constants/index.js';
+import { formatDate } from '../../utils/helpers/helpers.js';
+import SelectedUserProfile from '../UserProfileView/SelectedUserProfileView.js';
 import styles from '../../utils/styles/CourseCatalogStyles/CourseCatalog.module.css';
+import { updateCourseEndorsements } from '../../utils/api/apiCalls.js';
 
-export default function CourseCatalogCard({ course }) {
-  const [userType, setUserType] = useState('student');
+export default function CourseCatalogCard({ course, handleStudentAddCourse, userInfo }) {
   const [showCourseInfo, setShowCourseInfo] = useState(false);
   const [showStudentList, setShowStudentList] = useState(false);
-
   const [editCourseInfo, setEditCourseInfo] = useState(false);
+  const [selectedStudentID, setSelectedStudentID] = useState('');
+  const [showProfileView, setShowProfileView] = useState(false);
+  const [didUserVote, setDidUserVote] = useState(false);
+  const [courseEndorsements, setCourseEndorsements] = useState(course.endorsements)
+
+  const handleProfileView = (studentID) => {
+    setShowProfileView(!showProfileView)
+    setSelectedStudentID(studentID)
+  }
 
   const handleShowCourseInfo = () => {
     setShowCourseInfo(!showCourseInfo)
@@ -39,23 +49,31 @@ export default function CourseCatalogCard({ course }) {
     setShowStudentList(!showStudentList)
   }
 
-  // write out after connecting with API
-  // student will join class and be added to the list
-  // need to check if class is public or private
-  const handleJoinClass = () => {
-  }
-
   const handleOpenZoomLink = (url) => {
     window.open(url, '_blank', 'noreferrer')
   }
 
+  const handleIncreaseEndorsement = (currentCourseID, type) => {
+    updateCourseEndorsements(currentCourseID, { "type": type })
+      .then(() => setDidUserVote(true))
+      .then(() => setCourseEndorsements(courseEndorsements + 1))
+      .catch(err => console.warn('Error recommending course'));
+  }
+
+  const handleDecreaseEndorsement = (currentCourseID, type) => {
+    updateCourseEndorsements(currentCourseID, { "type": type })
+      .then(() => setDidUserVote(true))
+      .then(() => setCourseEndorsements(courseEndorsements - 1))
+      .catch(err => console.warn('Error recommending course'));
+  }
+
   return (
-    <Card sx={{ maxWidth: 300, margin: 1.5 }}>
+    <Card sx={{ width: 300, margin: 1.5 }}>
       <CardMedia
         component="img"
         height="175"
         image={course.photo}
-        alt=""
+        alt="Course photo"
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
@@ -67,14 +85,18 @@ export default function CourseCatalogCard({ course }) {
             <strong>Subject: </strong>{course.subject}
           </Typography>
           <Stack direction="row" spacing={1}>
-            <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
-              <Avatar
-                alt="Teacher Avatar"
-                src={defaultProfilePic}
-                sx={{ width: 20, height: 20 }}
-                className={styles.cardUserAvatar}
-              />
-            </Link>
+            <Avatar
+              alt="Teacher Avatar"
+              src={course.mentor.photo}
+              sx={{ width: 20, height: 20 }}
+              className={styles.cardUserAvatar}
+              onClick={() => handleProfileView(course.mentor.id)}
+            />
+            <Dialog onClose={handleProfileView} open={showProfileView} fullWidth={true}>
+              <DialogContent>
+                <SelectedUserProfile selectedUserID={course.mentor.id} currentaccount_type={userInfo.account_type}/>
+              </DialogContent>
+            </Dialog>
             <Typography variant="body2" color="text.secondary">
               <strong>{course.mentor.name.first_name} {course.mentor.name.last_name}</strong>
             </Typography>
@@ -83,44 +105,60 @@ export default function CourseCatalogCard({ course }) {
           <Stack spacing={1}>
             <MainButton value="Course Info" onClick={handleShowCourseInfo} />
             <Dialog onClose={handleShowCourseInfo} open={showCourseInfo} fullWidth={true}>
-              <DialogTitle>Course Info</DialogTitle>
+              <DialogTitle><strong>{course.name}</strong></DialogTitle>
               <DialogContent>
-                <DialogContentText><strong>Course Name:</strong> {course.name}</DialogContentText>
-                <DialogContentText><strong>Subject:</strong> </DialogContentText>
-                <DialogContentText><strong>Taught By:</strong> {course.mentor.name.first_name} {course.mentor.name.last_name}</DialogContentText>
-                <DialogContentText><strong>Course Begins:</strong> {`${course.start_date}`}</DialogContentText>
-                <DialogContentText><strong>Course Ends:</strong> {`${course.end_date}`}</DialogContentText>
-                <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
+                <Stack spacing={1}>
+                  <DialogContentText><strong>Subject:</strong> {course.subject}</DialogContentText>
+                  <DialogContentText><strong>Taught By:</strong> {course.mentor.name.first_name} {course.mentor.name.last_name}</DialogContentText>
+                  <DialogContentText><strong>Description:</strong> {course.description}</DialogContentText>
+                  <DialogContentText><strong>Course Begins:</strong> {formatDate(`${course.start_date}`)}</DialogContentText>
+                  <DialogContentText><strong>Course Ends:</strong> {formatDate(`${course.end_date}`)}</DialogContentText>
+                  <Stack direction="row" spacing={1}>
+                    <DialogContentText><strong>Student Recommendations:</strong> {courseEndorsements} </DialogContentText>
+                    {!didUserVote && userInfo.account_type === "Mentee" &&
+                      <>
+                        <DialogContentText className={styles.recommendCourse} onClick={() => handleIncreaseEndorsement(course.id, 'increase')}><strong>Yes</strong></DialogContentText>
+                        <DialogContentText>|</DialogContentText>
+                        <DialogContentText className={styles.recommendCourse} onClick={() => handleDecreaseEndorsement(course.id, 'decrease')}><strong>No</strong></DialogContentText>
+                      </>
+                    }
+                  </Stack>
+                  <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
+                </Stack>
               </DialogContent>
             </Dialog>
 
-            {userType === 'mentor' &&
+            {userInfo.account_type === 'Mentor' &&
               <MainButton value="Attendance List" onClick={handleShowStudentList} />}
             <Dialog onClose={handleShowStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Attendance List</DialogTitle>
               <DialogContent>
                 {course.mentees.length === 0 &&
                 <DialogContentText>No Students Currently Attending</DialogContentText>}
+
                 {course.mentees.map((student, index) => (
                   <Stack direction="row" spacing={1} key={`${index}`}>
-                    <Link href={`/app/student-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
-                      <Avatar
-                        alt="Student Avatar"
-                        src={defaultProfilePic}
-                        sx={{ width: 20, height: 20 }}
-                        className={styles.cardUserAvatar}
-                      />
-                    </Link>
+                    <Avatar
+                      alt="Student Avatar"
+                      src={student.photo}
+                      sx={{ width: 20, height: 20 }}
+                      className={styles.cardUserAvatar}
+                      onClick={() => handleProfileView(student.id)}
+                    />
                     <DialogContentText >{student.name.first_name} {student.name.last_name}</DialogContentText>
                   </Stack>
                 ))}
+                <Dialog onClose={handleProfileView} open={showProfileView} fullWidth={true}>
+                  <DialogContent>
+                    <SelectedUserProfile selectedUserID={selectedStudentID} currentUserType={userInfo.account_type}/>
+                  </DialogContent>
+                </Dialog>
               </DialogContent>
             </Dialog>
-            {userType === 'student' &&
-              <MainButton value="Join class" onClick={handleJoinClass} />}
+            {userInfo.account_type === 'Mentee' &&
+              <MainButton value="Join class" onClick={() => handleStudentAddCourse(course)} />}
           </Stack>
         </Stack>
-
       </CardContent>
     </Card>
   )

@@ -22,9 +22,11 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import MainButton from '../basecomponents/MainButton.js'
 import { defaultProfilePic } from '../../utils/constants/index.js'
+import { formatDate } from '../../utils/helpers/helpers.js';
+import SelectedUserProfile from '../UserProfileView/SelectedUserProfileView.js';
 import styles from '../../utils/styles/MyCoursesStyles/MyCourses.module.css';
 
-export default function MyCourses({ course, index, handleDeleteCourse, handleEditCourse, userType }) {
+export default function MyCoursesCard({ course, index, handleDeleteCourse, handleEditCourse, handleStudentDropCourse, userInfo }) {
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(index);
@@ -32,9 +34,16 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
   const [newCourseName, setNewCourseName] = useState(course.name);
   const [newStartTime, setNewStartTime] = useState(course.start_date);
   const [newEndTime, setNewEndTime] = useState(course.end_date);
+  const [showProfileView, setShowProfileView] = useState(false);
+  const [selectedStudentID, setSelectedStudentID] = useState('');
+
+  const handleProfileView = (studentID) => {
+    setShowProfileView(!showProfileView)
+    setSelectedStudentID(studentID)
+  }
 
   const handleStudentList = () => {
-    if (userType === 'Mentor') {
+    if (userInfo.userType === 'Mentor') {
       setShowStudentList(!showStudentList)
     }
   }
@@ -46,7 +55,7 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
   const handleSubmitEditCourse = () => {
     handleEditModal();
-    handleEditCourse(currentIndex, newCourseName, newStartTime, newEndTime);
+    handleEditCourse(course, newCourseName, newStartTime, newEndTime);
   }
 
   const handleOpenZoomLink = (url) => {
@@ -54,18 +63,18 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
   }
 
   return (
-    <Card sx={{ maxWidth: 300, margin: 1.5 }}>
+    <Card sx={{ width: 300, margin: 1.5 }}>
       <CardMedia
         component="img"
         height="175"
         image={course.photo}
-        alt=""
+        alt="Course Photo"
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           <Stack direction="row">
             {course.name}
-            {userType === 'Mentor' &&
+            {userInfo.userType === 'Mentor' &&
               <EditIcon onClick={handleEditModal} className={styles.editCourseButton}/>}
               <Dialog open={editCourseInfo} onClose={handleEditModal}>
                 <DialogTitle>Update Course Info</DialogTitle>
@@ -114,49 +123,59 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
 
         <Stack spacing={1}>
           <Stack direction="row" spacing={1}>
-          <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
-              <Avatar
-                alt="Teacher Avatar"
-                src={defaultProfilePic}
-                sx={{ width: 20, height: 20 }}
-                className={styles.cardUserAvatar}
-              />
-            </Link>
+            <Avatar
+              alt="Teacher Avatar"
+              src={course.mentor.photo ? course.mentor.photo : defaultProfilePic}
+              sx={{ width: 20, height: 20 }}
+              className={styles.cardUserAvatar}
+              onClick={() => handleProfileView(course.mentor.id)}
+            />
+            <Dialog onClose={handleProfileView} open={showProfileView} fullWidth={true}>
+              <DialogContent>
+                <SelectedUserProfile selectedUserID={course.mentor.id} currentUserType={userInfo.userType}/>
+              </DialogContent>
+            </Dialog>
             <Typography variant="body2" color="text.secondary">
               <strong>{course.mentor.name.first_name} {course.mentor.name.last_name}</strong>
             </Typography>
           </Stack>
 
           <Typography variant="body2" color="text.secondary">
-            <strong >Course Start Time: </strong> {`${course.start_date}`}
+            <strong>Start Time: </strong> {formatDate(`${course.start_date}`)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <strong> Course End Time: </strong> {`${course.end_date}`}
+            <strong>End Time: </strong> {formatDate(`${course.end_date}`)}
           </Typography>
 
           <Stack spacing={1}>
             <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
-            {userType === 'Mentor' &&
+            {userInfo.userType === 'Mentee' &&
+              <MainButton value="Drop Course" onClick={() => handleStudentDropCourse(course.id)}/>}
+            {userInfo.userType === 'Mentor' &&
               <>
                 <MainButton value="Attendance List" onClick={handleStudentList}/>
-                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)}/>
+                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(course.id)}/>
               </>}
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
                 <DialogContent>
                   {course.mentees.map((student, index) => (
                     <Stack direction="row" spacing={1} key={`${index}`}>
-                      <Link href={`/app/student-profile/${student.name.first_name}_${student.name.last_name}`} passHref>
                         <Avatar
                           alt="Student Avatar"
-                          src={defaultProfilePic}
+                          src={student.photo ? student.photo : defaultProfilePic}
                           sx={{ width: 20, height: 20 }}
                           className={styles.cardUserAvatar}
+                          onClick={() => handleProfileView(student.id)}
                         />
-                      </Link>
                       <DialogContentText>{`${student.name.first_name} ${student.name.last_name}`}</DialogContentText>
                     </Stack>
                   ))}
+                  <Dialog onClose={handleProfileView} open={showProfileView} fullWidth={true}>
+                    <DialogContent>
+                      <SelectedUserProfile selectedUserID={selectedStudentID} currentUserType={userInfo.userType}/>
+                    </DialogContent>
+                  </Dialog>
                 </DialogContent>
             </Dialog>
           </Stack>
