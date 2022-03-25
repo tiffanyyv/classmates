@@ -21,11 +21,9 @@ export default function Leaderboard() {
   };
 
   useEffect(() => {
-    getTopEndorsements().then(res => {
-      setTopEndorsements(res)
-    }).catch(err => {
-      console.warn('Error getting data')
-    })
+    getTopEndorsements()
+      .then(res => setTopEndorsements(res))
+      .catch(err => console.warn('Error getting data'))
   }, [])
 
   return (
