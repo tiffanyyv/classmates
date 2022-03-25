@@ -51,7 +51,7 @@ export default function MyCoursesPage() {
       }
     }
     removeMenteeFromCourse(courseID, dropCourseBody)
-      .then(() => fetchAllCourses())
+      .then(fetchAllCourses)
       .catch(err => console.warn('Could not drop course'))
   }
 
@@ -62,7 +62,7 @@ export default function MyCoursesPage() {
       end_time: newEndTime
     }
     updateCourseInfo(course.id, courseUpdateBody)
-      .then(() => fetchAllCourses())
+      .then(fetchAllCourses)
       .catch(err => console.log('Error Updating Course Info'))
   }
 
