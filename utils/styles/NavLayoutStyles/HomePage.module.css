@@ -16,6 +16,7 @@
 .siteTitle {
   color: #ffffff;
   font-weight: bold;
+  font-size: 40px;
 }
 
 .homeAppBar {
@@ -25,12 +26,12 @@
 
 .loginButton {
   font-weight: bold;
-  font-size: medium;
+  font-size: 20px;
 }
 
 .signupButton {
   font-weight: bold;
-  font-size: medium;
+  font-size: 20px;
 }
 
 .motto {
