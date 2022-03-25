@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+
 import { getUserInfo } from '../../utils/api/apiCalls';
 
 export default function Notifications({data}) {
@@ -11,7 +13,9 @@ export default function Notifications({data}) {
     // teacher view & teacher clicks decline:
     // axios get request to get notifications
     // student view: "You've been declined into class_id"
-    <div className='pageData'><p>Notifications</p></div>
+    <div className='pageData'>
+      <Typography gutterBottom variant="h5" component="div"><strong>Notifications</strong></Typography>
+      </div>
   )
 }
 

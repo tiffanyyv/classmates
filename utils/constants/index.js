@@ -1,7 +1,7 @@
 // export all constants from this file
 
 export const defaultProfilePicDims = {height: 300, width: 300}
-export const defaultProfilePic = "https://www.vhv.rs/dpng/d/426-4264903_user-avatar-png-picture-avatar-profile-dummy-transparent.png";
+export const defaultProfilePic = "https://robohash.org/default";
 
 export const coursePhotos = {
   'Science': 'https://epi-rsc.rsc-cdn.org/globalassets/05-journals-books-databases/our-journals/00-journal-pages-heros/Chemical-Science-HERO.jpg?version=9e72b3c3',

@@ -1,16 +1,25 @@
 import { useState, useEffect } from 'react';
-import { getUserInfo } from '../../utils/api/apiCalls.js';
+import { getUserInfo, updateUserInfo } from '../../utils/api/apiCalls.js';
 
-import { Avatar } from '@mui/material';
+import {
+  Avatar,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  TextField
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
-import styles from '../../utils/styles/Profiles.module.css';
+import MainButton from '../../components/basecomponents/MainButton.js'
 import { defaultProfilePic, defaultProfilePicDims } from '../../utils/constants';
+import styles from '../../utils/styles/Profiles.module.css';
 
-// word-wrap normal in the global page
-// add user type: teacher or student
 
 export default function MyProfile({ userInfo }) {
-  console.log(userInfo);
+  const [open, setOpen] = useState(false);
+  const [descriptionInput, setDescriptionInput] = useState('');
   const [userType, setUserType] = useState(userInfo.account_type);
   const [userID, setUserID] = useState(userInfo.id);
   const [currentUserProfileInfo, setCurrentUserProfileInfo] = useState({
@@ -21,45 +30,70 @@ export default function MyProfile({ userInfo }) {
     photo: userInfo.photo
   })
 
-  // refactor later
-  // useEffect(() => {
-  //   fetchUserInfo();
-  // }, [])
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  // const fetchUserInfo = () => {
-  //   getUserInfo(userID).then(res => {
-  //     setCurrentUserProfileInfo({
-  //       fullName: res.name.first_name + ' ' + res.name.last_name,
-  //       location: res.location,
-  //       description: res.description,
-  //       endorsements: res.endorsements,
-  //       photo: res.photo
-  //     })
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  //     setUserType(res.account_type)
-  //   }).catch(err => {
-  //     console.log('Error getting user data')
-  //   })
-  // }
+  const handleUpdateUserInfo = () => {
+    updateUserInfo(userID, { "description": descriptionInput })
+      .then(() => {
+        setOpen(false);
+        getUserInfo(userID)
+          .then(res => setCurrentUserProfileInfo({
+            fullName: `${res.name.first_name} ${res.name.last_name}`,
+            location: res.location,
+            description: res.description,
+            endorsements: res.endorsements,
+            photo: res.photo
+          }))
+      })
+      .catch(err => console.warn('Error updating description'))
+  }
 
   return (
     <div className="pageData">
-      <div className={styles.profileContainer}>
-        <div className={styles.profilePic}>
+      <div className={styles.myProfileContainer}>
+        <div className={styles.myProfilePic}>
           <Avatar
             className="my-profile-view-avatar"
             alt="My Profile Picture"
             src={currentUserProfileInfo.photo ? currentUserProfileInfo.photo : defaultProfilePic}
             sx={defaultProfilePicDims}
           /></div>
-        <div className={styles.profileDescription}>
-          <h2>{currentUserProfileInfo.fullName}</h2>
-          <h3>{currentUserProfileInfo.location}</h3>
-          <p>{currentUserProfileInfo.description}</p>
-        </div>
+        <h2>{currentUserProfileInfo.fullName}</h2>
+        <h3>{userType}</h3>
+        <h4>{currentUserProfileInfo.location}</h4>
+        <p>{currentUserProfileInfo.description ?
+          currentUserProfileInfo.description :
+          <span>Edit description</span>}
+          <EditIcon className={styles.editProfileDescription} onClick={handleClickOpen} />
+        </p>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Edit your profile description</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Describe Yourself"
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={(e) => setDescriptionInput(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <MainButton value="Cancel" onClick={handleClose} />
+            <MainButton value="Save" onClick={handleUpdateUserInfo} />
+          </DialogActions>
+        </Dialog>
+        {userType === 'Mentor' &&
+          <div className={styles.profileEndorsementSection}>Recommended: {currentUserProfileInfo.endorsements}</div>}
       </div>
-      {userType}
-      {userType === 'Mentor' && <div>Recommended: {currentUserProfileInfo.endorsements}</div>}
     </div>
   )
 }
