@@ -27,6 +27,12 @@
 
 .topBox {
   display: flex;
+  justify-content: space-between;
+}
+
+.innerTopBox {
+  display: flex;
+  width: 88%;
 }
 
 .title {
@@ -72,9 +78,9 @@
 .editor {
   width: 5%;
   height: auto;
-  align-self: flex-end;
-  margin-bottom: 1.2%;
-  margin-left: 1%;
+  align-self: flex-start;
+  /* margin-bottom: 1.2%;
+  margin-left: 1%; */
 }
 
 .editor:hover {
@@ -138,7 +144,12 @@
   color: #4BD2D2;
 }
 
+
 .editDeleteButton:hover {
+  cursor: pointer;
+}
+
+.editDropButton:hover {
   cursor: pointer;
 }
 

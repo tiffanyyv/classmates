@@ -29,7 +29,6 @@ import useWindowWidth from '../../utils/customHooks/useWindowWidth.js'
 
 
 export default function Calendar({ userInfo, formattedAllCoursesData }) {
-
   const [appointmentData, setAppointmentData] = useState(formattedAllCoursesData);
   const [userType, setUserType] = useState(userInfo.account_type);
   const [currUserId, setCurrUserId] = useState(userInfo.id);
@@ -38,59 +37,38 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
     const { width } = useWindowWidth();
   }
 
-  const getCoursesData = () => {
-    if (userType === 'Mentor') {
-      getCoursesByMentorId(currUserId)
-        .then(res => {
-          let apptDataResult = res.map((course) => {
-            return {
-              title: course.name,
-              startDate: new Date(course.start_date),
-              endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url,
-              capacity: course.capacity,
-              description: course.description,
-              id: course.id,
-              subject: course.subject,
-              photo: course.photo,
-              mentor: course.mentor,
-              mentees: course.mentees,
-            }
-          })
-          setAppointmentData(apptDataResult);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    } else {
-      getCoursesByMenteeId(currUserId)
-        .then(res => {
-          let apptDataResult = res.map(course => {
-            return {
-              title: course.name,
-              startDate: new Date(course.start_date),
-              endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url,
-              capacity: course.capacity,
-              description: course.description,
-              id: course.id,
-              subject: course.subject,
-              photo: course.photo,
-              mentor: course.mentor,
-              mentees: course.mentees,
-            }
-          })
-          setAppointmentData(apptDataResult);
-        })
-        .catch (err => {
-        console.log(err);
-      })
+  console.log(formattedAllCoursesData)
+
+  const getCoursesData = async () => {
+    let allCoursesData;
+    if (userInfo.account_type === 'Mentor') {
+      allCoursesData = await getCoursesByMentorId(currUserId)
+    } else if (userInfo.account_type === 'Mentee') {
+      allCoursesData = await getCoursesByMenteeId(currUserId)
     }
+    const apptDataResult = allCoursesData.map((course) => {
+      return {
+        title: course.name,
+        startDate: new Date(course.start_date),
+        endDate: new Date(course.end_date),
+        zoomLink: course.meeting_url,
+        capacity: course.capacity,
+        description: course.description,
+        id: course.id,
+        subject: course.subject,
+        photo: course.photo,
+        mentor: course.mentor,
+        mentees: course.mentees,
+        userType: userType,
+        uid: currUserId,
+      }
+    })
+    setAppointmentData(apptDataResult);
   }
 
   if(typeof width === 'number') {
     if (width <= 800) {
-      return <CalendarDayView userInfo={userInfo} formattedAllCoursesData={formattedAllCoursesData} />
+      return <CalendarDayView userInfo={userInfo} formattedAllCoursesData={appointmentData} />
     }
   }
   return (
@@ -160,6 +138,8 @@ export async function getServerSideProps(context) {
       photo: course.photo,
       mentor: course.mentor,
       mentees: course.mentees,
+      userType: userInfo.account_type,
+      uid: userId,
     }
   });
 
