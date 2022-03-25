@@ -138,8 +138,8 @@ export default function MyCourses({ course, index, handleDeleteCourse, handleEdi
             <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
             {userType === 'Mentor' &&
               <>
-                <MainButton value="Attendance List" onClick={handleStudentList}/>
-                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)}/>
+                <MainButton value="Attendance List" onClick={handleStudentList} />
+                <MainButton value="Cancel Course" onClick={() => handleDeleteCourse(currentIndex)} />
               </>}
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
