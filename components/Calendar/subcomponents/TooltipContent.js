@@ -64,7 +64,7 @@ export default function AppointmentContent (currentAppointmentMetadata) {
     }
 
     const handleOpenZoomLink = (url) => {
-      window.open(url, '_blank', 'noreferrer')
+      window.open(url, '_blank')
     }
 
     // ---------------------------EDIT WINDOW FUNCTIONS -------------------------------------
