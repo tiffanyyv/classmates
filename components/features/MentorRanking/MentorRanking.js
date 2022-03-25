@@ -21,16 +21,12 @@ export default function Leaderboard() {
   };
 
   useEffect(() => {
-    fetchTopEndorsements();
-  }, [])
-
-  const fetchTopEndorsements = () => {
     getTopEndorsements().then(res => {
       setTopEndorsements(res)
     }).catch(err => {
       console.log('Error getting data')
     })
-  }
+  }, [])
 
   return (
     <div className={styles.leaderboardButton}>
