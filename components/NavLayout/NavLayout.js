@@ -5,13 +5,8 @@ import {useAuthContext} from '../../utils/context/AuthProvider'
 
 export default function NavLayout({ children }) {
   const router = useRouter();
-<<<<<<< HEAD
-  const { user, loading, error } = useAuthContext();
-  
-=======
   const { user } = useAuthContext();
 
->>>>>>> b5283c10e6783d808fb185a8666adfcf248263ee
   if (!user) {
     return (
       <>
