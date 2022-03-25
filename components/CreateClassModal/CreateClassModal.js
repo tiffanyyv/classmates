@@ -23,9 +23,7 @@ import { createNewCourse, getUserInfo } from '../../utils/api/apiCalls.js';
 const subjects = ['Math', 'Science', 'History', 'Literature', 'Language'];
 
 
-
-
-export default function CreateClassModal({ getCourseData }) {
+export default function CreateClassModal({ getCoursesData }) {
   const { user } = useAuthContext();
   const [subject, setSubject] = useState('');
   const [type, setType] = useState('');
@@ -33,8 +31,6 @@ export default function CreateClassModal({ getCourseData }) {
   const [newEndTime, setNewEndTime] = useState(null);
   const [classObj, setClassObj] = useState({});
   const [open, setOpen] = useState(false);
-
-  // console.log(getCourseData)
 
   const handleChange = (e) => {
     if(e.target.name === 'capacity') {
@@ -44,11 +40,11 @@ export default function CreateClassModal({ getCourseData }) {
     }
   }
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
-    createNewCourse(classObj);
+    await createNewCourse(classObj);
     setOpen(false);
-    getCourseData();
+    getCoursesData();
   }
 
   useEffect(() => {
@@ -61,6 +57,10 @@ export default function CreateClassModal({ getCourseData }) {
           mentorId: '51'
         })
       })
+      .catch(err => {
+        console.error(err);
+      })
+      return () => setClassObj({})
   }, [])
 
   return (
@@ -92,7 +92,6 @@ export default function CreateClassModal({ getCourseData }) {
               label="Course Description"
               type="text"
               color='primary'
-
               onChange={handleChange}
               placeholder="E.g. Advanced Level Calculus for those looking to build upon their Calculus fundamentals."
             />
@@ -115,7 +114,6 @@ export default function CreateClassModal({ getCourseData }) {
                 ))}
               </Select>
             </FormControl>
-
             {/* ----------------------START TIME PICKER-------------------------- */}
             <Stack direction="row" spacing={1} className={styles.stackMargin}>
               <LocalizationProvider dateAdapter={AdapterDateFns} className={styles.dateTimePick}>
@@ -131,7 +129,7 @@ export default function CreateClassModal({ getCourseData }) {
                   }}
                 />
               </LocalizationProvider>
-               {/* ----------------------END TIME PICKER-------------------------- */}
+              {/* ----------------------END TIME PICKER-------------------------- */}
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
                   required
@@ -158,26 +156,7 @@ export default function CreateClassModal({ getCourseData }) {
               onChange={handleChange}
               placeholder="Please enter your Zoom Meeting Room Link"
             />
-            {/* ----------------------TYPE SELECTOR-------------------------- */}
-            <FormControl className={styles.classForm}>
-              <InputLabel>Privacy Type Settings</InputLabel>
-              <Select
-                required
-                label="Privacy Type Settings"
-                defaultValue="Privacy"
-                value={type}
-                name="type"
-                margin="dense"
-                onChange={(e) => {
-                  handleChange(e);
-                  setType(e.target.value);
-                }}
-              >
-                <MenuItem value="Public">Public</MenuItem>
-                <MenuItem value="Private">Private</MenuItem>
-              </Select>
-            </FormControl>
-             {/* ----------------------CLASS CAPACITY-------------------------- */}
+            {/* ----------------------CLASS CAPACITY-------------------------- */}
             <TextField
               required
               className={styles.classSizeMargin}
