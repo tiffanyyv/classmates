@@ -14,17 +14,6 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-
-/*
-getCoursesByCourseId(course_id)
-getCoursesByMentorId(mentor_id)
-getCoursesByMenteeId(mentee_id)
-createNewCourse(body)
-updateCourseInfo(course_id, body)
-removeCourse(course_id)
-getUserInfo(userId)
-*/
-
 import { useAuthContext } from '../../utils/context/AuthProvider';
 import TooltipContent from '../../components/Calendar/subcomponents/TooltipContent.js';
 import styles from '../../utils/styles/CalendarStyles/Calendar.module.css';
@@ -40,33 +29,36 @@ import {
   getUserInfo,
 } from '../../utils/api/apiCalls.js';
 
-
-//import render Calendar component
-
-//use username from GET request, current is just mock data
+//implement userID dynamic rendering
 
 
-export default function Calendar({ userInfo }) {
+export default function Calendar() {
   //import user state (mentor/mentee)
   const { user } = useAuthContext();
   const [appointmentData, setAppointmentData] = useState([]);
-  const [userType, setUserType] = useState(userInfo.account_type);
-  const [currUserId, setCurrUserId] = useState(userInfo.id);
+  const [userType, setUserType] = useState('Mentor');
+  const [currUserId, setCurrUserId] = useState('51');
 
-  const getCourseData = () => {
-    console.log(userType)
+  const getCoursesData = () => {
     if (userType === 'Mentor') {
       getCoursesByMentorId(currUserId)
         .then(res => {
-          // setAppointmentData(res);
-          let apptDataResult = res.map(course => {
+          let apptDataResult = res.map((course) => {
             return {
               title: course.name,
               startDate: new Date(course.start_date),
               endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url
+              zoomLink: course.meeting_url,
+              capacity: course.capacity,
+              description: course.description,
+              id: course.id,
+              subject: course.subject,
+              photo: course.photo,
+              mentor: course.mentor,
+              mentees: course.mentees,
             }
           })
+          console.log(apptDataResult);
           setAppointmentData(apptDataResult);
         })
         .catch(err => {
@@ -80,7 +72,14 @@ export default function Calendar({ userInfo }) {
               title: course.name,
               startDate: new Date(course.start_date),
               endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url
+              zoomLink: course.meeting_url,
+              capacity: course.capacity,
+              description: course.description,
+              id: course.id,
+              subject: course.subject,
+              photo: course.photo,
+              mentor: course.mentor,
+              mentees: course.mentees,
             }
           })
           setAppointmentData(apptDataResult);
@@ -96,10 +95,14 @@ export default function Calendar({ userInfo }) {
       .then(res => {
         setUserType(res.account_type);
       })
+
+      return () => setUserType('')
   }, [])
 
   useEffect(() => {
-    getCourseData();
+    getCoursesData();
+
+    return () => setAppointmentData([]);
 }, [userType]);
 
   return (
@@ -112,7 +115,7 @@ export default function Calendar({ userInfo }) {
           <Paper elevation={6} className={styles.paper}>
             <Scheduler
               data={appointmentData}
-              height={'800'}
+              height={'950'}
             >
               <ViewState
               defaultCurrentViewName="Week"
@@ -129,13 +132,13 @@ export default function Calendar({ userInfo }) {
               {userType === 'Mentor' &&
               <div className={styles.createClassContainer}>
                 <div className={styles.createClass}>
-                  <CreateClassModal getCourseData={getCourseData}/>
+                  <CreateClassModal getCoursesData={getCoursesData}/>
                 </div>
               </div>
               }
               <Appointments />
               <AppointmentTooltip
-              // contentComponent={TooltipContent}
+              contentComponent={TooltipContent}
               />
             </Scheduler>
           </Paper>

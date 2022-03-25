@@ -23,13 +23,19 @@ a:hover {
 
 /* CALENDAR STYLES */
 
-
-/* .css-4plepo .MainLayout-ordinaryHeaderBorder {
-  border-bottom: none;
-} */
+/* TOOLTIP POPUP PARENT DIV*/
+.css-3bmhjh-MuiPaper-root-MuiPopover-paper {
+  border: 3px solid #84C7D0;
+  /* background-color: aliceblue; */
+}
 
 .css-pzc27e-MuiToolbar-root.Toolbar-toolbar {
   border-bottom: none
+}
+
+/* EDIT CLASS STUFF */
+.css-8ludsl {
+  max-height: 0;
 }
 
 /* APPOINTMENT SCHEDULED BLOCK */
@@ -83,6 +89,11 @@ a:hover {
   background: linear-gradient(0deg, rgba(132,199,208,1) 0%, rgba(176,180,212,1) 50%, rgba(176,180,212,1) 100%);
   color: #FFFFFF;
   border: none;
+}
+
+/*NEW START TIME TEXT*/
+.css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  font-size: .73rem;
 }
 
 .pageData {
