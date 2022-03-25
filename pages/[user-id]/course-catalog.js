@@ -1,6 +1,5 @@
 // ClassCatalog widget
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import {
   Grid,
   Typography,
@@ -15,93 +14,96 @@ import {
 import CourseCatalogCard from '../../components/CourseCatalog/CourseCatalogCard.js'
 import CreateClassModal from '../../components/CreateClassModal/CreateClassModal.js'
 import MainButton from '../../components/basecomponents/MainButton.js';
-import { getUserInfo, getAllCourses, updateCourseMenteeList } from '../../utils/api/apiCalls.js';
+import styles from '../../utils/styles/CourseCatalogStyles/CourseCatalog.module.css'
+import {
+  getUserInfo,
+  getAllCourses,
+  addMenteeToCourse,
+  getAllSubjects,
+  updateCourseEndorsements } from '../../utils/api/apiCalls.js';
 
 // search based on: teacher name, class name
 // filter based on category or all
-export default function CourseCatalog() {
-  const router = useRouter();
-  var pathUserId = router.asPath.split('/');
-  const userID = pathUserId[1];
-
+export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
   const [searchInput, setSearchInput] = useState('');
-  const [allCourses, setAllCourses] = useState([]);
-  const [displayCourses, setDisplayCourses] = useState([]);
+  const [displayCourses, setDisplayCourses] = useState(allCourses);
   const [currentCategory, setCurrentCategory] = useState('all');
-  const [openCreateClass, setOpenCreateClass] = useState(false);
-  const [userInfo, setUserInfo] = useState({ userType: '', userID: userID, first_name: '', last_name: '' })
+  const [openCreateCourse, setOpenCreateCourse] = useState(false);
 
-  const handleCreateClass = () => {
-    setOpenCreateClass(!openCreateClass);
+  const filterCategories = (category) => {
+    if (category === 'all') {
+      setDisplayCourses(allCourses)
+    } else {
+      let filteredCourses = allCourses.filter(course => {
+        return course.subject === category
+      })
+      setDisplayCourses(filteredCourses);
+    }
+  }
+
+  const handleChange = (e) => {
+    setCurrentCategory(e.target.value);
+    filterCategories(e.target.value);
   };
 
   const handleSearchInput = (e) => {
     setSearchInput(e.target.value);
   };
 
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
+  const handleSearchSubmit = () => {
+    if (searchInput) {
+      let filteredCourses = allCourses.filter(course => {
+        return course.name.toLowerCase().includes(searchInput.toLowerCase())
+        || course.mentor.name.first_name.toLowerCase().includes(searchInput.toLowerCase())
+        || course.mentor.name.last_name.toLowerCase().includes(searchInput.toLowerCase())
+      })
+      setDisplayCourses(filteredCourses);
+      setSearchInput('');
+    } else {
+      setDisplayCourses(allCourses)
+    }
+  }
 
   const handleStudentAddCourse = (currentCourse) => {
     console.log(currentCourse)
     let studentBody = {
-      mentee_id: userInfo.userID,
-      mentee_firstName: userInfo.first_name,
-      mentee_lastName: userInfo.last_name
+      mentee_id: userInfo.id,
+      mentee_firstName: userInfo.name.first_name,
+      mentee_lastName: userInfo.name.last_name
     }
     if (currentCourse.mentees.length < currentCourse.capacity) {
-      updateCourseMenteeList(currentCourse.id, studentBody)
-      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
+      addMenteeToCourse(currentCourse.id, studentBody)
+      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with
+      ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
       .catch(err => console.log('Could not sign up for class'))
     } else {
-      alert(`Sorry, ${currentCourse.name} is full. Please add a different course, or contact ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name} to increase course capacity.`)
+      alert(`Sorry, ${currentCourse.name} is full. Please add a different course, or contact
+       ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name} to increase course capacity.`)
     }
   }
 
-  // if search input not empty, filter based on inputted course name/teacher name
-  const handleSearchSubmit = () => {
-    if (searchInput) {
-      let filteredCourses = allCourses.filter(course => {
-        return course.name.toLowerCase().includes(searchInput.toLowerCase()) || course.mentor.name.first_name.toLowerCase().includes(searchInput.toLowerCase()) || course.mentor.name.last_name.toLowerCase().includes(searchInput.toLowerCase())
-      })
-      setDisplayCourses(filteredCourses);
-    } else {
-      setDisplayCourses(allCourses)
-    }
-  }
+  const handleOpenCreateCourse = () => {
+    setOpenCreateCourse(!openCreateCourse);
+  };
 
-  // if category set to all, display all courses. otherwise, filter based on current selected category
-  const filterCategories = () => {
-    if (searchInput || currentCategory === 'all') {
-      setDisplayCourses(allCourses)
-    } else {
-      let filteredCourses = allCourses.filter(course => {
-        return course.subject === currentCategory
-      })
-      setDisplayCourses(filteredCourses);
-    }
-  }
-
-  useEffect(() => {
-    getUserInfo(userInfo.userID)
-      .then(res => setUserInfo({ userType: res.account_type, userID: userInfo.userID, first_name: res.name.first_name, last_name: res.name.last_name }))
-      .catch(err => console.log('Error getting user information'));
+  const handleCreateCourse = () => {
     getAllCourses()
-      .then(() => getAllCourses())
       .then(res => setAllCourses(res))
       .catch(err => console.log('Error getting course catalog'));
-  }, []);
-
-  useEffect(() => {
-    setDisplayCourses(allCourses)
-  }, [allCourses])
+  }
 
   return (
     <div className='pageData'>
       <Typography gutterBottom variant="h5" component="div"><strong>Course Catalog</strong></Typography>
-      <Stack spacing={2} direction="row">
-        <TextField id="standard-basic" label="Search by course name, teacher" variant="standard" sx={{ width: '30%' }} onChange={e => handleSearchInput(e)} />
+      <Stack spacing={3} direction="row">
+        <TextField
+          id="standard-basic"
+          label="Search by course name, teacher"
+          value={searchInput}
+          variant="standard"
+          sx={{ width: '40%' }}
+          onChange={e => handleSearchInput(e)}
+        />
         <FormControl sx={{ width: '20%' }}>
           <InputLabel id="demo-simple-select-label">Category</InputLabel>
           <Select
@@ -112,17 +114,14 @@ export default function CourseCatalog() {
             onChange={handleChange}
           >
             <MenuItem value='all'>All</MenuItem>
-            <MenuItem value='history'>History</MenuItem>
-            <MenuItem value='language'>Language</MenuItem>
-            <MenuItem value='literature'>Literature</MenuItem>
-            <MenuItem value='math'>Math</MenuItem>
-            <MenuItem value='science'>Science</MenuItem>
+            {allSubjects.map(subject => (
+              <MenuItem value={subject} key={`${subject}`}>{subject}</MenuItem>
+            ))}
           </Select>
         </FormControl>
-        <Stack direction="row" spacing={1}>
           <MainButton value="Search" onClick={handleSearchSubmit} />
-          <CreateClassModal />
-        </Stack>
+          {userInfo.account_type === "Mentor" &&
+          <CreateClassModal getCourseData={handleCreateCourse}/>}
       </Stack>
       <br></br>
       <br></br>
@@ -140,3 +139,31 @@ export default function CourseCatalog() {
   )
 }
 
+export async function getServerSideProps(context) {
+  const userId = context.params['user-id'];
+  const userInfo = await getUserInfo(userId);
+  const allCourses = await getAllCourses();
+  const allSubjects = await getAllSubjects();
+
+  if (!userInfo || !userInfo?.account_type) {
+    return {
+      notFound: true,
+    }
+  }
+
+  if (!allCourses) {
+    return {
+      notFound: true,
+    }
+  }
+
+  if (!allSubjects) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: { userInfo, allCourses, allSubjects }
+  }
+}

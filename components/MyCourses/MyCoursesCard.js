@@ -22,11 +22,11 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import MainButton from '../basecomponents/MainButton.js'
 import { defaultProfilePic } from '../../utils/constants/index.js'
+import { formatDate } from '../../utils/helpers/helpers.js';
+import SelectedUserProfile from '../UserProfileView/SelectedUserProfileView.js';
 import styles from '../../utils/styles/MyCoursesStyles/MyCourses.module.css';
-import OtherStudentProfile from '../UserProfileView/SelectedStudentProfileView.js';
-import OtherTeacherProfile from '../UserProfileView/SelectedTeacherProfileView.js';
 
-export default function MyCoursesCard({ course, index, handleDeleteCourse, handleEditCourse, userInfo }) {
+export default function MyCoursesCard({ course, index, handleDeleteCourse, handleEditCourse, handleStudentDropCourse, userInfo }) {
   const [showStudentList, setShowStudentList] = useState(false);
   const [editCourseInfo, setEditCourseInfo] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(index);
@@ -34,6 +34,13 @@ export default function MyCoursesCard({ course, index, handleDeleteCourse, handl
   const [newCourseName, setNewCourseName] = useState(course.name);
   const [newStartTime, setNewStartTime] = useState(course.start_date);
   const [newEndTime, setNewEndTime] = useState(course.end_date);
+  const [showProfileView, setShowProfileView] = useState(false);
+  const [selectedStudentID, setSelectedStudentID] = useState('');
+
+  const handleProfileView = (studentID) => {
+    setShowProfileView(!showProfileView)
+    setSelectedStudentID(studentID)
+  }
 
   const handleStudentList = () => {
     if (userInfo.userType === 'Mentor') {
@@ -61,7 +68,7 @@ export default function MyCoursesCard({ course, index, handleDeleteCourse, handl
         component="img"
         height="175"
         image={course.photo}
-        alt=""
+        alt="Course Photo"
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
@@ -116,30 +123,34 @@ export default function MyCoursesCard({ course, index, handleDeleteCourse, handl
 
         <Stack spacing={1}>
           <Stack direction="row" spacing={1}>
-          <Link href={`/app/teacher-profile/${course.mentor.name.first_name}_${course.mentor.name.last_name}`} passHref>
-              <Avatar
-                alt="Teacher Avatar"
-                src={course.mentor.photo}
-                sx={{ width: 20, height: 20 }}
-                className={styles.cardUserAvatar}
-              />
-            </Link>
+            <Avatar
+              alt="Teacher Avatar"
+              src={course.mentor.photo ? course.mentor.photo : defaultProfilePic}
+              sx={{ width: 20, height: 20 }}
+              className={styles.cardUserAvatar}
+              onClick={() => handleProfileView(course.mentor.id)}
+            />
+            <Dialog onClose={handleProfileView} open={showProfileView} fullWidth={true}>
+              <DialogContent>
+                <SelectedUserProfile selectedUserID={course.mentor.id} currentUserType={userInfo.userType}/>
+              </DialogContent>
+            </Dialog>
             <Typography variant="body2" color="text.secondary">
               <strong>{course.mentor.name.first_name} {course.mentor.name.last_name}</strong>
             </Typography>
           </Stack>
 
           <Typography variant="body2" color="text.secondary">
-            <strong >Course Start Time: </strong> {`${course.start_date}`}
+            <strong>Start Time: </strong> {formatDate(`${course.start_date}`)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <strong> Course End Time: </strong> {`${course.end_date}`}
+            <strong>End Time: </strong> {formatDate(`${course.end_date}`)}
           </Typography>
 
           <Stack spacing={1}>
             <MainButton value="Zoom Link" onClick={() => handleOpenZoomLink(course.meeting_url)}/>
             {userInfo.userType === 'Mentee' &&
-              <MainButton value="Drop Course"/>}
+              <MainButton value="Drop Course" onClick={() => handleStudentDropCourse(course.id)}/>}
             {userInfo.userType === 'Mentor' &&
               <>
                 <MainButton value="Attendance List" onClick={handleStudentList}/>
@@ -150,18 +161,21 @@ export default function MyCoursesCard({ course, index, handleDeleteCourse, handl
                 <DialogContent>
                   {course.mentees.map((student, index) => (
                     <Stack direction="row" spacing={1} key={`${index}`}>
-                      <Link href={`/app/student-profile/${student.name.first_name}_${student.name.last_name}`} passHref>
                         <Avatar
                           alt="Student Avatar"
-                          src={student.photo}
+                          src={student.photo ? student.photo : defaultProfilePic}
                           sx={{ width: 20, height: 20 }}
                           className={styles.cardUserAvatar}
+                          onClick={() => handleProfileView(student.id)}
                         />
-                      </Link>
-                      {student.id}
                       <DialogContentText>{`${student.name.first_name} ${student.name.last_name}`}</DialogContentText>
                     </Stack>
                   ))}
+                  <Dialog onClose={handleProfileView} open={showProfileView} fullWidth={true}>
+                    <DialogContent>
+                      <SelectedUserProfile selectedUserID={selectedStudentID} currentUserType={userInfo.userType}/>
+                    </DialogContent>
+                  </Dialog>
                 </DialogContent>
             </Dialog>
           </Stack>

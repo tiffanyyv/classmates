@@ -1,4 +1,24 @@
-.profileContainer {
+.myProfileContainer {
+  display: flex;
+  flex-direction: column;
+  word-wrap: normal;
+  text-align: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  min-width: 40vw;
+  min-height: 40vh;
+}
+
+/* selected profile */
+.selectedProfileContainer {
   display: flex;
   flex-direction: column;
   word-wrap: normal;
@@ -6,30 +26,30 @@
   align-items: center;
 }
 
-.profileContainer h2 {
+.selectedProfileContainer h2, .myProfileContainer h2 {
   font-size: 5vh;
   margin: 0px 0px;
-  /* color: #84C7D0 */
   color: linear-gradient(0deg, rgba(132,199,208,1) 0%, rgba(176,180,212,1) 50%, rgba(176,180,212,1) 100%);
   background: -webkit-linear-gradient(#B0B4D4, #84C7D0);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.profileContainer h3 {
+.selectedProfileContainer h3, .myProfileContainer h3 {
   font-size: 3vh;
   margin: 0px 0px;
   color: #B0B4D4
 }
 
-.profileContainer h4 {
+.selectedProfileContainer h4, .myProfileContainer h4 {
   font-size: 2vh;
-  margin: 0px 0px;
+  margin: 10px 10px;
 }
 
-.profileContainer p {
+.selectedProfileContainer p, .myProfileContainer p {
   font-size: 2vh;
-  margin: 0px 0px;
+  margin: 5px 5px;
 }
 
 .profileEndorsementSection {
@@ -42,20 +62,6 @@
   color: #4BD2D2;
 }
 
-/* @media (max-width: 960px) {
-  .profileContainer {
-    display: flex;
-    flex-direction: column;
-    min-width: 50%;
-    min-height: 50%;
-  }
+.editProfileDescription {
+  cursor: pointer;
 }
-
-@media (max-width: 600px) {
-  .profileContainer {
-    display: flex;
-    flex-direction: column;
-    min-width: 75%;
-    min-height: 75%;
-  }
-} */

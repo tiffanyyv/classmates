@@ -92,3 +92,8 @@ a:hover {
 .MuiTextField-root {
   color: #121212
 }
+
+/* COURSE CATALOG CARD */
+.css-n0sdwb-MuiGrid-root {
+ margin-left: -15px;
+}

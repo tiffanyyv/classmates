@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   FormControl,
   InputLabel,
@@ -34,7 +35,9 @@ export default function CreateClassModal({ getCourseData }) {
   const [classObj, setClassObj] = useState({});
   const [open, setOpen] = useState(false);
 
-  // console.log(getCourseData)
+  const router = useRouter();
+  var pathUserId = router.asPath.split('/');
+  const userID = pathUserId[1];
 
   const handleChange = (e) => {
     if(e.target.name === 'capacity') {
@@ -51,13 +54,14 @@ export default function CreateClassModal({ getCourseData }) {
   }
 
   useEffect(() => {
-    getUserInfo(51)
+    getUserInfo(userID)
       .then((data) => {
+        console.log(data)
         setClassObj({
           ...classObj,
           mentorFirstName: data.name.first_name,
           mentorLastName: data.name.last_name,
-          mentorId: '51'
+          mentorId: userID
         })
       })
   }, [])
