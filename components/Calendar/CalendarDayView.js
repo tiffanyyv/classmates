@@ -19,54 +19,78 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
   const [currUserId, setCurrUserId] = useState(userInfo.id);
 
   const getCoursesData = () => {
-    if (userType === 'Mentor') {
-      getCoursesByMentorId(currUserId)
-        .then(res => {
-          let apptDataResult = res.map((course) => {
-            return {
-              title: course.name,
-              startDate: new Date(course.start_date),
-              endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url,
-              capacity: course.capacity,
-              description: course.description,
-              id: course.id,
-              subject: course.subject,
-              photo: course.photo,
-              mentor: course.mentor,
-              mentees: course.mentees,
-            }
-          })
-          // console.log(apptDataResult);
-          setAppointmentData(apptDataResult);
+    let coursesFetch = (userType === 'Mentor') ? getCoursesByMentorId : getCoursesByMenteeId;
+    coursesFetch(currUserId)
+      .then(res => {
+        let apptDataResult = res.map((course) => {
+          return {
+            title: course.name,
+            startDate: new Date(course.start_date),
+            endDate: new Date(course.end_date),
+            zoomLink: course.meeting_url,
+            capacity: course.capacity,
+            description: course.description,
+            id: course.id,
+            subject: course.subject,
+            photo: course.photo,
+            mentor: course.mentor,
+            mentees: course.mentees,
+          }
         })
-        .catch(err => {
-          console.log(err);
-        })
-    } else {
-      getCoursesByMenteeId(currUserId)
-        .then(res => {
-          let apptDataResult = res.map(course => {
-            return {
-              title: course.name,
-              startDate: new Date(course.start_date),
-              endDate: new Date(course.end_date),
-              zoomLink: course.meeting_url,
-              capacity: course.capacity,
-              description: course.description,
-              id: course.id,
-              subject: course.subject,
-              photo: course.photo,
-              mentor: course.mentor,
-              mentees: course.mentees,
-            }
-          })
-          setAppointmentData(apptDataResult);
-        })
-        .catch (err => {
+        setAppointmentData(apptDataResult);
+      })
+      .catch(err => {
         console.log(err);
       })
-    }
+
+    // if (userType === 'Mentor') {
+    //   getCoursesByMentorId(currUserId)
+    //     .then(res => {
+    //       let apptDataResult = res.map((course) => {
+    //         return {
+    //           title: course.name,
+    //           startDate: new Date(course.start_date),
+    //           endDate: new Date(course.end_date),
+    //           zoomLink: course.meeting_url,
+    //           capacity: course.capacity,
+    //           description: course.description,
+    //           id: course.id,
+    //           subject: course.subject,
+    //           photo: course.photo,
+    //           mentor: course.mentor,
+    //           mentees: course.mentees,
+    //         }
+    //       })
+    //       // console.log(apptDataResult);
+    //       setAppointmentData(apptDataResult);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     })
+    // } else {
+    //   getCoursesByMenteeId(currUserId)
+    //     .then(res => {
+    //       let apptDataResult = res.map(course => {
+    //         return {
+    //           title: course.name,
+    //           startDate: new Date(course.start_date),
+    //           endDate: new Date(course.end_date),
+    //           zoomLink: course.meeting_url,
+    //           capacity: course.capacity,
+    //           description: course.description,
+    //           id: course.id,
+    //           subject: course.subject,
+    //           photo: course.photo,
+    //           mentor: course.mentor,
+    //           mentees: course.mentees,
+    //         }
+    //       })
+    //       setAppointmentData(apptDataResult);
+    //     })
+    //     .catch (err => {
+    //     console.log(err);
+    //   })
+    // }
   }
 
   return (
