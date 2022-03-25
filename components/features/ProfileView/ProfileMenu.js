@@ -6,7 +6,7 @@ import { Tooltip, IconButton, Typography } from '@mui/material';
 import { Avatar, Menu, MenuItem } from '@mui/material';
 
 import styles from '../../../utils/styles/NavLayoutStyles/SideBar.module.css';
-import { defaultProfilePic } from '../../../utils/constants';
+import {defaultProfilePic} from '../../../utils/constants';
 import { useAuthContext } from '../../../utils/context/AuthProvider';
 
 import { getUserInfo } from '../../../utils/api/apiCalls.js'
@@ -42,7 +42,7 @@ const ProfileMenu = ({ userId }) => {
           <Avatar
             className={styles.profileAvatar}
             alt="User Avatar"
-            src={currentUserProfileInfo.photo ? currentUserProfileInfo.photo : defaultProfilePic}
+            src={currentUserProfileInfo.photo}
             sx={{ width: 50, height: 50 }}
           />
         </IconButton>
@@ -75,4 +75,5 @@ const ProfileMenu = ({ userId }) => {
     </Box>
   );
 };
+
 export default ProfileMenu;
