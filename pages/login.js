@@ -18,12 +18,10 @@ import useStyles from '../utils/styles/signup.module'
 export default function Login() {
   const classes = useStyles();
   const router = useRouter();
-  const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext(); // check if user context import is necessary
-  const [account_type, setAccount_Type] = useState('')
+  const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
-    account_type: ''
   })
 
   const handleLoginFormInput = (text, field) => {
@@ -38,7 +36,6 @@ export default function Login() {
     login(loginInfo.email, loginInfo.password)
   }
 
-  // Change reroute to dynamic route
   if (user) {
     router.push(`${user.uid}/my-courses`);
     return null;
@@ -70,5 +67,3 @@ export default function Login() {
     </div>
   )
 }
-
-
