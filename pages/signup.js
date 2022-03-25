@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Head from 'next/head';
+
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -73,6 +75,9 @@ export default function Signup() {
 
   return (
     <div className={classes.root}>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
       <Grid container
         spacing={0}
         direction="column"

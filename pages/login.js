@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -46,6 +47,9 @@ export default function Login() {
 
   return (
     <div className={classes.root}>
+      <Head>
+        <title>Login</title>
+      </Head>
       <Grid container
         spacing={0}
         direction="column"

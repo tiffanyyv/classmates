@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import {  Scheduler,
+import {
+  Scheduler,
   WeekView,
   Toolbar,
   DateNavigator,
@@ -82,23 +83,23 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
           })
           setAppointmentData(apptDataResult);
         })
-        .catch (err => {
-        console.log(err);
-      })
+        .catch(err => {
+          console.log(err);
+        })
     }
   }
 
-  if(typeof width === 'number') {
+  if (typeof width === 'number') {
     if (width <= 800) {
       return <CalendarDayView userInfo={userInfo} formattedAllCoursesData={formattedAllCoursesData} />
     }
   }
   return (
     <div className="pageData">
+      <Head>
+        <title>My Calendar</title>
+      </Head>
       <div className={styles.calendarContainer}>
-        <Head>
-          <title>My Calendar</title>
-        </Head>
         <div>
           <Paper elevation={6} className={styles.paper}>
             <Scheduler
@@ -106,7 +107,7 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
               height={'950'}
             >
               <ViewState
-              defaultCurrentViewName="Week"
+                defaultCurrentViewName="Week"
               />
               <WeekView
                 startDayHour={6}
@@ -118,15 +119,15 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
               <DateNavigator />
               <TodayButton />
               {userType === 'Mentor' &&
-              <div className={styles.createClassContainer}>
-                <div className={styles.createClass}>
-                  <CreateClassModal getCoursesData={getCoursesData} userInfo={userInfo}/>
+                <div className={styles.createClassContainer}>
+                  <div className={styles.createClass}>
+                    <CreateClassModal getCoursesData={getCoursesData} userInfo={userInfo} />
+                  </div>
                 </div>
-              </div>
               }
               <Appointments />
               <AppointmentTooltip
-              contentComponent={TooltipContent}
+                contentComponent={TooltipContent}
               />
             </Scheduler>
           </Paper>
