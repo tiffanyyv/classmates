@@ -24,7 +24,7 @@ export default function Leaderboard() {
     getTopEndorsements().then(res => {
       setTopEndorsements(res)
     }).catch(err => {
-      console.log('Error getting data')
+      console.warn('Error getting data')
     })
   }, [])
 

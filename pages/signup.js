@@ -22,7 +22,7 @@ import { useAuthContext } from '../utils/context/AuthProvider';
 export default function Signup() {
   const router = useRouter();
   const classes = useStyles();
-  const { user, loading, error, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
+  const { user, signup, signInWithGoogle, signInWithFacebook } = useAuthContext();
 
   const [filledFormFlag, setFilledFormFlag] = useState('true');
   const [googleModalOpen, setGoogleModalOpen] = useState(false);
@@ -81,7 +81,6 @@ export default function Signup() {
     signupInfo.password
   ])
 
-  // Change reroute to dynamic route
   if (user) {
     router.push(`/${user.uid}/my-courses`)
     return null;
