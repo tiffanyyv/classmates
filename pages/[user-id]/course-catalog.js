@@ -82,7 +82,7 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
     setOpenCreateCourse(!openCreateCourse);
   };
 
-  const updateCourseCatalog = () => {
+  const handleUpdateCourseCatalog = () => {
     getAllCourses()
       .then(res => setAllCourses(res))
       .catch(err => console.log('Error getting course catalog'));
@@ -117,7 +117,7 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
         </FormControl>
           <MainButton value="Search" onClick={handleSearchSubmit} />
           {userInfo.account_type === "Mentor" &&
-          <CreateClassModal getCoursesData={updateCourseCatalog} userInfo={userInfo}/>}
+          <CreateClassModal getCoursesData={handleUpdateCourseCatalog} userInfo={userInfo}/>}
       </Stack>
       <br></br>
       <br></br>
