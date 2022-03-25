@@ -158,6 +158,8 @@ export default function MyCoursesCard({ course, index, handleDeleteCourse, handl
               </>}
             <Dialog onClose={handleStudentList} open={showStudentList} fullWidth={true}>
               <DialogTitle>Students</DialogTitle>
+                {!course.mentees.length &&
+                <DialogContent>There are currently no students attending this course</DialogContent>}
                 <DialogContent>
                   {course.mentees.map((student, index) => (
                     <Stack direction="row" spacing={1} key={`${index}`}>

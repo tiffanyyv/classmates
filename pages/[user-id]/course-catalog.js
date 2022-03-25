@@ -73,12 +73,10 @@ export default function CourseCatalog({ userInfo, allCourses, allSubjects }) {
     }
     if (currentCourse.mentees.length < currentCourse.capacity) {
       addMenteeToCourse(currentCourse.id, studentBody)
-      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with
-      ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
+      .then(() => alert(`Successfully signed-up for ${currentCourse.name} with ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name}`))
       .catch(err => console.log('Could not sign up for class'))
     } else {
-      alert(`Sorry, ${currentCourse.name} is full. Please add a different course, or contact
-       ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name} to increase course capacity.`)
+      alert(`Sorry, ${currentCourse.name} is full. Please add a different course, or contact ${currentCourse.mentor.name.first_name} ${currentCourse.mentor.name.last_name} to increase course capacity.`)
     }
   }
 
