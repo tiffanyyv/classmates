@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Link from 'next/link';
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
@@ -15,11 +16,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import { useAuthContext } from '../utils/context/AuthProvider';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Card, Grid, Select, Typography, Modal, TextField, Stack } from '@mui/material';
-
 export default function Signup() {
   const router = useRouter();
   const classes = useStyles();
-  const [accountType, setAccountType] = useState('');
   const handleGoogleOpen = () => setGoogleModalOpen(true);
   const [filledFormFlag, setFilledFormFlag] = useState('true');
   const [googleModalOpen, setGoogleModalOpen] = useState(false);
@@ -40,10 +39,10 @@ export default function Signup() {
   });
   //Need to clean up useEffect
   useEffect(() => {
-    if (accountType.length > 0 && signupInfo.username.length > 0 && signupInfo.firstname.length > 0 && signupInfo.lastname.length > 0 && signupInfo.email.length > 0 && signupInfo.password.length > 0 && signupInfo.location.length > 0) {
+    if (signupInfo.accountType?.length > 0 && signupInfo.username.length > 0 && signupInfo.firstname.length > 0 && signupInfo.lastname.length > 0 && signupInfo.email.length > 0 && signupInfo.password.length > 0 && signupInfo.location.length > 0) {
       setFilledFormFlag(false)
     }
-  }, [accountType, signupInfo.username, signupInfo.firstname, signupInfo.lastname, signupInfo.email, signupInfo.password, signupInfo.location])
+  }, [signupInfo.accountType, signupInfo.username, signupInfo.firstname, signupInfo.lastname, signupInfo.email, signupInfo.password, signupInfo.location])
 
   const handleSignUpFormInput = (text, field) => {
     setSignupInfo({
@@ -65,7 +64,6 @@ export default function Signup() {
     }
   }
 
-  // Change reroute to dynamic route
   if (user) {
     router.push(`/${user.uid}/my-courses`)
     return null;
@@ -73,6 +71,9 @@ export default function Signup() {
 
   return (
     <div className={classes.root}>
+      <Head>
+        <title>Signup Page</title>
+      </Head>
       <Grid container
         spacing={0}
         direction="column"
@@ -91,7 +92,7 @@ export default function Signup() {
               labelId='accountDropDown'
               id="accountDropDown"
               label="Account Type"
-              value={accountType}
+              value={signupInfo.account_type}
               className={classes.userInput}
               sx={{ height: 30 }}
               onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
@@ -109,6 +110,8 @@ export default function Signup() {
             <TextField size='small' type='password' placeholder='Password' sx={{ width: '100%', backgroundColor: '#F5F5F5', mb: 1 }} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }}></TextField>
             <Typography sx={{ fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton} disabled={filledFormFlag}>Create Account</Button>
+
+
             <Modal open={googleModalOpen} onClose={handleGoogleModalClose}>
               <FormControl sx={{
                 position: 'absolute',
@@ -127,9 +130,9 @@ export default function Signup() {
                 <Select
                   labelId='accountDropDown'
                   id="accountDropDown"
-                  value={accountType}
+                  value={signupInfo.account_type}
                   sx={{ height: 30, margin: 2, width: 336 }}
-                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
+                  onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type') }}
                 >
                   <MenuItem value={'Mentor'}>Mentor</MenuItem>
                   <MenuItem value={'Mentee'}>Mentee</MenuItem>
@@ -150,6 +153,8 @@ export default function Signup() {
                 <Button sx={{ my: 2, }} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.moduleGoogleButton} startIcon={<GoogleIcon />}>Sign in with Google</Button>
               </FormControl>
             </Modal>
+
+
             <Modal open={facebookModalOpen} onClose={handleFacebookModalClose}>
               <FormControl sx={{
                 position: 'absolute',
@@ -168,7 +173,7 @@ export default function Signup() {
                 <Select
                   labelId='accountDropDown'
                   id="accountDropDown"
-                  value={accountType}
+                  value={signupInfo.account_type}
                   sx={{ height: 30, margin: 2, width: 336 }}
                   onChange={(e) => { handleSignUpFormInput(e.target.value, 'account_type'), setAccountType(e.target.value) }}
                 >
@@ -191,6 +196,8 @@ export default function Signup() {
                 <Button onClick={(e) => signInWithFacebook(signupInfo)} className={classes.moduleFacebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
               </FormControl>
             </Modal>
+
+
           </form>
           <div className={{ flexDirection: 'column' }}>
           </div>

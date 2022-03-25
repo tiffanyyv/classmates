@@ -1,4 +1,3 @@
-// GET: /pages/api/courses/subjects/[subject_name].js
 import { db } from '../../../../utils/api/firebase.config';
 import {
   collection,

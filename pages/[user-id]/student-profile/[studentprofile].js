@@ -28,9 +28,6 @@ export default function StudentProfile(props) {
   const fetchUserInfo = () => {
     getUserInfo(userID)
     .then(res => {
-      // console.log(window.location.pathname.split('/')[3])
-      // setCurrentStudentInfo({...currentStudentInfo, studentID: window.location.pathname.split('/')[3]})
-      // setStudentID(window.location.pathname.split('/')[3])
       console.log('thiS IS STUDENT ID ', studentID)
       setUserType(res.account_type)
     }).catch(err => {
@@ -59,9 +56,6 @@ export default function StudentProfile(props) {
   }
 
 
-  // increment with axios put request
-  // re render page with new count
-  // add user type: teacher or student
   const handleUpvoteStudent = () => {
     setCurrentStudentRecommend(currentStudentRecommend + 1);
   }

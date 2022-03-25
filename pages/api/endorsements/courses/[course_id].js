@@ -1,5 +1,3 @@
-// PUT: /pages/api/endorsements/courses/[course_id].js
-
 import { db } from '../../../../utils/api/firebase.config';
 import {
   collection,

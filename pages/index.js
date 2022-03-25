@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
-
 import styles from '../utils/styles/NavLayoutStyles/HomePage.module.css';
 
 export default function LandingPage() {

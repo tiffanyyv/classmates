@@ -7,7 +7,6 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
-/* add student to course's mentee list */
 export default async function addMenteeToCourse(req, res) {
   const { course_id } = req.query;
   const {

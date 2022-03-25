@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-
-import { FormControl } from '@mui/material';
+import Head from 'next/head'
 import { Input } from '@mui/material';
 import { Button } from '@mui/material';
-import { Card, Grid, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { makeStyles } from '@mui/styles';
-import CircularProgress from '@mui/material/CircularProgress';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GoogleIcon from '@mui/icons-material/Google';
-
-import { useAuthContext } from '../utils/context/AuthProvider';
+import { FormControl } from '@mui/material';
 import { auth } from '../utils/api/firebase.config'
+import GoogleIcon from '@mui/icons-material/Google';
 import useStyles from '../utils/styles/signup.module'
+import FacebookIcon from '@mui/icons-material/Facebook';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthContext } from '../utils/context/AuthProvider';
+import { Card, Grid, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
+
 
 export default function Login() {
   const classes = useStyles();
   const router = useRouter();
-  const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext(); // check if user context import is necessary
-  const [account_type, setAccount_Type] = useState('')
+  const { user, login, signInWithGoogle, signInWithFacebook } = useAuthContext();
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -38,7 +37,6 @@ export default function Login() {
     login(loginInfo.email, loginInfo.password)
   }
 
-  // Change reroute to dynamic route
   if (user) {
     router.push(`${user.uid}/my-courses`);
     return null;
@@ -46,6 +44,9 @@ export default function Login() {
 
   return (
     <div className={classes.root}>
+      <Head>
+        <title>Login Page</title>
+      </Head>
       <Grid container
         spacing={0}
         direction="column"
