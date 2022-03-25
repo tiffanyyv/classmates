@@ -44,11 +44,7 @@ export default function Login() {
   return (
     <div className={classes.root}>
       <Head>
-<<<<<<< HEAD
-        <title>Login Page</title>
-=======
         <title>Login</title>
->>>>>>> notificationsPage
       </Head>
       <Grid container
         spacing={0}
