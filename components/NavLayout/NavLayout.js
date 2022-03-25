@@ -10,29 +10,6 @@ export default function NavLayout({ children }) {
   const { user, loading, error } = useAuthContext();
   const [userInfo, setUserInfo] = useState(null);
 
-  // console.log(router.pathname);
-
- // useEffect with user in dependency array
-  // add conditional to only run if user ID is defined
-  // will run getUserInfo when user state changes ie after login
-  // update a userInfo state with api call results
-  // useEffect( () => {
-  //   if (user) {
-  //     getUserInfo(user?.uid)
-  //       .then(response => {
-  //         console.log(response, "Response-----")
-  //         //setUserInfo(response)
-  //       })
-  //   }
-  //    if (!userInfo?.account_type) {
-  //      logoutError()
-  //   }
-  // },[user])
-  // add condition if user is signed in AND userInfo.account_type no defined
-  // logout and reroute to sign up page with error message
-
-  // pass userInfo props down to sidebar instead to save an api call
-
   if (!user) {
     return (
       <>

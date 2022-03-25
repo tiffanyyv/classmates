@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios'
-import { addUser, getUserInfo } from '../api/apiCalls'
+import { addUser } from '../api/apiCalls'
 import { useRouter } from 'next/router';
 import {
   GoogleAuthProvider,

@@ -110,14 +110,6 @@ export default function Signup() {
             <TextField size='small' placeholder='Email' sx={{width:'100%', backgroundColor: '#F5F5F5', my: 1}} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')}></TextField>
             <TextField size='small' placeholder='Location'  sx={{width:'100%', backgroundColor: '#F5F5F5', mb:1}} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')}></TextField>
             <TextField size='small' type='password' placeholder='Password' sx={{width:'100%', backgroundColor: '#F5F5F5', mb:1}} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }}></TextField>
-            {/* <Input sx={{ my: .5 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'username')} placeholder="Username" className={classes.userInput}></Input>
-
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')} placeholder="Location" className={classes.userInput}></Input>
-
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'firstname')} placeholder="First Name" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'lastname')} placeholder="Last Name" className={classes.userInput}></Input>
-            <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => handleSignUpFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input> */}
-            {/* <Input sx={{ my: .3 }} required={true} disableUnderline={true} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }} placeholder="Password" className={classes.userInput} type="password"></Input> */}
             <Typography sx={{ fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
             <Button sx={{ my: 2 }} type='submit' className={classes.loginButton} disabled={filledFormFlag}>Create Account</Button>
             <Modal open={googleOpen} onClose={handleGoogleClose}>
@@ -210,7 +202,4 @@ export default function Signup() {
       </Grid>
     </div>
   )
-
 }
-{/* <Button sx={{ my: 2 }} disabled={filledFormFlag} onClick={(e) => signInWithGoogle(signupInfo)} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
-            <Button onClick={(e) => signInWithFacebook(signupInfo) } disabled={filledFormFlag} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button> */}
