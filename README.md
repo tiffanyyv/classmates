@@ -45,7 +45,7 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 
 ### 3. Setting Up Firebase Authentication
 
-Create a .env and enter personal firebase auth config options
+Create a .env and enter personal firebase auth configuration information then import into SDK setup/configuration
 ```json
 NEXT_PUBLIC_FIREBASE_API_KEY="API_KEY "
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="AUTH_DOMAIN"
@@ -53,9 +53,27 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID="PROJECT_ID"
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="STORAGE_BUCKET"
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="SENDER_ID"
 NEXT_PUBLIC_FIREBASE_APP_ID="APP_ID"
+```
 
+#Examples
+* SDK setup/configuration
+```json
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
-#Examples of Login and Signup
+// TODO: Replace the following with your app's Firebase project configuration
+// See: https://firebase.google.com/docs/web/learn-more#config-object
+const firebaseConfig = {
+  // ...
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+```
+
 * Login Page
 ![ScreenShot]('./utils/reademePics/classMatesLogin.png')
 
