@@ -1,3 +1,6 @@
+// GET: /pages/api/users/[user_id].js
+// PUT: /pages/api/users/[user_id].js
+
 import { db } from '../../../utils/api/firebase.config';
 import { collection,
         doc,

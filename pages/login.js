@@ -54,7 +54,7 @@ export default function Login() {
         style={{ minHeight: '100vh' }}
       >
         <Card className={classes.card}>
-          <Typography sx={{fontSize: 26, mb: 1}}>Login</Typography>
+          <Typography role='LoginTitle' sx={{fontSize: 26, mb: 1}}>Login</Typography>
           <form onSubmit={(e) => handleStandardLogin(e)} sx={{ my: 3 }}>
             <Input sx={{ my: 2 }} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
             <Input sx={{ my: 2 }} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'password')} placeholder="Password" className={classes.userInput} type="password"></Input>

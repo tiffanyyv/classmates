@@ -45,13 +45,24 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 
 ### 3. Setting Up Firebase Authentication
 
+
+```json
+{
+NEXT_PUBLIC_FIREBASE_API_KEY="API_KEY "
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="AUTH_DOMAIN"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="PROJECT_ID"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="STORAGE_BUCKET"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="SENDER_ID"
+NEXT_PUBLIC_FIREBASE_APP_ID="APP_ID"
+}
+
 ### 4. Setting Up Firebase Firestore Database
 #### API Routes & Endpoints
 All API routes are in `pages/api/`.
 
 <details>
 <summary>View Courses Endpoints</summary>
-  
+
 `GET /api/courses` Retrieves list of all courses.
 
 | Parameter         | Type    | Description                                            |
@@ -136,7 +147,7 @@ All API routes are in `pages/api/`.
 </details>
 <details>
 <summary>View Users Endpoints</summary>
-  
+
 `GET /api/users/[user_id]` Retrieves info for specific user.
 
 | Parameter      | Type    | Description                                               |
@@ -166,7 +177,7 @@ All API routes are in `pages/api/`.
 </details>
 <details>
 <summary>View Endorsements Endpoints</summary>
-  
+
 `GET /api/endorsements` Retrieves top 10 endorsements.
 
 | Parameter      | Type    | Description                                               |
