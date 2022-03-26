@@ -5,9 +5,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Table of Contents
 - [Getting Started](#getting-started)
   - [1. Installing Dependencies](#1-installing-dependencies)
-  - [2. Running the Project](#2-running-the-project)
-  - [3. Setting Up Firebase Authentication](#3-setting-up-firebase-authentication)
-  - [4. Setting Up Firebase Firestore Database](#4-setting-up-firebase-firestore-database)
+  - [2. Setting Up Firebase Authentication](#3-setting-up-firebase-authentication)
+  - [3. Setting Up Firebase Firestore Database](#4-setting-up-firebase-firestore-database)
+  - [4. Running the Project](#2-running-the-project)
   - [5. Deploy on Vercel](#5-deploy-on-vercel)
 - [Project Details](#project-details)
 - [Code Structure](#code-structure)
@@ -31,7 +31,14 @@ Hello World! ヾ(☆◡☆) This is a mentorship-based remote learning platform 
 npm install
 ```
 
-### 2. Running the Project
+### 2. Setting Up Firebase Authentication
+
+### 3. Setting Up Firebase Firestore Database
+#### API Routes & Endpoints
+All API routes are in `pages/api/`.
+
+
+### 4. Running the Project
 Runs development server:
 ```bash
 npm run dev
@@ -43,12 +50,6 @@ This script will also run webpack and auto refresh the page whenever you make ch
 <br/>
 WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have the project running on your local machine.
 
-### 3. Setting Up Firebase Authentication
-
-### 4. Setting Up Firebase Firestore Database
-#### API Routes & Endpoints
-All API routes are in `pages/api/`.
-
 <details>
 <summary>View Courses Endpoints</summary>
   
@@ -56,7 +57,7 @@ All API routes are in `pages/api/`.
 
 | Parameter         | Type    | Description                                            |
 | ----------------- | ------- | ------------------------------------------------------ |
-| none              | none    | 'Mentor' or 'Mentee'                                   |
+| none              | none    | "Mentor" or "Mentee"                                   |
 
 `GET/api/courses/index.js` Retrieves list of all courses.
 
@@ -66,18 +67,18 @@ All API routes are in `pages/api/`.
 
 `POST/api/courses/index.js` Adds a new course.
 
-| Body Parameter   | Type    | Description                                             |
-| ---------------- | ------- | ------------------------------------------------------- |
-| name             | string  | Ex: "Intro to Computer Science"                         |
-| subject          | string  | Ex: "Science", "Math", "Literature", "Language"         |
-| description      | string  | Ex: "Computer Science basics and history"               |
-| capacity         | number  | Ex: 25                                                  |
-| start_date       | string  | Ex: "2022-03-28T10:30:00.000Z"                          |
-| end_date         | string  | Ex: "2022-03-28T12:30:00.000Z"                          |
-| meeting_url      | string  | Ex: "zoom.com/meeting_path"                             |
-| mentorId         | string  | Required unique user id generated at sign up            |
-| mentorFirstName  | string  | Ex: "Cornie"                                            |
-| mentorLastName   | string  | Ex: "Jacobs"                                            |
+| Body Parameter   | Type    | Description                                                    |
+| ---------------- | ------- | -------------------------------------------------------------- |
+| name             | string  | Ex: "Intro to Computer Science"                                |
+| subject          | string  | "Science", "Literature", "History", "Language", or "Math"      |
+| description      | string  | Ex: "Computer Science basics and history"                      |
+| capacity         | number  | Ex: 25                                                         |
+| start_date       | string  | Ex: "2022-03-28T10:30:00.000Z"                                 |
+| end_date         | string  | Ex: "2022-03-28T12:30:00.000Z"                                 |
+| meeting_url      | string  | Ex: "zoom.com/meeting_path"                                    |
+| mentorId         | string  | Required unique user id generated at sign up                   |
+| mentorFirstName  | string  | Ex: "Cornie"                                                   |
+| mentorLastName   | string  | Ex: "Jacobs"                                                   |
 
 `GET/api/courses/[course_id]` Retrieves course info for a specific user.
 
@@ -117,9 +118,9 @@ All API routes are in `pages/api/`.
 
 `GET /api/courses/subjects/[subject_name]` Retrieves list of courses by subject name
 
-| Parameter         | Type    | Description                                            |
-| ----------------- | ------- | ------------------------------------------------------ |
-| subject_names     | string  | 'Science', 'Literature, 'History', 'Language', 'Math'  |
+| Parameter         | Type    | Description                                                |
+| ----------------- | ------- | ---------------------------------------------------------- |
+| subject_names     | string  | "Science", "Literature", "History", "Language", or "Math"  |
 
 `PUT /api/courses/course/[course_id]` Adds mentee to course.
 
