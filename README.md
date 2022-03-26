@@ -245,5 +245,6 @@ To learn more about Next.js, take a look at the following resources:
 - You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/)
 <br/>
 To learn more about Firebase, take a look at the following resources:
+
 - [Firebase Documentation](https://firebase.google.com/docs) - learn about Firebase fundamentals.
 - [Firebase Demo](https://console.firebase.google.com/project/fir-demo-project/overview) - view a Firebase demo.
