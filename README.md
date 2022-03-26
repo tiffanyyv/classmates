@@ -44,8 +44,10 @@ This script will also run webpack and auto refresh the page whenever you make ch
 WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have the project running on your local machine.
 
 ### 3. Setting Up Firebase Authentication
+Create a Firebase Account and Login then Go To Console
+![ScreenShot]('./utils/reademePics/ConsoleClick.gif')
 
-Create a .env and enter personal firebase auth configuration information then import into SDK setup/configuration
+Secondly Create a New Project and add the information to a .env
 ```json
 NEXT_PUBLIC_FIREBASE_API_KEY="API_KEY "
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="AUTH_DOMAIN"
@@ -54,26 +56,11 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="STORAGE_BUCKET"
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="SENDER_ID"
 NEXT_PUBLIC_FIREBASE_APP_ID="APP_ID"
 ```
+Next import your .env information into a SDK setup
+* Example
+- [Firebase Get Started](https://firebase.google.com/docs/auth/web/start)
 
 #Examples
-* SDK setup/configuration
-```json
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
-const firebaseConfig = {
-  // ...
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
-```
-
 * Login Page
 ![ScreenShot]('./utils/reademePics/classMatesLogin.png')
 
