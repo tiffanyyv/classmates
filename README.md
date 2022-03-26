@@ -51,6 +51,7 @@ All API routes are in `pages/api/`.
 
 <details>
 <summary>View Courses Endpoints</summary>
+  
 `GET /api/courses` Retrieves list of all courses.
 
 | Parameter         | Type    | Description                                            |
@@ -135,6 +136,7 @@ All API routes are in `pages/api/`.
 </details>
 <details>
 <summary>View Users Endpoints</summary>
+  
 `GET /api/users/[user_id]` Retrieves info for specific user.
 
 | Parameter      | Type    | Description                                               |
@@ -164,6 +166,7 @@ All API routes are in `pages/api/`.
 </details>
 <details>
 <summary>View Endorsements Endpoints</summary>
+  
 `GET /api/endorsements` Retrieves top 10 endorsements.
 
 | Parameter      | Type    | Description                                               |
