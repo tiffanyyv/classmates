@@ -45,16 +45,22 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 
 ### 3. Setting Up Firebase Authentication
 
-
+Create a .env and enter personal firebase auth config options
 ```json
-{
 NEXT_PUBLIC_FIREBASE_API_KEY="API_KEY "
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="AUTH_DOMAIN"
 NEXT_PUBLIC_FIREBASE_PROJECT_ID="PROJECT_ID"
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="STORAGE_BUCKET"
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="SENDER_ID"
 NEXT_PUBLIC_FIREBASE_APP_ID="APP_ID"
-}
+
+
+#Examples of Login and Signup
+* Login Page
+![ScreenShot]('./utils/reademePics/classMatesLogin.png')
+
+* Signup Page
+ ![ScreenShot]('./utils/reademePics/classMatesAuth.gif')
 
 ### 4. Setting Up Firebase Firestore Database
 #### API Routes & Endpoints
