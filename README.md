@@ -65,7 +65,7 @@ Next import your .env information into a SDK setup
 ![ScreenShot]('./utils/reademePics/classMatesLogin.png')
 
 * Signup Page
- ![ScreenShot]('./utils/reademePics/classMatesAuth.gif')
+![ScreenShot]('./utils/reademePics/classMatesAuth.gif')
 
 ### 4. Setting Up Firebase Firestore Database
 #### API Routes & Endpoints
