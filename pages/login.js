@@ -53,7 +53,7 @@ export default function Login() {
         justifyContent="center"
         style={{ minHeight: '100vh' }}
       >
-        <Card className={classes.card}>
+        <Card  className={classes.card}>
           <Typography role='LoginTitle' sx={{fontSize: 26, mb: 1}}>Login</Typography>
           <form onSubmit={(e) => handleStandardLogin(e)} sx={{ my: 3 }}>
             <Input sx={{ my: 2 }} disableUnderline={true} onChange={(e) => handleLoginFormInput(e.target.value, 'email')} placeholder="Email" className={classes.userInput}></Input>
