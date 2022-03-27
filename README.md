@@ -52,7 +52,7 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 
 <details>
 <summary>View Courses Endpoints</summary>
-  
+
 `GET /api/courses` Retrieves list of all courses.
 
 | Parameter         | Type    | Description                                            |
@@ -137,7 +137,7 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 </details>
 <details>
 <summary>View Users Endpoints</summary>
-  
+
 `GET /api/users/[user_id]` Retrieves info for specific user.
 
 | Parameter      | Type    | Description                                               |
@@ -167,7 +167,7 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 </details>
 <details>
 <summary>View Endorsements Endpoints</summary>
-  
+
 `GET /api/endorsements` Retrieves top 10 endorsements.
 
 | Parameter      | Type    | Description                                               |
@@ -210,8 +210,42 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Project Details
 ### Signup/Login
 ### Navigation Bar
+<details>
+<summary>
+<h3> Calendar </h3>
+</summary>
+This page displays the calendar view of courses with appointment blocks. The page will dynamically render based on mentor/mentee account type, displaying only the classes they are teaching or enrolled in. You can create/edit/delete classes directly on the calendar page.
+
+**Display Info and Link to Room**
+
+![Display Info](./utils/gifs/Calendar/display_info.gif "Display Info")
+
+**Creating Course**
+![Creating Courses](./utils/gifs/Calendar/creating_classes.gif "Creating Courses")
+
+**Deleting Courses**
+![Deleting Courses](./utils/gifs/Calendar/Animation5.gif "Deleting Courses")
+
+**Editing Courses**
+![Editing Courses](./utils/gifs/Calendar/Editing_Classes.gif "Editing Courses")
+
+</details>
+
 ### Leaderboard
 ### Profile Page
+<details>
+This page displays the current or selected user's full name, account type, location, and profile description.
+On the current user's profile page, the user can edit profile description. A mentor can see their own recommendation count and can recommend other mentees.
+A mentee can see other mentors' profiles and their recommendation counts but can't see their own recommendation counts.
+
+**My Profile**
+![My Profile](./utils/gifs/Profile/ReadMeProfileView.gif "My Profile")
+
+**Selected Profile**
+![Selected Profle](./utils/gifs/Profile/ReadMeProfileView.gif "Selected Profile")
+
+</details>
+
 ### Notifications
 
 ## Code Structure
@@ -230,7 +264,7 @@ Now that you have an overall understanding of the project we can dicusss how the
 * [Chris Josephs](https://github.com/cmjosephs)
 * [Estevan Gonzalez](https://github.com/GonzalezEstevan)
 * [Kevin Kim](https://github.com/kevinhwkim)
-* [Matt Chang](https://github.com/changerbang)
+* [Matthew Chang](https://github.com/changerbang)
 * [Samantha Pham](https://github.com/samanthavpham)
 * [Teresa Lew](https://github.com/teresal92)
 * [Tiffany Vu](https://github.com/tiffanyyv)
