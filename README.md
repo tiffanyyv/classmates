@@ -60,13 +60,6 @@ Next import your .env information into a SDK setup
 * Example
 - [Firebase Get Started](https://firebase.google.com/docs/auth/web/start)
 
-#Examples
-* Login Page
-![ScreenShot]('./utils/reademePics/classMatesLogin.png')
-
-* Signup Page
-![ScreenShot]('./utils/reademePics/classMatesAuth.gif')
-
 ### 4. Setting Up Firebase Firestore Database
 #### API Routes & Endpoints
 All API routes are in `pages/api/`.
@@ -230,6 +223,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Project Details
 ### Signup/Login
+
+* Login Page
+![ScreenShot]('./utils/reademePics/classMatesLogin.png')
+
+* Signup Page
+![ScreenShot]('./utils/reademePics/classMatesAuth.gif')
+
 ### Navigation Bar
 ### Leaderboard
 ### Profile Page
