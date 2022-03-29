@@ -17,7 +17,6 @@ export default async function getTopEndorsements(req, res) {
 
     querySnapshot.forEach(doc => {
       result.push(doc.data());
-      // console.log(doc.data());
     })
 
     const transformResult = result.map(rank => {

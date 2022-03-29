@@ -14,7 +14,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { addUser } from '../api/apiCalls'
 import { auth } from '../api/firebase.config.js';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);

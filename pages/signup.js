@@ -89,7 +89,7 @@ export default function Signup() {
   return (
     <div className={classes.root}>
       <Head>
-        <title>Sign Up</title>
+        <title role='testSignup'>Sign Up</title>
       </Head>
       <Grid container
         spacing={0}
@@ -104,7 +104,7 @@ export default function Signup() {
             <Button sx={{ my: 2 }} onClick={handleGoogleOpen} className={classes.googleButton} startIcon={<GoogleIcon />}>Continue with Google</Button>
             <Button sx={{ my: 2 }} onClick={handleFacebookModalOpen} className={classes.facebookButton} startIcon={<FacebookIcon />}>Continue with Facebook</Button>
 
-            <InputLabel id="accountDropDown" >Account Type</InputLabel>
+            <InputLabel id="accountDropDown" role='testAccountType'>Account Type</InputLabel>
             <Select
               labelId='accountDropDown'
               id="accountDropDown"
@@ -126,7 +126,7 @@ export default function Signup() {
             <TextField size='small' placeholder='Location' sx={{ width: '100%', backgroundColor: '#F5F5F5', mb: 1 }} onChange={(e) => handleSignUpFormInput(e.target.value, 'location')}></TextField>
             <TextField size='small' type='password' placeholder='Password' sx={{ width: '100%', backgroundColor: '#F5F5F5', mb: 1 }} onChange={(e) => { handleSignUpFormInput(e.target.value, 'password'), handlePasswordLength() }}></TextField>
             <Typography sx={{ fontWight: 'light', fontSize: 10, fontStyle: 'italic', color: passwordLengthColor }}  >*minimum password length of 6 characters</Typography>
-            <Button sx={{ my: 2 }} type='submit' className={classes.loginButton} disabled={filledFormFlag}>Create Account</Button>
+            <Button role='CreateAccountButton' sx={{ my: 2 }} type='submit' className={classes.loginButton} disabled={filledFormFlag}>Create Account</Button>
 
 
             <Modal open={googleModalOpen} onClose={handleGoogleModalClose}>

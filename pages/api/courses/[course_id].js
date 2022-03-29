@@ -1,3 +1,7 @@
+// GET: /pages/api/courses/[course_id].js
+// DELETE: /pages/api/courses/[course_id].js
+// PUT: /pages/api/courses/[course_id].js
+
 import { db } from '../../../utils/api/firebase.config';
 import {
   collection,

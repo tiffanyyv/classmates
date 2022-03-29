@@ -1,7 +1,3 @@
-import Head from 'next/head';
-
-// MyCourses widget
-// Conditionally render Student or Mentor View
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Grid, Typography, Stack } from '@mui/material';
@@ -89,9 +85,6 @@ export default function MyCoursesPage() {
 
   return (
     <div className='pageData'>
-      <Head>
-        <title>My Courses</title>
-      </Head>
       <Typography gutterBottom variant="h5" component="div"><strong>My Courses</strong></Typography>
 
       {userInfo.userType === 'Mentor' &&
