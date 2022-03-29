@@ -45,7 +45,7 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 
 ### 3. Setting Up Firebase Authentication
 Create a Firebase Account and Login then Go To Console
-![ScreenShot]('../classmates/utils/reademePics/ConsoleClick.gif')
+![ScreenShot](/blob/main/utils/reademePics/ConsoleClick.gif)
 
 Secondly Create a New Project and add the information to a .env
 ```json
