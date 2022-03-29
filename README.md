@@ -45,7 +45,7 @@ WOOHOO! ٩(๑˃́ꇴ˂̀๑)۶ If everything went as expected, you should have 
 
 ### 3. Setting Up Firebase Authentication
 Create a Firebase Account and Login then Go To Console
-![ScreenShot](/blob/main/utils/reademePics/ConsoleClick.gif)
+![ScreenShot](/utils/reademePics/ConsoleClick.gif)
 
 Secondly Create a New Project and add the information to a .env
 ```json
@@ -225,10 +225,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ### Signup/Login
 
 * Login Page
-![ScreenShot](../classmates/utils/reademePics/classMatesLogin.png)
+![ScreenShot](/utils/reademePics/classMatesLogin.png)
 
 * Signup Page
-![ScreenShot](../classmates/utils/reademePics/classMatesAuth.gif)
+![ScreenShot](/utils/reademePics/classMatesAuth.gif)
 
 ### Navigation Bar
 <details>
