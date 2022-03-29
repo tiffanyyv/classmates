@@ -49,7 +49,7 @@ Create a Firebase Account and Login then Go To Console
 
 Secondly Create a New Project and add the information to a .env
 ```json
-"NEXT_PUBLIC_FIREBASE_API_KEY"=API_KEY
+"NEXT_PUBLIC_FIREBASE_API_KEY"="API_KEY"
 "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN"="AUTH_DOMAIN"
 "NEXT_PUBLIC_FIREBASE_PROJECT_ID"="PROJECT_ID"
 "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"="STORAGE_BUCKET"
@@ -225,10 +225,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ### Signup/Login
 
 * Login Page
-![ScreenShot]('../classmates/utils/reademePics/classMatesLogin.png')
+![ScreenShot](../classmates/utils/reademePics/classMatesLogin.png)
 
 * Signup Page
-![ScreenShot]('../classmates/utils/reademePics/classMatesAuth.gif')
+![ScreenShot](../classmates/utils/reademePics/classMatesAuth.gif)
 
 ### Navigation Bar
 <details>
