@@ -252,7 +252,7 @@ This page displays the calendar view of courses with appointment blocks. The pag
 ![Deleting Courses](./utils/gifs/Calendar/Animation5.gif "Deleting Courses")
 
 **Editing Courses**
-![Editing Courses](./utils/gifs/Calendar/Editing_Classes.gif "Editing Courses")
+![Editing Courses](./utils/gifs/Calendar/Editing%20Classes.gif "Editing Courses")
 
 </details>
 

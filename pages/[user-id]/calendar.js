@@ -79,6 +79,7 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
         <div>
           <Paper elevation={6} className={styles.paper}>
             <Scheduler
+              className={styles.help} role="help" data-testid="123"
               data={appointmentData}
               height={'950'}
             >
@@ -101,7 +102,7 @@ export default function Calendar({ userInfo, formattedAllCoursesData }) {
                   </div>
                 </div>
               }
-              <Appointments />
+              <Appointments  className={styles.help} role="help" data-testid="123"/>
               <AppointmentTooltip
                 contentComponent={TooltipContent}
               />
