@@ -236,7 +236,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ### Navigation Bar
 
-### My Courses
 <details>
 <summary>
 <h3>My Courses</h3>
@@ -305,8 +304,10 @@ A mentee can see other mentors' profiles and their recommendation counts but can
 
 </details>
 
-### Notifications
 <details>
+<summary>
+<h3>Notifications</h3>
+</summary>
 This page displays notifications for mentors and mentees.  Mentors will receive notifications when a student enrolls in any of the courses they are teaching.  Mentees will receieve a notifation that they have successfully signed up for a course.
 
 **Mentor Notifications**
@@ -317,8 +318,11 @@ This page displays notifications for mentors and mentees.  Mentors will receive 
 
 </details>
 
-### Course Catalog
+
 <details>
+<summary>
+<h3>CourseCatalog</h3>
+</summary>
 This page displays all courses currently available on the ClassMates platform.  Users can use a fuzzy search to search the catalog by course name or mentor name, as well as a category filter to display courses within a particular subject.  Users can view the full detailed information about each course available.  Mentees will receive an alert if a course they are attempting to join is currently full or an alert that they have been successfully enrolled in the course. Mentees also have the ability to endorse/recommend a course.
 
 **Search Catalog**
