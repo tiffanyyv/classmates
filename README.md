@@ -238,6 +238,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ### My Courses
 <details>
+<summary>
+<h3>My Courses</h3>
+</summary>
 This page displays the list of classes for the user depending on their account type.
 <h4> Mentor </h4>
 A mentor account will display all the classes the mentor is currently teaching.  The mentor will also be able to create, edit, and cancel their classes as well as view the list of students enrolled in each of their classes.  When a mentor cancels a class, it will simultaneously drop all students enrolled in that class.  Mentors will also be able to view a student's profile from their class list
@@ -274,7 +277,6 @@ Mentees/students are able to view the list of courses they are currently enrolle
 This page displays the calendar view of courses with appointment blocks. The page will dynamically render based on mentor/mentee account type, displaying only the classes they are teaching or enrolled in. You can create/edit/delete classes directly on the calendar page.
 
 **Display Info and Link to Room**
-
 ![Display Info](./utils/gifs/Calendar/display_info.gif "Display Info")
 
 **Creating Course**
