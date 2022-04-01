@@ -311,7 +311,8 @@ A mentee can see other mentors' profiles and their recommendation counts but can
 This page displays notifications for mentors and mentees.  Mentors will receive notifications when a student enrolls in any of the courses they are teaching.  Mentees will receieve a notifation that they have successfully signed up for a course.
 
 **Mentor Notifications**
-[!Mentor Notifications](./utils/gifs/Notifications/mentor-notifications.gif "Mentor Notifications")
+<br/>
+![Mentor Notifications](./utils/gifs/Notifications/mentor-notifications.gif "Mentor Notifications")
 
 **Mentee Notifications**
 ![Mentee Notifications](./utils/gifs/Notifications/student-notifications.gif "Mentee Notifications")
