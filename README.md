@@ -235,6 +235,44 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ![ScreenShot](/utils/reademePics/classMatesAuth.gif)
 
 ### Navigation Bar
+
+<details>
+<summary>
+<h3>My Courses</h3>
+</summary>
+This page displays the list of classes for the user depending on their account type.
+<h4> Mentor </h4>
+A mentor account will display all the classes the mentor is currently teaching.  The mentor will also be able to create, edit, and cancel their classes as well as view the list of students enrolled in each of their classes.  When a mentor cancels a class, it will simultaneously drop all students enrolled in that class.  Mentors will also be able to view a student's profile from their class list
+<br/>
+<br/>
+
+**Creating Course** <br/>
+![Creating Courses](./utils/gifs/MyCourses/my_courses_create_course.gif "Creating Courses")
+
+**Deleting Courses** <br/>
+![Deleting Courses](./utils/gifs/MyCourses/my_courses_delete_course.gif "Deleting Courses")
+
+**Editing Courses** <br/>
+![Editing Courses](./utils/gifs/MyCourses/my_courses_edit_course.gif "Editing Courses")
+
+**Open Classroom** <br/>
+![Open Classroom](./utils/gifs/MyCourses/zoom_link_button.gif "Open Classroom")
+
+**View Student Profile** <br/>
+![View Student Profile](./utils/gifs/MyCourses/student_profile.gif "View Student Profile")
+
+<h4> Mentee/Student </h4>
+Mentees/students are able to view the list of courses they are currently enrolled in.  Mentees are able to view the profile of the mentor teaching each class, open the classroom link, as well as drop any course they are currently enrolled in.
+<br/>
+<br/>
+
+**View Mentor Profile** <br/>
+![View Mentor Profile](./utils/gifs/MyCourses/mentor_profile.gif "View Mentor Profile")
+
+**Drop Course** <br/>
+![Drop Course](./utils/gifs/MyCourses/student_drop_all_courses.gif "Drop Course")
+</details>
+
 <details>
 <summary>
 <h3> Calendar </h3>
@@ -242,7 +280,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 This page displays the calendar view of courses with appointment blocks. The page will dynamically render based on mentor/mentee account type, displaying only the classes they are teaching or enrolled in. You can create/edit/delete classes directly on the calendar page.
 
 **Display Info and Link to Room**
-
 ![Display Info](./utils/gifs/Calendar/display_info.gif "Display Info")
 
 **Creating Course**
@@ -271,7 +308,53 @@ A mentee can see other mentors' profiles and their recommendation counts but can
 
 </details>
 
-### Notifications
+<details>
+<summary>
+<h3>Notifications</h3>
+</summary>
+This page displays notifications for mentors and mentees.  Mentors will receive notifications when a student enrolls in any of the courses they are teaching.  Mentees will receieve a notifation that they have successfully signed up for a course.
+<br/>
+<br/>
+
+**Mentor Notifications** <br/>
+![Mentor Notifications](./utils/gifs/Notifications/mentor-notifications.gif "Mentor Notifications")
+
+**Mentee Notifications** <br/>
+![Mentee Notifications](./utils/gifs/Notifications/student-notifications.gif "Mentee Notifications")
+
+</details>
+
+
+<details>
+<summary>
+<h3>CourseCatalog</h3>
+</summary>
+This page displays all courses currently available on the ClassMates platform.  Users can use a fuzzy search to search the catalog by course name or mentor name, as well as a category filter to display courses within a particular subject.  Users can view the full detailed information about each course available.  Mentees will receive an alert if a course they are attempting to join is currently full or an alert that they have been successfully enrolled in the course. Mentees also have the ability to endorse/recommend a course.
+<br/>
+<br/>
+
+**Search Catalog** <br/>
+![Search Catalog](./utils/gifs/CourseCatalog/search_catalog.gif "Search Catalog")
+
+**Category Filter** <br/>
+![Category Filter](./utils/gifs/CourseCatalog/catalog_category_filter.gif "Category Filter")
+
+**View Course Info** <br/>
+![View Course Info](./utils/gifs/CourseCatalog/catalog_course_info.gif "View Course Info")
+
+**Mentee Add Course** <br/>
+![Mentee Add Course](./utils/gifs/CourseCatalog/student_join_class.gif "Mentee Add Course")
+![Mentee Add Course](./utils/gifs/CourseCatalog/student_class_added.gif "Mentee Add Course")
+
+**Course Full** <br/>
+![Course Full](./utils/gifs/CourseCatalog/student_course_full.gif "Course Full")
+
+**Recommend Course** <br/>
+![Recommend Course](./utils/gifs/CourseCatalog/student_recommend_course.gif "Recommend Course")
+
+**Student Profile and Recommend** <br/>
+![Student Profile](./utils/gifs/CourseCatalog/CourseCatalogAndStudentProfile.gif "Student Profile")
+</details>
 
 ## Code Structure
 Now that you have an overall understanding of the project we can dicusss how the code is structured.
