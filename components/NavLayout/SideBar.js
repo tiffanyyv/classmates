@@ -40,7 +40,6 @@ export default function SideBar({ children, userId, ...props }) {
 
   const fetchUserInfo = () => {
     getUserInfo(userId).then(res => {
-      // console.log(res)
       setCurrentUserProfileInfo({
         fullName: res.name.first_name + ' ' + res.name.last_name,
       })
@@ -48,9 +47,7 @@ export default function SideBar({ children, userId, ...props }) {
   }
 
   useEffect(() => {
-    // fetchUserInfo()
     getUserInfo(userId).then(res => {
-      // console.log(res)
       setCurrentUserProfileInfo({
         fullName: res.name.first_name + ' ' + res.name.last_name,
       })
